@@ -1,0 +1,22 @@
+.navbar__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 1.5rem 3rem;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+
+  color: white;
+  background-color: #0a082d;
+  font-size: 1.5em;
+}
+
+.css-118zhtq-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+  height: 48px !important;
+  width: 48px !important;
+}
