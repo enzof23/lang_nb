@@ -5,15 +5,14 @@ import {
   User,
 } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase-config";
 
-interface Credentials {
+type Credentials = {
   firstName?: string;
   lastName?: string;
   email: string;
   password: string;
-}
+};
 
 export const validateEmail = (email: string) => {
   return String(email)
@@ -33,6 +32,7 @@ export const signUpEmail = ({
 
   if (verifyEmail && password) {
     createUserWithEmailAndPassword(auth, email, password)
+      // do I need this ?
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.uid);
@@ -49,7 +49,6 @@ export const signUpEmail = ({
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(`An error has occured: ${errorCode} ${errorMessage}`);
-        // ..
       });
   } else {
     alert("Please fill all required input");
@@ -59,6 +58,7 @@ export const signUpEmail = ({
 export const googleSignIn = () => {
   signInWithPopup(auth, new GoogleAuthProvider())
     .then((result) => {
+      // do i need this as well ?
       const user = result.user;
     })
     .catch((error) => {

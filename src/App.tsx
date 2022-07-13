@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, firebaseConfig } from "./firebase/firebase-config";
 
 import { Navbar, Main, Connection, AuthRoute } from "./components/index";
-
+import { ListProvider } from "./context/ListContext";
 const App: React.FC = () => {
   initializeApp(firebaseConfig);
 
@@ -36,18 +36,20 @@ const App: React.FC = () => {
   }, [loggedIn, navigate]);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <AuthRoute>
-            <Navbar />
-            <Main />
-          </AuthRoute>
-        }
-      />
-      <Route path="/login" element={<Connection />} />
-    </Routes>
+    <ListProvider>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AuthRoute>
+              <Navbar />
+              <Main />
+            </AuthRoute>
+          }
+        />
+        <Route path="/login" element={<Connection />} />
+      </Routes>
+    </ListProvider>
   );
 };
 

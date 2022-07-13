@@ -5,7 +5,7 @@ export const Main: React.FC = () => {
     <div
       style={{
         marginTop: "130px",
-        marginLeft: "3rem",
+        marginLeft: "1rem",
         color: "white",
       }}
     >

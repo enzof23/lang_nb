@@ -1,4 +1,4 @@
-import { Avatar, SpeedDial, SpeedDialAction } from "@mui/material";
+import { Avatar, SpeedDial, SpeedDialAction, Typography } from "@mui/material";
 import { SignOut } from "../../firebase/firebase-auth";
 import {
   IoExitOutline,
@@ -15,14 +15,18 @@ export const Navbar: React.FC = () => {
   const { name, photo } = userInfo;
 
   const actions = [
-    { icon: <IoSettingsOutline />, name: "Profile Settings" },
-    { icon: <IoExitOutline />, name: "Sign Out" },
+    {
+      icon: <IoSettingsOutline />,
+      name: "Profile Settings",
+      fct: () => alert("Account settings"),
+    },
+    { icon: <IoExitOutline />, name: "Sign Out", fct: () => SignOut() },
   ];
 
   return (
     <>
       <nav className="navbar__container">
-        <p>Language Notebook</p>
+        <Typography variant="h5">Language Notebook</Typography>
       </nav>
       {userInfo && (
         <div
@@ -66,7 +70,7 @@ export const Navbar: React.FC = () => {
                 key={action.name}
                 icon={action.icon}
                 tooltipTitle={action.name}
-                onClick={SignOut}
+                onClick={action.fct}
                 sx={{ paddingTop: "0" }}
               />
             ))}
