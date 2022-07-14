@@ -9,6 +9,7 @@ import { auth, firebaseConfig } from "./firebase/firebase-config";
 
 import { Navbar, Main, Connection, AuthRoute } from "./components/index";
 import { ListProvider } from "./context/ListContext";
+
 const App: React.FC = () => {
   initializeApp(firebaseConfig);
 
@@ -16,24 +17,27 @@ const App: React.FC = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const { updateUser } = useUserContext();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      updateUser({
-        id: user.uid,
-        name: user.displayName,
-        photo: user.photoURL,
-      });
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
-  });
+  const populateUser = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        updateUser({
+          id: user.uid,
+          name: user.displayName,
+          photo: user.photoURL,
+        });
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+  };
 
   useEffect(() => {
+    populateUser();
     if (loggedIn) {
       navigate("/");
     }
-  }, [loggedIn, navigate]);
+  }, [loggedIn]);
 
   return (
     <ListProvider>

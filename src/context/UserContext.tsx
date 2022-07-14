@@ -1,16 +1,12 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-interface UserInfo {
-  id?: string;
-  name?: string | null;
+export interface UserInfo {
+  id: string;
+  name: string | null;
   photo?: string | null;
 }
 
-const updateUser = ({ id, name, photo }: UserInfo) => {
-  return { id, name, photo };
-};
-
-const useUser = (initial: UserInfo = {}) => {
+const useUser = (initial: UserInfo = { id: "", name: "" }) => {
   const [userInfo, setUserInfo] = useState<UserInfo>(initial);
 
   return {
