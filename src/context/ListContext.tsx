@@ -35,14 +35,13 @@ const addWord = (
 };
 
 const getLists = async (id: string) => {
-  let arrListsTest: ArrList[] = [];
+  let arrLists: ArrList[] = [];
 
   const userDocs = await getDocs(collection(database, id));
   userDocs.forEach((doc) => {
-    arrListsTest.push({ listTitle: doc.id, words: doc.data().word });
+    arrLists.push({ listTitle: doc.id, words: doc.data().word });
   });
-
-  return arrListsTest;
+  return arrLists;
 };
 
 const useCreateList = (initial: Title = "") => {

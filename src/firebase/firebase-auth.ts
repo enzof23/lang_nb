@@ -32,11 +32,6 @@ export const signUpEmail = ({
 
   if (verifyEmail && password) {
     createUserWithEmailAndPassword(auth, email, password)
-      // do I need this ?
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user.uid);
-      })
       .then(() => {
         const user: User | null = auth.currentUser;
         if ((firstName && user) || (lastName && user)) {
@@ -45,6 +40,7 @@ export const signUpEmail = ({
           });
         }
       })
+      // POPULATE USER STATE HERE
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -58,7 +54,7 @@ export const signUpEmail = ({
 export const googleSignIn = () => {
   signInWithPopup(auth, new GoogleAuthProvider())
     .then((result) => {
-      // do i need this as well ?
+      // POPULATE USER STATE HERE
       const user = result.user;
     })
     .catch((error) => {

@@ -1,16 +1,14 @@
+import { Box, Container } from "@mui/material";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { MainBox } from "../../mui_styles/styles";
 import { CreateList, Home } from "./index";
 
 export const Main: React.FC = () => {
   return (
-    <div
-      style={{
-        marginTop: "130px",
-        marginLeft: "1rem",
-        color: "white",
-      }}
-    >
-      <CreateList />
+    <MainBox>
       <Home />
-    </div>
+      {/* <CreateList /> */}
+    </MainBox>
   );
 };

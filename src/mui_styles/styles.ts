@@ -5,9 +5,25 @@ import {
   Input,
   InputLabel,
   Box,
-  Container,
   Typography,
 } from "@mui/material";
+
+export const NavbarContainer = styled(Box)(() => ({
+  position: "fixed",
+
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+
+  padding: "0.75rem 1rem",
+  width: "100%",
+
+  color: "white",
+  backgroundColor: "rgba(10, 8, 45, 0.75)",
+  backdropFilter: "blur(4px)",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+  boxShadow: "0 1px 3px rgba(255, 255, 255, 0.1)",
+}));
 
 export const CenteredGrid = styled(Grid)(() => ({
   margin: "auto",
@@ -30,6 +46,46 @@ export const SignUpButton = styled(Button)(() => ({
   padding: "1rem 0",
   marginTop: "1.75rem",
   fontSize: "1em",
+}));
+
+export const MainBox = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  rowGap: "5rem",
+
+  padding: "130px 0 0 2rem",
+  color: "white",
+}));
+
+export const HomeBox = styled(Box)(() => ({
+  width: "100%",
+}));
+
+export const ListsDisplay = styled(Box)(() => ({
+  display: "flex",
+  flexWrap: "wrap",
+  columnGap: "2rem",
+  rowGap: "1rem",
+
+  "@media screen and (max-width: 996px)": {
+    justifyContent: "center",
+  },
+}));
+
+export const ListBox = styled(Box)(() => ({
+  width: "280px",
+  height: "140px",
+
+  padding: "1.5rem",
+  backgroundColor: "#2e3756",
+  borderRadius: "5px",
+  cursor: "pointer",
+
+  "&:hover": {
+    backgroundColor: "#2e3756cc",
+    borderBottom: "5px solid white",
+  },
 }));
 
 export const NewTitleLabel = styled(InputLabel)(() => ({

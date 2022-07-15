@@ -9,10 +9,22 @@ import {
 import { useUserContext } from "../../context/UserContext";
 
 import "./_navbar.scss";
+import { NavbarContainer } from "../../mui_styles/styles";
 
 export const Navbar: React.FC = () => {
   const { userInfo } = useUserContext();
   const { name, photo } = userInfo;
+
+  const firstName = name?.split(" ")[0];
+  const userImage = photo ? (
+    <Avatar
+      alt="user avatar"
+      src={photo}
+      sx={{ width: "100%", height: "100%" }}
+    />
+  ) : (
+    <IoPersonOutline style={{ width: "50%", height: "50%" }} />
+  );
 
   const actions = [
     {
@@ -24,59 +36,42 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <>
-      <nav className="navbar__container">
-        <Typography variant="h5">Language Notebook</Typography>
-      </nav>
-      {userInfo && (
-        <div
-          style={{
-            display: "flex",
-            position: "fixed",
-            right: "0",
-            top: "0",
-            margin: "1rem",
-          }}
-        >
-          {name && (
-            <p
-              style={{
-                color: "white",
-                marginTop: "1rem",
-                paddingRight: "0.5rem",
-              }}
-            >
-              Hello {name}
-            </p>
-          )}
-
-          <SpeedDial
-            ariaLabel="Profile Menu"
-            direction="down"
-            icon={
-              photo ? (
-                <Avatar
-                  alt="user avatar"
-                  src={photo}
-                  sx={{ width: "100%", height: "100%" }}
-                />
-              ) : (
-                <IoPersonOutline style={{ width: "50%", height: "50%" }} />
-              )
-            }
-          >
-            {actions.map((action) => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
-                onClick={action.fct}
-                sx={{ paddingTop: "0" }}
-              />
-            ))}
-          </SpeedDial>
-        </div>
-      )}
-    </>
+    <NavbarContainer>
+      <Typography variant="h5" sx={{ cursor: "pointer" }}>
+        Language Notebook
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        style={{
+          marginRight: "2.75rem",
+        }}
+      >
+        {firstName ? `Hello ${firstName} !` : "Welcome !"}
+      </Typography>
+      <SpeedDial
+        ariaLabel="Profile Menu"
+        direction="down"
+        sx={{
+          position: "fixed",
+          right: 0,
+          top: 0,
+          margin: ".59rem",
+        }}
+        FabProps={{
+          sx: { height: "38px", width: "38px" },
+        }}
+        icon={userImage}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={action.fct}
+            sx={{ margin: "0.25rem 0", height: "42px", width: "42px" }}
+          />
+        ))}
+      </SpeedDial>
+    </NavbarContainer>
   );
 };

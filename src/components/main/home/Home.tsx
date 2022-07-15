@@ -1,36 +1,73 @@
-import { useEffect } from "react";
+import { Divider, Typography, Skeleton } from "@mui/material";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useListContext } from "../../../context/ListContext";
 import { useUserContext } from "../../../context/UserContext";
-import { ListBox } from "./ListBox";
-import "./_home.scss";
+import { HomeBox, ListBox, ListsDisplay } from "../../../mui_styles/styles";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const { userInfo } = useUserContext();
   const { getLists, listsArr } = useListContext();
 
-  console.log(listsArr);
+  const listDisplay =
+    listsArr.length === 0
+      ? [0, 1, 2].map((num) => (
+          <Skeleton
+            key={num}
+            variant="rectangular"
+            animation="pulse"
+            sx={{ backgroundColor: "#2e3756", borderRadius: "5px" }}
+            width={280}
+            height={140}
+          />
+        ))
+      : listsArr.map((list) => {
+          const { listTitle, words } = list;
+          return (
+            <ListBox key={listTitle} sx={{ textTransform: "uppercase" }}>
+              <Typography variant="body1">{listTitle}</Typography>
+              <Typography variant="caption" sx={{ color: "#969ab0" }}>
+                {words.length} words
+              </Typography>
+            </ListBox>
+          );
+        });
 
   useEffect(() => {
-    if (userInfo.id) getLists();
+    if (userInfo.id) {
+      getLists();
+    }
   }, [userInfo]);
 
   return (
-    <div className="home__container">
-      <div className="home__create">
-        Create a new List <AiOutlinePlus />
-      </div>
-      <div className="main__lists">
-        <h2 className="lists__title">My Lists</h2>
-        <div className="lists__display">
-          {listsArr.map((list) => {
-            const { listTitle, words } = list;
-            return (
-              <ListBox key={listTitle} title={listTitle} words={words.length} />
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    <>
+      <HomeBox>
+        <Typography
+          variant="h5"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            columnGap: "0.5rem",
+            cursor: "pointer",
+          }}
+        >
+          Create a new List <AiOutlinePlus />
+        </Typography>
+        <Divider
+          light
+          variant="middle"
+          sx={{ marginTop: "4rem", borderColor: "rgba(255, 255, 255, 0.3)" }}
+        />
+      </HomeBox>
+      <HomeBox>
+        <Typography
+          variant="h6"
+          sx={{ marginBlock: "2rem", fontWeight: "400" }}
+        >
+          MY LISTS
+        </Typography>
+        <ListsDisplay>{listDisplay}</ListsDisplay>
+      </HomeBox>
+    </>
   );
 };

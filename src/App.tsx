@@ -9,6 +9,7 @@ import { auth, firebaseConfig } from "./firebase/firebase-config";
 
 import { Navbar, Main, Connection, AuthRoute } from "./components/index";
 import { ListProvider } from "./context/ListContext";
+import { CreateList } from "./components/main";
 
 const App: React.FC = () => {
   initializeApp(firebaseConfig);
@@ -40,20 +41,20 @@ const App: React.FC = () => {
   }, [loggedIn]);
 
   return (
-    <ListProvider>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AuthRoute>
-              <Navbar />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <AuthRoute>
+            <Navbar />
+            <ListProvider>
               <Main />
-            </AuthRoute>
-          }
-        />
-        <Route path="/login" element={<Connection />} />
-      </Routes>
-    </ListProvider>
+            </ListProvider>
+          </AuthRoute>
+        }
+      />
+      <Route path="/login" element={<Connection />} />
+    </Routes>
   );
 };
 
