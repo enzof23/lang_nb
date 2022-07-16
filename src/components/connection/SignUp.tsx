@@ -1,17 +1,18 @@
 import { useState } from "react";
 
 import { Divider, Grid, TextField, Typography, Box } from "@mui/material";
-import { CenteredGrid, SignUpButton } from "../../../mui_styles/styles";
-
-import { signUpEmail } from "../../../firebase/firebase-auth";
+import { CenteredGrid, ConnectionButton } from "../../mui_styles/styles";
 
 import GoogleAuthButton from "./GoogleAuthButton";
+import { useAuthContext } from "../../context/AuthContext";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { signUpEmail } = useAuthContext();
 
   return (
     <>
@@ -77,12 +78,12 @@ const SignUp = () => {
           sx={{ width: "100%", margin: "1rem 0" }}
           onChange={(e) => setPassword(e.currentTarget.value)}
         />
-        <SignUpButton
+        <ConnectionButton
           variant="contained"
           onClick={() => signUpEmail({ email, password, firstName, lastName })}
         >
           Sign Up !
-        </SignUpButton>
+        </ConnectionButton>
       </div>
     </>
   );

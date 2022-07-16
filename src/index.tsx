@@ -1,10 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from "./context/UserContext";
+import AppProviders from "./context/AppProviders";
+
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
+
+import App from "./App";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 
 let theme = createTheme({
   typography: {
@@ -19,10 +20,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <UserProvider>
+    <AppProviders>
+      <ThemeProvider theme={theme}>
         <App />
-      </UserProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AppProviders>
   </BrowserRouter>
 );

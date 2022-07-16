@@ -1,3 +1,7 @@
+import { createContext, ReactNode, useContext, useState } from "react";
+import { useAuthContext } from "./AuthContext";
+
+import { database } from "../firebase/firebase-config";
 import {
   arrayRemove,
   arrayUnion,
@@ -7,9 +11,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { createContext, ReactNode, useContext, useState } from "react";
-import { database } from "../firebase/firebase-config";
-import { useUserContext } from "./UserContext";
 
 type Title = string;
 
@@ -49,7 +50,7 @@ const useCreateList = (initial: Title = "") => {
   const [newTitle, setNewTitle] = useState<Title>(initial);
   const [listsArr, setListsArr] = useState<ArrList[]>([]);
 
-  const { userInfo } = useUserContext();
+  const { userInfo } = useAuthContext();
   const id = userInfo.id;
 
   return {
@@ -103,22 +104,3 @@ export const ListProvider = ({ children }: { children: ReactNode }) => {
     </ListContext.Provider>
   );
 };
-
-// addWord: ({ wordID, word, translation }: NewWord) => {
-//   updateDoc(doc(database, id, title), {
-//     word: arrayUnion({ wordID, word, translation }),
-//   }).then(() => console.log("word added"));
-// },
-
-// getLists: async () => {
-//   let arrLists: ArrList[] = [];
-//   if (id) {
-//     const userDocs = await getDocs(collection(database, id));
-
-//     userDocs.forEach((doc) => {
-//       arrLists.push({ listTitle: doc.id, words: doc.data().word });
-//     });
-//   }
-//   setListsArr(arrLists);
-//   return listsArr;
-// },

@@ -1,12 +1,16 @@
-import { Divider, Typography, Skeleton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useListContext } from "../../../context/ListContext";
-import { useUserContext } from "../../../context/UserContext";
-import { HomeBox, ListBox, ListsDisplay } from "../../../mui_styles/styles";
+
+import { useListContext } from "../context/ListContext";
+import { useAuthContext } from "../context/AuthContext";
+
+import { HomeBox, ListBox, ListsDisplay } from "../mui_styles/styles";
+import { Divider, Typography, Skeleton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const Home: React.FC = () => {
-  const { userInfo } = useUserContext();
+  const navigate = useNavigate();
+  const { userInfo } = useAuthContext();
   const { getLists, listsArr } = useListContext();
 
   const listDisplay =
@@ -40,10 +44,11 @@ export const Home: React.FC = () => {
   }, [userInfo]);
 
   return (
-    <>
-      <HomeBox>
+    <HomeBox>
+      <div>
         <Typography
           variant="h5"
+          onClick={() => navigate("/create-list")}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -58,8 +63,8 @@ export const Home: React.FC = () => {
           variant="middle"
           sx={{ marginTop: "4rem", borderColor: "rgba(255, 255, 255, 0.3)" }}
         />
-      </HomeBox>
-      <HomeBox>
+      </div>
+      <div>
         <Typography
           variant="h6"
           sx={{ marginBlock: "2rem", fontWeight: "400" }}
@@ -67,7 +72,7 @@ export const Home: React.FC = () => {
           MY LISTS
         </Typography>
         <ListsDisplay>{listDisplay}</ListsDisplay>
-      </HomeBox>
-    </>
+      </div>
+    </HomeBox>
   );
 };

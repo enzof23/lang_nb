@@ -1,18 +1,19 @@
+import { useAuthContext } from "../context/AuthContext";
+
 import { Avatar, SpeedDial, SpeedDialAction, Typography } from "@mui/material";
-import { SignOut } from "../../firebase/firebase-auth";
+import { NavbarContainer } from "../mui_styles/styles";
+
 import {
   IoExitOutline,
   IoSettingsOutline,
   IoPersonOutline,
 } from "react-icons/io5";
-
-import { useUserContext } from "../../context/UserContext";
-
-import "./_navbar.scss";
-import { NavbarContainer } from "../../mui_styles/styles";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar: React.FC = () => {
-  const { userInfo } = useUserContext();
+  const navigate = useNavigate();
+
+  const { userInfo, authSignOut } = useAuthContext();
   const { name, photo } = userInfo;
 
   const firstName = name?.split(" ")[0];
@@ -32,12 +33,16 @@ export const Navbar: React.FC = () => {
       name: "Profile Settings",
       fct: () => alert("Account settings"),
     },
-    { icon: <IoExitOutline />, name: "Sign Out", fct: () => SignOut() },
+    { icon: <IoExitOutline />, name: "Sign Out", fct: () => authSignOut() },
   ];
 
   return (
     <NavbarContainer>
-      <Typography variant="h5" sx={{ cursor: "pointer" }}>
+      <Typography
+        variant="h5"
+        sx={{ cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
         Language Notebook
       </Typography>
       <Typography

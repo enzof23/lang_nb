@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Button, Tab } from "@mui/material";
 
-import { LogIn, SignUp } from "./log-box/index";
+import { LogIn, SignUp } from "./index";
 
 const LogBox = () => {
   const [value, setValue] = useState<string>("1");
@@ -44,6 +44,13 @@ const LogBox = () => {
         </TabPanel>
         <TabPanel value="2" sx={{ width: "100%", maxWidth: "700px" }}>
           <LogIn />
+          <Button
+            variant="text"
+            onClick={() => setValue("1")}
+            sx={{ marginTop: "0.5rem" }}
+          >
+            Not yet signed up ? Create an account !
+          </Button>
         </TabPanel>
       </TabContext>
     </Box>

@@ -1,7 +1,6 @@
-import { googleSignIn } from "../../../firebase/firebase-auth";
+import { useAuthContext } from "../../context/AuthContext";
 
-import { GoogleSignInButton } from "../../../mui_styles/styles";
-
+import { GoogleSignInButton } from "../../mui_styles/styles";
 import { FcGoogle } from "react-icons/fc";
 
 interface GoogleAuthProps {
@@ -12,8 +11,10 @@ const GoogleAuthButton: React.FC<GoogleAuthProps> = (props) => {
   const svgStyle = { marginRight: "0.5rem", fontSize: "1.3em" };
   const { textVariant } = props;
 
+  const { googleAuth } = useAuthContext();
+
   return (
-    <GoogleSignInButton onClick={googleSignIn}>
+    <GoogleSignInButton onClick={googleAuth}>
       <FcGoogle style={svgStyle} />
       {`${textVariant} with google`}
     </GoogleSignInButton>

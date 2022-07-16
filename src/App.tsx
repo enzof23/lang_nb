@@ -1,60 +1,65 @@
-import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { useAuthContext } from "./context/AuthContext";
 
-import { useUserContext } from "./context/UserContext";
-
-import { initializeApp } from "firebase/app";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, firebaseConfig } from "./firebase/firebase-config";
+import { auth } from "./firebase/firebase-config";
+import { LoadingSpinner } from "./components/index";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { Navbar, Main, Connection, AuthRoute } from "./components/index";
-import { ListProvider } from "./context/ListContext";
-import { CreateList } from "./components/main";
+const AuthenticatedApp = lazy(async () => {
+  return Promise.all([
+    import("./pages/AuthenticatedApp"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const UnauthenticatedApp = lazy(async () => {
+  return Promise.all([
+    import("./pages/UnauthenticatedApp"),
+    new Promise((resolve) => setTimeout(resolve, 1500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 const App: React.FC = () => {
-  initializeApp(firebaseConfig);
-
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false);
-  const { updateUser } = useUserContext();
+  const location = useLocation();
 
-  const populateUser = () => {
-    onAuthStateChanged(auth, (user) => {
+  const { userInfo, setUserInfo } = useAuthContext();
+  const { isLogged } = userInfo;
+
+  useEffect(() => {
+    const authCheck = onAuthStateChanged(auth, (user) => {
       if (user) {
-        updateUser({
+        if (location.pathname === "/create-list") {
+          navigate("/");
+        }
+        setUserInfo({
           id: user.uid,
           name: user.displayName,
           photo: user.photoURL,
+          isLogged: true,
         });
-        setLoggedIn(true);
       } else {
-        setLoggedIn(false);
+        navigate("/");
+        setUserInfo({
+          id: "",
+          name: "",
+          photo: "",
+          isLogged: false,
+        });
       }
     });
-  };
+    return () => authCheck();
+  }, [auth]);
 
-  useEffect(() => {
-    populateUser();
-    if (loggedIn) {
-      navigate("/");
-    }
-  }, [loggedIn]);
-
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <AuthRoute>
-            <Navbar />
-            <ListProvider>
-              <Main />
-            </ListProvider>
-          </AuthRoute>
-        }
-      />
-      <Route path="/login" element={<Connection />} />
-    </Routes>
+  return isLogged ? (
+    <Suspense fallback={<LoadingSpinner />}>
+      <AuthenticatedApp />
+    </Suspense>
+  ) : (
+    <Suspense fallback={<LoadingSpinner />}>
+      <UnauthenticatedApp />
+    </Suspense>
   );
 };
 

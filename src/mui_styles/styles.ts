@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 
+//////// <Navbar /> styles
+
 export const NavbarContainer = styled(Box)(() => ({
   position: "fixed",
 
@@ -24,6 +26,8 @@ export const NavbarContainer = styled(Box)(() => ({
   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
   boxShadow: "0 1px 3px rgba(255, 255, 255, 0.1)",
 }));
+
+//////// <Connection /> styles
 
 export const CenteredGrid = styled(Grid)(() => ({
   margin: "auto",
@@ -42,24 +46,22 @@ export const GoogleSignInButton = styled(Button)(() => ({
   },
 }));
 
-export const SignUpButton = styled(Button)(() => ({
+export const ConnectionButton = styled(Button)(() => ({
   padding: "1rem 0",
   marginTop: "1.75rem",
   fontSize: "1em",
 }));
 
-export const MainBox = styled(Box)(() => ({
+//////// <Home /> styles
+
+export const HomeBox = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
+
   rowGap: "5rem",
 
   padding: "130px 0 0 2rem",
   color: "white",
-}));
-
-export const HomeBox = styled(Box)(() => ({
-  width: "100%",
 }));
 
 export const ListsDisplay = styled(Box)(() => ({
@@ -88,11 +90,21 @@ export const ListBox = styled(Box)(() => ({
   },
 }));
 
-export const NewTitleLabel = styled(InputLabel)(() => ({
-  color: "rgb(138, 138, 138)",
+//////// <CreateList /> styles
+
+export const CreateListContainer = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
+  gap: "2rem",
+
+  padding: "130px 0 0 2rem",
+  color: "white",
 }));
 
-export const NewItemInput = styled(Input)(() => ({
+export const CreateListInput = styled(Input)(() => ({
   "::before": {
     borderBottomColor: "white",
   },
@@ -106,6 +118,12 @@ export const NewItemInput = styled(Input)(() => ({
   },
 }));
 
+// NewTitleInput
+
+export const NewTitleLabel = styled(InputLabel)(() => ({
+  color: "rgb(138, 138, 138)",
+}));
+
 export const NewTitleButton = styled(Button)(() => ({
   color: "white",
   marginBottom: "0.5rem",
@@ -116,19 +134,28 @@ export const NewTitleButton = styled(Button)(() => ({
   },
 }));
 
-export const NewItemContainer = styled(Box)(() => ({
+// ListDisplay
+
+export const ListDisplayContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
+  justifyContent: "center",
   alignItems: "center",
-  rowGap: "2rem",
 
-  width: "100%",
+  width: "90%",
+
+  padding: "2rem 1rem",
+  marginBottom: "1rem",
+
+  backgroundColor: "#0f0c41",
+  borderRadius: "7px",
 }));
 
-export const NewItemBox = styled(Box)(() => ({
-  display: "flex",
-  gap: "2.5rem",
+// NewItem
 
+export const NewItemContainer = styled(Grid)(() => ({
+  justifyContent: "space-between",
+  alignItems: "center",
   width: "90%",
   padding: "3rem 1.5rem",
   borderRadius: "7px",

@@ -1,7 +1,7 @@
 import { Grid, Hidden, Typography } from "@mui/material";
-import { CenteredGrid } from "../../mui_styles/styles";
+import { CenteredGrid } from "../mui_styles/styles";
 
-import LogBox from "./LogBox";
+import { LogBox } from "../components";
 
 export const Connection = () => {
   return (
