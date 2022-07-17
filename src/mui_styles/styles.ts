@@ -6,6 +6,7 @@ import {
   InputLabel,
   Box,
   Typography,
+  Divider,
 } from "@mui/material";
 
 //////// <Navbar /> styles
@@ -95,13 +96,18 @@ export const ListBox = styled(Box)(() => ({
 export const CreateListContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-start",
   justifyContent: "center",
 
   gap: "2rem",
 
-  padding: "130px 0 0 2rem",
+  padding: "130px 0 0 10rem",
   color: "white",
+
+  "@media screen and (max-width: 996px)": {
+    padding: "80px 0.5rem 0 0.5rem",
+    alignItems: "center",
+  },
 }));
 
 export const CreateListInput = styled(Input)(() => ({
@@ -139,10 +145,17 @@ export const NewTitleButton = styled(Button)(() => ({
 export const ListDisplayContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
+  width: "100%",
+  maxWidth: "900px",
+}));
+
+export const ListDisplayBox = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
 
-  width: "90%",
+  gap: "0.5rem",
 
   padding: "2rem 1rem",
   marginBottom: "1rem",
@@ -151,12 +164,32 @@ export const ListDisplayContainer = styled(Box)(() => ({
   borderRadius: "7px",
 }));
 
+export const WordGridContainer = styled(Grid)(() => ({
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "1rem 2rem",
+  borderRadius: "7px",
+
+  backgroundColor: "#2e3756",
+
+  "&:hover": {
+    backgroundColor: "#3d4870",
+  },
+}));
+
+export const VerticalDivider = styled(Divider)(() => ({
+  height: "30px",
+  borderWidth: "1px",
+  borderColor: "#0f0c41",
+}));
+
 // NewItem
 
 export const NewItemContainer = styled(Grid)(() => ({
   justifyContent: "space-between",
   alignItems: "center",
   width: "90%",
+  maxWidth: "900px",
   padding: "3rem 1.5rem",
   borderRadius: "7px",
 
@@ -171,4 +204,34 @@ export const NewItemDesc = styled(Typography)(() => ({
   fontFamily: "inherit",
 
   paddingTop: "0.5rem",
+}));
+
+//////// <ListPage /> style
+
+export const ListPageContainer = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "center",
+
+  gap: "2rem",
+
+  padding: "130px 0 0 10rem",
+  color: "white",
+
+  "@media screen and (max-width: 996px)": {
+    padding: "80px 0.5rem 0 0.5rem",
+    alignItems: "center",
+  },
+}));
+
+export const LargeGreenButton = styled(Button)(() => ({
+  alignSelf: "center",
+  marginTop: "1rem",
+  padding: ".75rem 1.5rem",
+  fontSize: "16px",
+  backgroundColor: "#3bcfd0",
+  "&:hover": {
+    backgroundColor: "#33afaf",
+  },
 }));

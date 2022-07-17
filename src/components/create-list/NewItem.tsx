@@ -1,28 +1,21 @@
-import { useState } from "react";
-import { nanoid } from "nanoid";
-
 import { useListContext } from "../../context/ListContext";
 
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import {
   NewItemContainer,
   NewItemDesc,
   CreateListInput,
 } from "../../mui_styles/styles";
 
-type Word = string;
-type Translation = string;
-
 export const NewItem = () => {
-  const { addWord } = useListContext();
-  const [word, setWord] = useState<Word>("");
-  const [translation, setTranslation] = useState<Translation>("");
-  const wordID = nanoid();
+  const { newListAddWord, word, translation, setWord, setTranslation } =
+    useListContext();
 
   return (
     <NewItemContainer container>
       <Grid item xs={12} sm={5}>
         <CreateListInput
+          value={word}
           placeholder="Enter new word"
           onChange={(e) => setWord(e.target.value)}
           sx={{ color: "white", width: "100%" }}
@@ -31,6 +24,7 @@ export const NewItem = () => {
       </Grid>
       <Grid item xs={12} sm={5}>
         <CreateListInput
+          value={translation}
           placeholder="Enter translation"
           onChange={(e) => setTranslation(e.target.value)}
           sx={{ color: "white", width: "100%" }}
@@ -41,7 +35,7 @@ export const NewItem = () => {
         <Button
           type="submit"
           variant="contained"
-          onClick={() => addWord({ wordID, word, translation })}
+          onClick={() => newListAddWord()}
           sx={{
             backgroundColor: "#3bcfd0",
             width: "100%",
@@ -51,7 +45,7 @@ export const NewItem = () => {
             },
           }}
         >
-          Save
+          add
         </Button>
       </Grid>
     </NewItemContainer>

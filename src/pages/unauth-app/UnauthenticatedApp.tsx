@@ -1,9 +1,9 @@
+import { LogBox } from "../../components";
+
 import { Grid, Hidden, Typography } from "@mui/material";
-import { CenteredGrid } from "../mui_styles/styles";
+import { CenteredGrid } from "../../mui_styles/styles";
 
-import { LogBox } from "../components";
-
-export const Connection = () => {
+function UnauthenticatedApp() {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <Hidden mdDown={true}>
@@ -23,4 +23,6 @@ export const Connection = () => {
       </CenteredGrid>
     </Grid>
   );
-};
+}
+
+export default UnauthenticatedApp;

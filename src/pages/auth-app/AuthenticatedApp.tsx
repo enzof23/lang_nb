@@ -1,7 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Navbar } from "../components";
-import { CreateList } from "./CreateList";
-import { Home } from "./Home";
+import { Route, Routes } from "react-router-dom";
+import { Navbar } from "../../components";
+import { Home, CreateList, ListPage } from "./index";
 
 function AuthenticatedApp() {
   return (
@@ -10,6 +9,7 @@ function AuthenticatedApp() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create-list" element={<CreateList />} />
+        <Route path="/list" element={<ListPage />} />
       </Routes>
     </>
   );

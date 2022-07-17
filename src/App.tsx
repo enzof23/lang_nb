@@ -8,14 +8,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthenticatedApp = lazy(async () => {
   return Promise.all([
-    import("./pages/AuthenticatedApp"),
+    import("./pages/auth-app/AuthenticatedApp"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });
 
 const UnauthenticatedApp = lazy(async () => {
   return Promise.all([
-    import("./pages/UnauthenticatedApp"),
+    import("./pages/unauth-app/UnauthenticatedApp"),
     new Promise((resolve) => setTimeout(resolve, 1500)),
   ]).then(([moduleExports]) => moduleExports);
 });

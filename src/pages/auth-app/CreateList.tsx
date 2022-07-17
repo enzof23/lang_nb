@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
-import { NewTitleInput, NewItem, ListDisplay } from "../components/index";
+import { NewTitleInput, NewItem, ListDisplay } from "../../components/index";
 
-import { useListContext } from "../context/ListContext";
+import { useListContext } from "../../context/ListContext";
 
-import { CreateListContainer } from "../mui_styles/styles";
+import { CreateListContainer } from "../../mui_styles/styles";
 
 export const CreateList = () => {
-  const { title } = useListContext();
+  const { title, list } = useListContext();
 
   return (
     <CreateListContainer>
@@ -35,7 +35,14 @@ export const CreateList = () => {
           >
             {title}
           </Typography>
-          <ListDisplay />
+          {list.length > 0 ? (
+            <>
+              <ListDisplay />
+            </>
+          ) : (
+            ""
+          )}
+
           <NewItem />
         </>
       )}

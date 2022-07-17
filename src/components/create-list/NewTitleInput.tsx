@@ -9,7 +9,7 @@ import {
 } from "../../mui_styles/styles";
 
 export const NewTitleInput = () => {
-  const { newTitle, setNewTitle, createNewList } = useListContext();
+  const { newTitle, setNewTitle, setTitle } = useListContext();
 
   return (
     <FormControl variant="standard" sx={{ width: "80%" }}>
@@ -19,7 +19,7 @@ export const NewTitleInput = () => {
         onChange={(e) => setNewTitle(e.target.value)}
         endAdornment={
           <InputAdornment position="end">
-            <NewTitleButton variant="text" onClick={() => createNewList()}>
+            <NewTitleButton variant="text" onClick={() => setTitle(newTitle)}>
               Create
             </NewTitleButton>
           </InputAdornment>

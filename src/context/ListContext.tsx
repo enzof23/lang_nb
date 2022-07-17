@@ -6,15 +6,19 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getDocs,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
 
 type Title = string;
 
-export type NewWord = {
+export type Word = {
   wordID: string;
   word: string;
   translation: string;
@@ -22,20 +26,10 @@ export type NewWord = {
 
 type ArrList = {
   listTitle: Title;
-  words: NewWord[];
+  words: Word[];
 };
 
-const addWord = (
-  id: string,
-  title: Title,
-  { wordID, word, translation }: NewWord
-) => {
-  updateDoc(doc(database, id, title), {
-    word: arrayUnion({ wordID, word, translation }),
-  }).then(() => console.log("word added"));
-};
-
-const getLists = async (id: string) => {
+const getAllLists = async (id: string) => {
   let arrLists: ArrList[] = [];
 
   const userDocs = await getDocs(collection(database, id));
@@ -45,49 +39,138 @@ const getLists = async (id: string) => {
   return arrLists;
 };
 
+const getListByTitle = async (userID: string, title: string) => {
+  let list;
+
+  const userList = await getDoc(doc(database, userID, title));
+  if (userList.exists()) {
+    return (list = userList.data().word);
+  } else {
+    alert(`an error has occured`);
+  }
+};
+
+const newListAddWord = (list: Word[], { wordID, word, translation }: Word) => [
+  ...list,
+  {
+    wordID,
+    word,
+    translation,
+  },
+];
+
 const useCreateList = (initial: Title = "") => {
+  const navigate = useNavigate();
+
+  const [noLists, setNoLists] = useState<boolean>(false);
+
   const [title, setTitle] = useState<Title>(initial);
   const [newTitle, setNewTitle] = useState<Title>(initial);
-  const [listsArr, setListsArr] = useState<ArrList[]>([]);
+
+  const [list, setList] = useState<Word[]>([]);
+  const [word, setWord] = useState<string>("");
+  const [translation, setTranslation] = useState<string>("");
+  const wordID = nanoid();
+
+  const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
+
+  const [isAddingWords, setIsAddingWords] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { userInfo } = useAuthContext();
   const id = userInfo.id;
 
   return {
+    noLists,
+
     title,
     newTitle,
     setTitle,
     setNewTitle,
-    listsArr,
-    setListsArr,
 
-    createNewList() {
-      setTitle(newTitle);
-      setDoc(doc(database, id, newTitle), { word: [] }).then(() =>
+    list,
+    word,
+    translation,
+    wordID,
+    setList,
+    setWord,
+    setTranslation,
+
+    allListsArr,
+    setAllListsArr,
+
+    isAddingWords,
+    setIsAddingWords,
+    isEditing,
+    setIsEditing,
+
+    // fetch ALL lists from firebase
+    getAllLists: async () => {
+      const newList = await getAllLists(id);
+      if (newList.length === 0) {
+        setNoLists(true);
+      } else {
+        setAllListsArr(newList);
+        setNoLists(false);
+      }
+    },
+
+    // get single list by title
+    getListByTitle: async (listTitle: string) => {
+      const listReturned = await getListByTitle(id, listTitle);
+      setTitle(listTitle);
+      setList(listReturned);
+      navigate("/list");
+    },
+
+    // add words & translation from new word input to the list array
+    // this does not add the word to a firebase list
+    newListAddWord: () => {
+      setList((list) => newListAddWord(list, { wordID, word, translation }));
+      setWord("");
+      setTranslation("");
+    },
+
+    // creates a new list on firebase
+    createList: () => {
+      setDoc(doc(database, id, title), { word: list }).then(() =>
         console.log("list created")
       );
-      setNewTitle("");
+
+      setTimeout(() => {
+        navigate("/");
+        setList([]);
+        setTitle("");
+      }, 1000);
     },
 
-    addWord: ({ wordID, word, translation }: NewWord) => {
-      const newWord = { wordID, word, translation };
-      addWord(id, title, newWord);
+    // add, update, remove words from firebase list
+
+    updateList: () => {
+      console.log(list);
+      updateDoc(doc(database, id, title), {
+        word: list,
+      }).then(() => console.log("words added"));
     },
 
-    removeWord: () => {
+    deleteList: (title: string) => {
+      deleteDoc(doc(database, id, title)).then(() =>
+        console.log("list deleted")
+      );
+      setList([]);
+    },
+
+    removeWord: ({ wordID, word, translation }: Word) => {
       updateDoc(doc(database, id, title), {
         word: arrayRemove({
-          word: "test",
-          translation: "proba",
-          wordID: "Buc8ieCk_BvtGGBQnQ468",
+          word,
+          translation,
+          wordID,
         }),
       }).then(() => console.log("word removed"));
     },
 
-    getLists: async () => {
-      const newList = await getLists(id);
-      setListsArr(newList);
-    },
+    // delete list from firebase
   };
 };
 

@@ -1,20 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
-import { useListContext } from "../context/ListContext";
-import { useAuthContext } from "../context/AuthContext";
+import { useListContext } from "../../context/ListContext";
+import { useAuthContext } from "../../context/AuthContext";
 
-import { HomeBox, ListBox, ListsDisplay } from "../mui_styles/styles";
+import { HomeBox, ListBox, ListsDisplay } from "../../mui_styles/styles";
 import { Divider, Typography, Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { userInfo } = useAuthContext();
-  const { getLists, listsArr } = useListContext();
 
-  const listDisplay =
-    listsArr.length === 0
+  const { userInfo } = useAuthContext();
+  const {
+    allListsArr,
+    noLists,
+    getAllLists,
+    getListByTitle,
+    setTitle,
+    setList,
+    setNewTitle,
+  } = useListContext();
+
+  const listsDisplay =
+    allListsArr.length === 0
       ? [0, 1, 2].map((num) => (
           <Skeleton
             key={num}
@@ -25,10 +34,14 @@ export const Home: React.FC = () => {
             height={140}
           />
         ))
-      : listsArr.map((list) => {
+      : allListsArr.map((list) => {
           const { listTitle, words } = list;
           return (
-            <ListBox key={listTitle} sx={{ textTransform: "uppercase" }}>
+            <ListBox
+              key={listTitle}
+              sx={{ textTransform: "uppercase" }}
+              onClick={() => getListByTitle(listTitle)}
+            >
               <Typography variant="body1">{listTitle}</Typography>
               <Typography variant="caption" sx={{ color: "#969ab0" }}>
                 {words.length} words
@@ -39,7 +52,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     if (userInfo.id) {
-      getLists();
+      getAllLists();
     }
   }, [userInfo]);
 
@@ -48,7 +61,12 @@ export const Home: React.FC = () => {
       <div>
         <Typography
           variant="h5"
-          onClick={() => navigate("/create-list")}
+          onClick={() => {
+            setTitle("");
+            setNewTitle("");
+            setList([]);
+            navigate("/create-list");
+          }}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -71,7 +89,9 @@ export const Home: React.FC = () => {
         >
           MY LISTS
         </Typography>
-        <ListsDisplay>{listDisplay}</ListsDisplay>
+        <ListsDisplay>
+          {noLists ? <div>add a list</div> : listsDisplay}
+        </ListsDisplay>
       </div>
     </HomeBox>
   );
