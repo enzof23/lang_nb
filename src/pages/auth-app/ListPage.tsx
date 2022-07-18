@@ -1,14 +1,15 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { Box, Button, Collapse, IconButton, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { NewItem } from "../../components";
-import { WordGrid } from "../../components/list-display";
+import { NewWordInput, WordGrid } from "../../components";
 import { useListContext } from "../../context/ListContext";
 import {
   LargeGreenButton,
+  ListDisplayBox,
   ListDisplayContainer,
-  ListPageContainer,
+  ListPageHeader,
+  PageContainer,
 } from "../../mui_styles/styles";
 
 export const ListPage = () => {
@@ -18,73 +19,100 @@ export const ListPage = () => {
     list,
     isAddingWords,
     setIsAddingWords,
-    updateList,
+    updateListFirebase,
     deleteList,
   } = useListContext();
 
-  const listDisplay = list.map((e) => {
-    const { wordID, word, translation } = e;
-    return (
-      <WordGrid
-        key={wordID}
-        word={word}
-        translation={translation}
-        wordID={wordID}
-      />
-    );
-  });
+  const [listUpdated, setListUpdated] = useState<boolean>(false);
 
   const addButton = (
-    <LargeGreenButton
-      variant="contained"
-      onClick={() => setIsAddingWords((st) => !st)}
+    <Button
+      variant="text"
+      onClick={() => {
+        setIsAddingWords(true);
+      }}
     >
       add words
-    </LargeGreenButton>
+    </Button>
   );
 
   const doneButton = (
     <LargeGreenButton
       variant="contained"
+      sx={{ padding: "0.75rem 3rem" }}
       onClick={() => {
-        setIsAddingWords((st) => !st);
-        updateList();
+        setIsAddingWords(false);
+        updateListFirebase();
+        setListUpdated(false);
       }}
     >
-      done
+      save your changes
     </LargeGreenButton>
   );
 
   useEffect(() => {
-    if (list.length === 0) {
+    if (!title) {
       navigate("/");
     }
-  }, [list]);
+  }, [title]);
 
   return (
-    <ListPageContainer>
+    <PageContainer sx={{ gap: "2rem" }}>
       <div>Practice</div>
-      <ListDisplayContainer sx={{ rowGap: "1rem" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
-          <Typography variant="h6">{title}</Typography>
-          <IconButton
-            color="error"
-            aria-label="delete word"
-            onClick={() => deleteList(title)}
+
+      <ListDisplayContainer>
+        <ListPageHeader>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            <AiOutlineDelete />
-          </IconButton>
-        </Box>
-        {listDisplay}
-        {!isAddingWords ? addButton : doneButton}
+            <Typography variant="h6">{title}</Typography>
+            <Box>
+              {!isAddingWords ? addButton : null}
+              <IconButton
+                color="error"
+                aria-label="delete word"
+                onClick={() => deleteList(title)}
+              >
+                <AiOutlineDelete />
+              </IconButton>
+            </Box>
+          </Box>
+          <Collapse in={isAddingWords} sx={{ width: "100%" }}>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <NewWordInput fct={() => setListUpdated(true)} />
+            </Box>
+          </Collapse>
+          <Collapse in={listUpdated}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              {doneButton}
+            </Box>
+          </Collapse>
+        </ListPageHeader>
+
+        {list.length === 0 ? (
+          <Typography variant="h6" sx={{ alignSelf: "center" }}>
+            Your list "{title}" is empty
+          </Typography>
+        ) : (
+          <ListDisplayBox>
+            {list.map((e) => {
+              const { wordID, word, translation } = e;
+              return (
+                <WordGrid
+                  key={wordID}
+                  word={word}
+                  translation={translation}
+                  wordID={wordID}
+                  fct={() => setListUpdated(true)}
+                />
+              );
+            })}
+          </ListDisplayBox>
+        )}
       </ListDisplayContainer>
-      {isAddingWords ? <NewItem /> : ""}
-    </ListPageContainer>
+    </PageContainer>
   );
 };

@@ -2,17 +2,35 @@ import { useListContext } from "../../context/ListContext";
 
 import { Button, Grid } from "@mui/material";
 import {
-  NewItemContainer,
+  NewWordContainer,
   NewItemDesc,
   CreateListInput,
 } from "../../mui_styles/styles";
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
-export const NewItem = () => {
-  const { newListAddWord, word, translation, setWord, setTranslation } =
-    useListContext();
+export const NewWordInput = ({ ...props }) => {
+  const [word, setWord] = useState<string>("");
+  const [translation, setTranslation] = useState<string>("");
+  const wordID = nanoid();
+
+  const { fct } = props;
+
+  const { addWordContextList } = useListContext();
+
+  const addWord = () => {
+    if (word && translation) {
+      addWordContextList({ wordID, word, translation });
+      fct(true);
+      setWord("");
+      setTranslation("");
+    } else {
+      alert("Fill in all inputs");
+    }
+  };
 
   return (
-    <NewItemContainer container>
+    <NewWordContainer container>
       <Grid item xs={12} sm={5}>
         <CreateListInput
           value={word}
@@ -35,7 +53,7 @@ export const NewItem = () => {
         <Button
           type="submit"
           variant="contained"
-          onClick={() => newListAddWord()}
+          onClick={() => addWord()}
           sx={{
             backgroundColor: "#3bcfd0",
             width: "100%",
@@ -48,6 +66,6 @@ export const NewItem = () => {
           add
         </Button>
       </Grid>
-    </NewItemContainer>
+    </NewWordContainer>
   );
 };

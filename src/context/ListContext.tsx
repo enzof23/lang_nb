@@ -4,7 +4,6 @@ import { useAuthContext } from "./AuthContext";
 import { database } from "../firebase/firebase-config";
 import {
   arrayRemove,
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -13,7 +12,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 
 type Title = string;
@@ -50,7 +48,10 @@ const getListByTitle = async (userID: string, title: string) => {
   }
 };
 
-const newListAddWord = (list: Word[], { wordID, word, translation }: Word) => [
+const addWordContextList = (
+  list: Word[],
+  { wordID, word, translation }: Word
+) => [
   ...list,
   {
     wordID,
@@ -65,12 +66,8 @@ const useCreateList = (initial: Title = "") => {
   const [noLists, setNoLists] = useState<boolean>(false);
 
   const [title, setTitle] = useState<Title>(initial);
-  const [newTitle, setNewTitle] = useState<Title>(initial);
 
   const [list, setList] = useState<Word[]>([]);
-  const [word, setWord] = useState<string>("");
-  const [translation, setTranslation] = useState<string>("");
-  const wordID = nanoid();
 
   const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
@@ -84,17 +81,10 @@ const useCreateList = (initial: Title = "") => {
     noLists,
 
     title,
-    newTitle,
     setTitle,
-    setNewTitle,
 
     list,
-    word,
-    translation,
-    wordID,
     setList,
-    setWord,
-    setTranslation,
 
     allListsArr,
     setAllListsArr,
@@ -125,14 +115,14 @@ const useCreateList = (initial: Title = "") => {
 
     // add words & translation from new word input to the list array
     // this does not add the word to a firebase list
-    newListAddWord: () => {
-      setList((list) => newListAddWord(list, { wordID, word, translation }));
-      setWord("");
-      setTranslation("");
+    addWordContextList: ({ wordID, word, translation }: Word) => {
+      setList((list) =>
+        addWordContextList(list, { wordID, word, translation })
+      );
     },
 
-    // creates a new list on firebase
-    createList: () => {
+    // saves the list to firebase
+    saveListFirebase: () => {
       setDoc(doc(database, id, title), { word: list }).then(() =>
         console.log("list created")
       );
@@ -146,7 +136,7 @@ const useCreateList = (initial: Title = "") => {
 
     // add, update, remove words from firebase list
 
-    updateList: () => {
+    updateListFirebase: () => {
       console.log(list);
       updateDoc(doc(database, id, title), {
         word: list,
@@ -158,6 +148,7 @@ const useCreateList = (initial: Title = "") => {
         console.log("list deleted")
       );
       setList([]);
+      navigate("/");
     },
 
     removeWord: ({ wordID, word, translation }: Word) => {

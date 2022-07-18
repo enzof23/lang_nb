@@ -93,13 +93,11 @@ export const ListBox = styled(Box)(() => ({
 
 //////// <CreateList /> styles
 
-export const CreateListContainer = styled(Box)(() => ({
+export const PageContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
   justifyContent: "center",
-
-  gap: "2rem",
 
   padding: "130px 0 0 10rem",
   color: "white",
@@ -155,12 +153,13 @@ export const ListDisplayBox = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
 
+  width: "100%",
+
   gap: "0.5rem",
 
-  padding: "2rem 1rem",
+  padding: "1rem",
   marginBottom: "1rem",
 
-  backgroundColor: "#0f0c41",
   borderRadius: "7px",
 }));
 
@@ -168,6 +167,7 @@ export const WordGridContainer = styled(Grid)(() => ({
   alignItems: "center",
   justifyContent: "center",
   padding: "1rem 2rem",
+  minHeight: "72px",
   borderRadius: "7px",
 
   backgroundColor: "#2e3756",
@@ -185,11 +185,12 @@ export const VerticalDivider = styled(Divider)(() => ({
 
 // NewItem
 
-export const NewItemContainer = styled(Grid)(() => ({
+export const NewWordContainer = styled(Grid)(() => ({
   justifyContent: "space-between",
   alignItems: "center",
-  width: "90%",
+  width: "100%",
   maxWidth: "900px",
+  marginBottom: "2rem",
   padding: "3rem 1.5rem",
   borderRadius: "7px",
 
@@ -208,27 +209,19 @@ export const NewItemDesc = styled(Typography)(() => ({
 
 //////// <ListPage /> style
 
-export const ListPageContainer = styled(Box)(() => ({
+export const ListPageHeader = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "center",
 
-  gap: "2rem",
-
-  padding: "130px 0 0 10rem",
-  color: "white",
-
-  "@media screen and (max-width: 996px)": {
-    padding: "80px 0.5rem 0 0.5rem",
-    alignItems: "center",
-  },
+  width: "100%",
+  maxWidth: "900px",
+  padding: "0 1rem",
 }));
 
 export const LargeGreenButton = styled(Button)(() => ({
   alignSelf: "center",
-  marginTop: "1rem",
-  padding: ".75rem 1.5rem",
+  marginBottom: "1rem",
+  padding: ".75rem 3rem",
   fontSize: "16px",
   backgroundColor: "#3bcfd0",
   "&:hover": {

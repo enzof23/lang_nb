@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import { useListContext } from "../../context/ListContext";
@@ -19,7 +19,6 @@ export const Home: React.FC = () => {
     getListByTitle,
     setTitle,
     setList,
-    setNewTitle,
   } = useListContext();
 
   const listsDisplay =
@@ -63,7 +62,6 @@ export const Home: React.FC = () => {
           variant="h5"
           onClick={() => {
             setTitle("");
-            setNewTitle("");
             setList([]);
             navigate("/create-list");
           }}

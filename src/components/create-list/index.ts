@@ -1,4 +1,4 @@
-import { NewItem } from "./NewItem";
+import { NewWordInput } from "./NewWordInput";
 import { NewTitleInput } from "./NewTitleInput";
 
-export { NewItem, NewTitleInput };
+export { NewWordInput, NewTitleInput };
