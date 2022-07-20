@@ -6,6 +6,13 @@ import { auth } from "./firebase/firebase-config";
 import { LoadingSpinner } from "./components/index";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// const AuthenticatedApp = lazy(
+//   () => import("./pages/auth-app/AuthenticatedApp")
+// );
+// const UnauthenticatedApp = lazy(
+//   () => import("./pages/unauth-app/UnauthenticatedApp")
+// );
+
 const AuthenticatedApp = lazy(async () => {
   return Promise.all([
     import("./pages/auth-app/AuthenticatedApp"),
@@ -29,10 +36,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const authCheck = onAuthStateChanged(auth, (user) => {
+      navigate("/");
       if (user) {
-        if (location.pathname === "/create-list") {
-          navigate("/");
-        }
         setUserInfo({
           id: user.uid,
           name: user.displayName,
@@ -40,7 +45,6 @@ const App: React.FC = () => {
           isLogged: true,
         });
       } else {
-        navigate("/");
         setUserInfo({
           id: "",
           name: "",

@@ -36,6 +36,17 @@ export const ListPage = () => {
     </Button>
   );
 
+  const cancelButton = listUpdated ? null : (
+    <Button
+      variant="text"
+      onClick={() => {
+        setIsAddingWords(false);
+      }}
+    >
+      cancel
+    </Button>
+  );
+
   const doneButton = (
     <LargeGreenButton
       variant="contained"
@@ -70,7 +81,7 @@ export const ListPage = () => {
           >
             <Typography variant="h6">{title}</Typography>
             <Box>
-              {!isAddingWords ? addButton : null}
+              {!isAddingWords ? addButton : cancelButton}
               <IconButton
                 color="error"
                 aria-label="delete word"
