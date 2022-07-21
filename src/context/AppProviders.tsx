@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 import { ListProvider } from "./ListContext";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "../features/authentication/context/AuthContext";
 
 const AppProviders = ({ children }: { children: ReactNode }) => {
   return (

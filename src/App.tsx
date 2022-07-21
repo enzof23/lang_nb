@@ -1,10 +1,11 @@
 import { lazy, Suspense, useEffect } from "react";
-import { useAuthContext } from "./context/AuthContext";
+import { useAuthContext } from "./features/authentication/context/AuthContext";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase-config";
-import { LoadingSpinner } from "./components/index";
+import { LoadingSpinner } from "./layouts/index";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Authentication } from "./pages/Authentication";
 
 // const AuthenticatedApp = lazy(
 //   () => import("./pages/auth-app/AuthenticatedApp")
@@ -20,12 +21,12 @@ const AuthenticatedApp = lazy(async () => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-const UnauthenticatedApp = lazy(async () => {
-  return Promise.all([
-    import("./pages/unauth-app/UnauthenticatedApp"),
-    new Promise((resolve) => setTimeout(resolve, 1500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
+// const UnauthenticatedApp = lazy(async () => {
+//   return Promise.all([
+//     import("./pages/unauth-app/UnauthenticatedApp"),
+//     new Promise((resolve) => setTimeout(resolve, 1500)),
+//   ]).then(([moduleExports]) => moduleExports);
+// });
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -56,15 +57,16 @@ const App: React.FC = () => {
     return () => authCheck();
   }, [auth]);
 
-  return isLogged ? (
-    <Suspense fallback={<LoadingSpinner />}>
-      <AuthenticatedApp />
-    </Suspense>
-  ) : (
-    <Suspense fallback={<LoadingSpinner />}>
-      <UnauthenticatedApp />
-    </Suspense>
-  );
+  return <Authentication />;
+  // return isLogged ? (
+  //   <Suspense fallback={<LoadingSpinner />}>
+  //     <AuthenticatedApp />
+  //   </Suspense>
+  // ) : (
+  //   <Suspense fallback={<LoadingSpinner />}>
+  //     <UnauthenticatedApp />
+  //   </Suspense>
+  // );
 };
 
 export default App;

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import { useListContext } from "../../context/ListContext";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../features/authentication/context/AuthContext";
 
 import { HomeBox, ListBox, ListsDisplay } from "../../mui_styles/styles";
 import { Divider, Typography, Skeleton } from "@mui/material";

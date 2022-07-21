@@ -1,6 +1,6 @@
 import { SemipolarSpinner } from "react-epic-spinners";
 
-function LoadingSpinner() {
+export const LoadingSpinner = () => {
   return (
     <div
       style={{
@@ -14,6 +14,4 @@ function LoadingSpinner() {
       <SemipolarSpinner />;
     </div>
   );
-}
-
-export default LoadingSpinner;
+};

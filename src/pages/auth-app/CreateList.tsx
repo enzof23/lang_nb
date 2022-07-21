@@ -1,7 +1,9 @@
 import { Collapse, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { NewTitleInput, NewWordInput, WordGrid } from "../../components/index";
+import { NewTitleInput, NewWordInput } from "../../features/list/components";
+
+import WordGrid from "../../features/list/components/ui/WordGrid";
 
 import { useListContext } from "../../context/ListContext";
 

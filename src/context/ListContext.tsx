@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { useAuthContext } from "./AuthContext";
+import { useAuthContext } from "../features/authentication/context/AuthContext";
 
 import { database } from "../firebase/firebase-config";
 import {

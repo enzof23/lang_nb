@@ -3,8 +3,8 @@ import {
   CreateListInput,
   VerticalDivider,
   WordGridContainer,
-} from "../../mui_styles/styles";
-import { useListContext } from "../../context/ListContext";
+} from "../../../../mui_styles/styles";
+import { useListContext } from "../../../../context/ListContext";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 

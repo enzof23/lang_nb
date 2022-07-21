@@ -1,11 +1,11 @@
-import { useListContext } from "../../context/ListContext";
+import { useListContext } from "../../../../context/ListContext";
 
 import { Button, Grid } from "@mui/material";
 import {
   NewWordContainer,
   NewItemDesc,
   CreateListInput,
-} from "../../mui_styles/styles";
+} from "../../../../mui_styles/styles";
 import { useState } from "react";
 import { nanoid } from "nanoid";
 

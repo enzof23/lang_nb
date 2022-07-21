@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FormControl, InputAdornment } from "@mui/material";
 
-import { useListContext } from "../../context/ListContext";
+import { useListContext } from "../../../../context/ListContext";
 
 import {
   NewTitleButton,
   CreateListInput,
   NewTitleLabel,
-} from "../../mui_styles/styles";
+} from "../../../../mui_styles/styles";
 
 type Props = {
   setHasTitle: (val: boolean) => void;

@@ -1,4 +1,4 @@
-import { LogBox } from "../../components";
+// import { LogBox } from "../../layouts";
 
 import { Grid, Hidden, Typography } from "@mui/material";
 import { CenteredGrid } from "../../mui_styles/styles";
@@ -6,7 +6,7 @@ import { CenteredGrid } from "../../mui_styles/styles";
 function UnauthenticatedApp() {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
-      <Hidden mdDown={true}>
+      {/* <Hidden mdDown={true}>
         <CenteredGrid item md={5} lg={6} sx={{ color: "white" }}>
           <Typography>Left</Typography>
         </CenteredGrid>
@@ -20,7 +20,7 @@ function UnauthenticatedApp() {
         sx={{ backgroundColor: "#f7f7f7", minHeight: "100vh" }}
       >
         <LogBox />
-      </CenteredGrid>
+      </CenteredGrid> */}
     </Grid>
   );
 }

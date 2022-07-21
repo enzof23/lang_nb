@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { Divider, Grid, TextField, Typography, Box } from "@mui/material";
-import { CenteredGrid, ConnectionButton } from "../../mui_styles/styles";
+import { CenteredGrid, ConnectionButton } from "../../../../mui_styles/styles";
 
-import GoogleAuthButton from "./GoogleAuthButton";
+import { GoogleAuthButton } from "../ui/GoogleAuthButton";
 import { useAuthContext } from "../../context/AuthContext";
 
 const SignUp = () => {
@@ -17,7 +17,7 @@ const SignUp = () => {
   return (
     <>
       <Box sx={{ marginBlock: "1rem 2rem", width: "100%" }}>
-        <GoogleAuthButton textVariant={"continue"} />
+        <GoogleAuthButton />
       </Box>
       <Divider variant="middle">
         <Typography

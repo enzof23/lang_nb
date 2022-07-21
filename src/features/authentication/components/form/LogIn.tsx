@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { Button, Divider, Box, TextField, Typography } from "@mui/material";
-import { ConnectionButton } from "../../mui_styles/styles";
+import { ConnectionButton } from "../../../../mui_styles/styles";
 
 import { useAuthContext } from "../../context/AuthContext";
-import GoogleAuthButton from "./GoogleAuthButton";
+import { GoogleAuthButton } from "../ui/GoogleAuthButton";
 
 function LogIn() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ function LogIn() {
   return (
     <>
       <Box sx={{ marginBlock: "1rem 2rem" }}>
-        <GoogleAuthButton textVariant={"log in"} />
+        <GoogleAuthButton />
       </Box>
       <Divider variant="middle">
         <Typography
@@ -75,4 +75,4 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+// export default LogIn;

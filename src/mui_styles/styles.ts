@@ -37,16 +37,6 @@ export const CenteredGrid = styled(Grid)(() => ({
   alignItems: "center",
 }));
 
-export const GoogleSignInButton = styled(Button)(() => ({
-  padding: "1rem",
-  width: "100%",
-  border: "1px solid #dadde5",
-  fontSize: "0.9em",
-  "&:hover": {
-    backgroundColor: "#f7f7f7",
-  },
-}));
-
 export const ConnectionButton = styled(Button)(() => ({
   padding: "1rem 0",
   marginTop: "1.75rem",

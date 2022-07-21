@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Navbar } from "../../components";
+import { Navbar } from "../../layouts";
 import { Home, CreateList, ListPage } from "./index";
 
 function AuthenticatedApp() {

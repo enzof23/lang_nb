@@ -1,4 +1,4 @@
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../features/authentication/context/AuthContext";
 
 import { Avatar, SpeedDial, SpeedDialAction, Typography } from "@mui/material";
 import { NavbarContainer } from "../mui_styles/styles";

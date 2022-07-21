@@ -4,7 +4,7 @@ import AppProviders from "./context/AppProviders";
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 
 import App from "./App";
-import "./index.css";
+import "./assets/global.css";
 import { BrowserRouter } from "react-router-dom";
 
 let theme = createTheme({

@@ -2,7 +2,9 @@ import { Box, Button, Collapse, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { NewWordInput, WordGrid } from "../../components";
+import { NewWordInput } from "../../features/list/components";
+import WordGrid from "../../features/list/components/ui/WordGrid";
+
 import { useListContext } from "../../context/ListContext";
 import {
   LargeGreenButton,
