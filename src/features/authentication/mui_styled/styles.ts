@@ -127,6 +127,8 @@ export const SignUpButton = styled(Button)(() => ({
   },
 }));
 
+////////////////////////////
+
 export const GoogleSignInButton = styled(Button)(() => ({
   padding: "1.25rem",
 

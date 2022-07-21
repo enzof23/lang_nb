@@ -1,92 +1,110 @@
+import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
-
-import { Divider, Grid, TextField, Typography, Box } from "@mui/material";
-import { CenteredGrid, ConnectionButton } from "../../../../mui_styles/styles";
-
-import { GoogleAuthButton } from "../ui/GoogleAuthButton";
+import { verifyEmail } from "../../../../utils/verifyEmail";
 import { useAuthContext } from "../../context/AuthContext";
+import { SignUpButton, SignUpInput } from "../../mui_styled/styles";
 
-const SignUp = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export const SignUp = () => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const { signUpEmail } = useAuthContext();
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    const validEmail = verifyEmail(email);
+    const validPassword = password.length > 5;
+    const passwordConfirmed = password === confirmPassword;
+
+    const allCredentialsValid =
+      firstName && lastName && validEmail && validPassword && passwordConfirmed;
+
+    if (allCredentialsValid) {
+      signUpEmail({ email, password, firstName, lastName });
+    } else if (!validEmail) {
+      alert("Please enter a valid email address");
+    } else if (!passwordConfirmed) {
+      alert("Your password confirmation isn't matching");
+    } else {
+      alert("An error has occured");
+    }
+  };
+
   return (
-    <>
-      <Box sx={{ marginBlock: "1rem 2rem", width: "100%" }}>
-        <GoogleAuthButton />
-      </Box>
-      <Divider variant="middle">
-        <Typography
-          sx={{
-            textTransform: "uppercase",
-            color: "#aeb4c4",
-            fontSize: "14px",
-            fontWeight: "500",
-          }}
-        >
-          or email
-        </Typography>
-      </Divider>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-        }}
-      >
-        <CenteredGrid
+    <fieldset
+      style={{
+        border: "2px solid #0a082d",
+        borderRadius: "4px",
+        padding: "2rem",
+        width: "100%",
+        maxWidth: "600px",
+      }}
+    >
+      <legend style={{ padding: "0 8px" }}>
+        <Typography variant="h4">Sign Up</Typography>
+      </legend>
+      <form onSubmit={handleSubmit}>
+        <Grid
           container
           sx={{
-            margin: "1rem 0",
             justifyContent: "space-between",
+            marginBlock: "1rem",
+            rowGap: "1rem",
           }}
         >
-          <Grid item xs={5}>
-            <TextField
-              placeholder="First Name"
+          <Grid item xs={12} sm={5.7}>
+            <SignUpInput
+              variant="outlined"
+              required
               label="First Name"
-              sx={{ width: "100%" }}
               onChange={(e) => setFirstName(e.currentTarget.value)}
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              placeholder="Last Name"
+          <Grid item xs={12} sm={5.7}>
+            <SignUpInput
+              variant="outlined"
+              required
               label="Last Name"
-              sx={{ width: "100%" }}
               onChange={(e) => setLastName(e.currentTarget.value)}
             />
           </Grid>
-        </CenteredGrid>
-        <TextField
-          required
-          placeholder="Email"
-          label="Email"
-          type="email"
-          sx={{ width: "100%", margin: "1rem 0" }}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <TextField
-          required
-          placeholder="Password"
-          label="Password"
-          type="password"
-          sx={{ width: "100%", margin: "1rem 0" }}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-        />
-        <ConnectionButton
-          variant="contained"
-          onClick={() => signUpEmail({ email, password, firstName, lastName })}
-        >
-          Sign Up !
-        </ConnectionButton>
-      </div>
-    </>
+          <Grid item xs={12}>
+            <SignUpInput
+              variant="outlined"
+              required
+              label="Email"
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={5.7}>
+            <SignUpInput
+              variant="outlined"
+              type="password"
+              required
+              label="Password"
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={5.7}>
+            <SignUpInput
+              variant="outlined"
+              type="password"
+              required
+              label="Confirm Password"
+              onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+            <SignUpButton variant="outlined" type="submit">
+              Sign Up
+            </SignUpButton>
+          </Grid>
+        </Grid>
+      </form>
+    </fieldset>
   );
 };
-
-export default SignUp;

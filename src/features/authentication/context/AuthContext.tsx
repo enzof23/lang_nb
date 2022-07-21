@@ -35,13 +35,15 @@ const signUpEmail = async ({
   lastName,
 }: Credentials) => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    if (auth.currentUser) {
-      const user: User = auth.currentUser;
-      updateProfile(user, {
-        displayName: `${firstName} ${lastName}`,
-      });
-    }
+    const userData = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user: User = userData.user;
+    await updateProfile(user, {
+      displayName: `${firstName} ${lastName}`,
+    });
   } catch (err) {
     alert(`An error has occured: ${err}`);
   }

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { Navbar } from "../../layouts";
-import { Home, CreateList, ListPage } from "./index";
+import { Navbar } from "../layouts";
+import { Home, CreateList, ListPage } from "./auth-app/index";
 
 function AuthenticatedApp() {
   return (

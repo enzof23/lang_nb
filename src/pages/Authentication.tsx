@@ -1,21 +1,23 @@
 import { Grid, Typography } from "@mui/material";
-import { NewSignIn, NewSignUp } from "../features/authentication/components";
+import { SignIn, SignUp } from "../features/authentication/components";
 import {
   SignInContainer,
   SignUpContainer,
-} from "../features/authentication/components/mui_styled/styles";
+} from "../features/authentication/mui_styled/styles";
 
-export const Authentication = () => {
+const Authentication = () => {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       <SignInContainer item xs={12} md={5.5}>
         <Typography variant="h3">Logo</Typography>
-        <NewSignIn />
+        <SignIn />
       </SignInContainer>
       <SignUpContainer item xs={12} md={6.5}>
         <Typography variant="h4">Short intro to app</Typography>
-        <NewSignUp />
+        <SignUp />
       </SignUpContainer>
     </Grid>
   );
 };
+
+export default Authentication;

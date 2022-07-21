@@ -28,21 +28,6 @@ export const NavbarContainer = styled(Box)(() => ({
   boxShadow: "0 1px 3px rgba(255, 255, 255, 0.1)",
 }));
 
-//////// <Connection /> styles
-
-export const CenteredGrid = styled(Grid)(() => ({
-  margin: "auto",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-}));
-
-export const ConnectionButton = styled(Button)(() => ({
-  padding: "1rem 0",
-  marginTop: "1.75rem",
-  fontSize: "1em",
-}));
-
 //////// <Home /> styles
 
 export const HomeBox = styled(Box)(() => ({

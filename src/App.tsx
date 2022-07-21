@@ -1,43 +1,41 @@
 import { lazy, Suspense, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { auth } from "./firebase/firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 import { useAuthContext } from "./features/authentication/context/AuthContext";
 
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase-config";
 import { LoadingSpinner } from "./layouts/index";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Authentication } from "./pages/Authentication";
 
 // const AuthenticatedApp = lazy(
 //   () => import("./pages/auth-app/AuthenticatedApp")
 // );
-// const UnauthenticatedApp = lazy(
-//   () => import("./pages/unauth-app/UnauthenticatedApp")
+// const Authentication = lazy(
+//   () => import("./pages/Authentication")
 // );
 
 const AuthenticatedApp = lazy(async () => {
   return Promise.all([
-    import("./pages/auth-app/AuthenticatedApp"),
+    import("./pages/AuthenticatedApp"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });
 
-// const UnauthenticatedApp = lazy(async () => {
-//   return Promise.all([
-//     import("./pages/unauth-app/UnauthenticatedApp"),
-//     new Promise((resolve) => setTimeout(resolve, 1500)),
-//   ]).then(([moduleExports]) => moduleExports);
-// });
+const Authentication = lazy(async () => {
+  return Promise.all([
+    import("./pages/Authentication"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { userInfo, setUserInfo } = useAuthContext();
   const { isLogged } = userInfo;
 
   useEffect(() => {
     const authCheck = onAuthStateChanged(auth, (user) => {
-      navigate("/");
       if (user) {
         setUserInfo({
           id: user.uid,
@@ -53,20 +51,20 @@ const App: React.FC = () => {
           isLogged: false,
         });
       }
+      navigate("/");
     });
     return () => authCheck();
   }, [auth]);
 
-  return <Authentication />;
-  // return isLogged ? (
-  //   <Suspense fallback={<LoadingSpinner />}>
-  //     <AuthenticatedApp />
-  //   </Suspense>
-  // ) : (
-  //   <Suspense fallback={<LoadingSpinner />}>
-  //     <UnauthenticatedApp />
-  //   </Suspense>
-  // );
+  return isLogged ? (
+    <Suspense fallback={<LoadingSpinner />}>
+      <AuthenticatedApp />
+    </Suspense>
+  ) : (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Authentication />
+    </Suspense>
+  );
 };
 
 export default App;

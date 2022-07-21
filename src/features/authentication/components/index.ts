@@ -1,5 +1,5 @@
 import { GoogleAuthButton } from "./ui/GoogleAuthButton";
-import { NewSignIn } from "./form/NewSignIn";
-import { NewSignUp } from "./form/NewSignUp";
+import { SignIn } from "./form/SignIn";
+import { SignUp } from "./form/SignUp";
 
-export { NewSignUp, GoogleAuthButton, NewSignIn };
+export { SignIn, SignUp, GoogleAuthButton };

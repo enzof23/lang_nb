@@ -10,11 +10,11 @@ import {
   SignInForm,
   SignInFormContainer,
   SignInInput,
-} from "../mui_styled/styles";
+} from "../../mui_styled/styles";
 
 import { GoogleAuthButton } from "../ui/GoogleAuthButton";
 
-export const NewSignIn = () => {
+export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

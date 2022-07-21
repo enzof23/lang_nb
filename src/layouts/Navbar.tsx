@@ -14,13 +14,11 @@ export const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   const { userInfo, authSignOut } = useAuthContext();
-  const { name, photo } = userInfo;
 
-  const firstName = name?.split(" ")[0];
-  const userImage = photo ? (
+  const userImage = userInfo.photo ? (
     <Avatar
       alt="user avatar"
-      src={photo}
+      src={userInfo.photo}
       sx={{ width: "100%", height: "100%" }}
     />
   ) : (
@@ -44,14 +42,6 @@ export const Navbar: React.FC = () => {
         onClick={() => navigate("/")}
       >
         Language Notebook
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        style={{
-          marginRight: "2.75rem",
-        }}
-      >
-        {firstName ? `Hello ${firstName} !` : "Welcome !"}
       </Typography>
       <SpeedDial
         ariaLabel="Profile Menu"
