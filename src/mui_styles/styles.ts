@@ -28,60 +28,29 @@ export const NavbarContainer = styled(Box)(() => ({
   boxShadow: "0 1px 3px rgba(255, 255, 255, 0.1)",
 }));
 
-//////// <Home /> styles
+//////// <PageWrapper /> styles
 
-export const HomeBox = styled(Box)(() => ({
+export const PageWrapperContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-
-  rowGap: "5rem",
-
-  padding: "130px 0 0 2rem",
-  color: "white",
-}));
-
-export const ListsDisplay = styled(Box)(() => ({
-  display: "flex",
+  justifyContent: "center",
+  alignSelf: "flex-end",
   flexWrap: "wrap",
-  columnGap: "2rem",
-  rowGap: "1rem",
 
-  "@media screen and (max-width: 996px)": {
-    justifyContent: "center",
-  },
-}));
+  paddingTop: "130px",
+  paddingRight: "1rem",
 
-export const ListBox = styled(Box)(() => ({
-  width: "280px",
-  height: "140px",
+  color: "white",
 
-  padding: "1.5rem",
-  backgroundColor: "#2e3756",
-  borderRadius: "5px",
-  cursor: "pointer",
-
-  "&:hover": {
-    backgroundColor: "#2e3756cc",
-    borderBottom: "5px solid white",
+  "@media screen and (max-width: 900px)": {
+    paddingTop: "100px",
+    paddingLeft: "0",
+    paddingRight: "0",
+    alignItems: "center",
   },
 }));
 
 //////// <CreateList /> styles
-
-export const PageContainer = styled(Box)(() => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "center",
-
-  padding: "130px 0 0 10rem",
-  color: "white",
-
-  "@media screen and (max-width: 996px)": {
-    padding: "80px 0.5rem 0 0.5rem",
-    alignItems: "center",
-  },
-}));
 
 export const CreateListInput = styled(Input)(() => ({
   "::before": {
@@ -120,6 +89,7 @@ export const ListDisplayContainer = styled(Box)(() => ({
   flexDirection: "column",
   width: "100%",
   maxWidth: "900px",
+  marginTop: "2rem",
 }));
 
 export const ListDisplayBox = styled(Box)(() => ({

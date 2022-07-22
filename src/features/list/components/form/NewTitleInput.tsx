@@ -27,7 +27,7 @@ export const NewTitleInput: React.FC<Props> = ({ setHasTitle }) => {
     <form onSubmit={handleSubmit}>
       <FormControl
         variant="standard"
-        sx={{ width: "80%", maxWidth: "1000px" }}
+        sx={{ width: "100%", maxWidth: "900px" }}
         onSubmit={handleSubmit}
       >
         <NewTitleLabel>Enter a Title</NewTitleLabel>

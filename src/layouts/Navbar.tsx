@@ -9,11 +9,13 @@ import {
   IoPersonOutline,
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { useListContext } from "../context/ListContext";
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   const { userInfo, authSignOut } = useAuthContext();
+  const { resetListContext } = useListContext();
 
   const userImage = userInfo.photo ? (
     <Avatar
@@ -31,8 +33,13 @@ export const Navbar: React.FC = () => {
       name: "Profile Settings",
       fct: () => alert("Account settings"),
     },
-    { icon: <IoExitOutline />, name: "Sign Out", fct: () => authSignOut() },
+    { icon: <IoExitOutline />, name: "Sign Out", fct: () => signOut() },
   ];
+
+  const signOut = () => {
+    authSignOut();
+    resetListContext();
+  };
 
   return (
     <NavbarContainer>
@@ -51,6 +58,7 @@ export const Navbar: React.FC = () => {
           right: 0,
           top: 0,
           margin: ".59rem",
+          marginRight: "1rem",
         }}
         FabProps={{
           sx: { height: "38px", width: "38px" },

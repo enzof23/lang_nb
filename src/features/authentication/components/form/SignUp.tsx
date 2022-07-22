@@ -39,9 +39,9 @@ export const SignUp = () => {
       style={{
         border: "2px solid #0a082d",
         borderRadius: "4px",
-        padding: "2rem",
-        width: "100%",
-        maxWidth: "600px",
+        padding: "2rem 1.5rem",
+        minWidth: "450px",
+        maxWidth: "650px",
       }}
     >
       <legend style={{ padding: "0 8px" }}>

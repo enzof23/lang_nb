@@ -8,11 +8,11 @@ import WordGrid from "../../features/list/components/ui/WordGrid";
 import { useListContext } from "../../context/ListContext";
 
 import {
-  PageContainer,
   LargeGreenButton,
   ListDisplayBox,
   ListDisplayContainer,
 } from "../../mui_styles/styles";
+import { PageWrapper } from "../../layouts";
 
 export const CreateList = () => {
   const [hasTitle, setHasTitle] = useState<boolean>(false);
@@ -22,8 +22,8 @@ export const CreateList = () => {
   const listHasWords = list.length > 0;
 
   return (
-    <PageContainer>
-      <Collapse in={!hasTitle} sx={{ width: "100%", maxWidth: "900px" }}>
+    <PageWrapper paddingLeft="10rem">
+      <Collapse in={!hasTitle} sx={{ width: "90%", maxWidth: "900px" }}>
         <Typography
           variant="h5"
           sx={{
@@ -88,6 +88,6 @@ export const CreateList = () => {
           </Collapse>
         </ListDisplayContainer>
       </Collapse>
-    </PageContainer>
+    </PageWrapper>
   );
 };

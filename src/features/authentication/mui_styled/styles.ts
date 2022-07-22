@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 
@@ -79,7 +79,7 @@ export const SignUpContainer = styled(Grid)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  rowGap: "4rem",
+  rowGap: "3.5rem",
 
   padding: "1rem",
 
@@ -124,6 +124,15 @@ export const SignUpButton = styled(Button)(() => ({
     borderColor: "#fecd1f",
     backgroundColor: "#fecd1f",
     color: "black",
+  },
+}));
+
+export const DemoTypo = styled(Typography)(() => ({
+  color: "#0a082d",
+  cursor: "pointer",
+
+  "&:hover": {
+    color: "#fecd1f",
   },
 }));
 

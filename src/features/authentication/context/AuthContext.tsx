@@ -13,6 +13,7 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
+import { useListContext } from "../../../context/ListContext";
 
 export type UserInfo = {
   id: string;
@@ -70,7 +71,6 @@ const googleAuth = async () => {
 const authSignOut = async () => {
   try {
     signOut(auth);
-
     console.log("signed out");
   } catch (err) {
     alert(`An error has occured: ${err}`);

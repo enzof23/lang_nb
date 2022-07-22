@@ -162,6 +162,15 @@ const useCreateList = (initial: Title = "") => {
     },
 
     // delete list from firebase
+
+    resetListContext: () => {
+      setList([]);
+      setAllListsArr([]);
+      setNoLists(false);
+      setTitle(initial);
+      setIsAddingWords(false);
+      setIsEditing(false);
+    },
   };
 };
 

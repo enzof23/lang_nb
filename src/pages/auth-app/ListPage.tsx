@@ -11,8 +11,8 @@ import {
   ListDisplayBox,
   ListDisplayContainer,
   ListPageHeader,
-  PageContainer,
 } from "../../mui_styles/styles";
+import { PageWrapper } from "../../layouts";
 
 export const ListPage = () => {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export const ListPage = () => {
   }, [title]);
 
   return (
-    <PageContainer sx={{ gap: "2rem" }}>
+    <PageWrapper paddingLeft="10rem">
       <div>Practice</div>
 
       <ListDisplayContainer>
@@ -126,6 +126,6 @@ export const ListPage = () => {
           </ListDisplayBox>
         )}
       </ListDisplayContainer>
-    </PageContainer>
+    </PageWrapper>
   );
 };
