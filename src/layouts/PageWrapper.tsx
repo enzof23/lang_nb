@@ -2,7 +2,7 @@ import { FC } from "react";
 import { PageWrapperContainer } from "../mui_styles/styles";
 
 type Props = {
-  children: JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
   paddingLeft: string;
 };
 

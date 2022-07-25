@@ -1,4 +1,5 @@
-import { NewWordInput } from "./form/NewWordInput";
-import { NewTitleInput } from "./form/NewTitleInput";
+import { WordInput } from "./form/WordInput";
+import { TitleInput } from "./form/TitleInput";
+import { WordsGrid } from "./ui/WordsGrid";
 
-export { NewWordInput, NewTitleInput };
+export { WordInput, TitleInput, WordsGrid };

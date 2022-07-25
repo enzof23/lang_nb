@@ -1,15 +1,16 @@
 import { useListContext } from "../../../../context/ListContext";
 
-import { Button, Grid } from "@mui/material";
-import {
-  NewWordContainer,
-  NewItemDesc,
-  CreateListInput,
-} from "../../../../mui_styles/styles";
+import { Grid } from "@mui/material";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import {
+  CreateListInput,
+  WordInputButton,
+  WordInputContainer,
+  WordInputDesc,
+} from "../../mui_styled/styles";
 
-export const NewWordInput = ({ ...props }) => {
+export const WordInput = ({ ...props }) => {
   const [word, setWord] = useState<string>("");
   const [translation, setTranslation] = useState<string>("");
   const wordID = nanoid();
@@ -32,43 +33,29 @@ export const NewWordInput = ({ ...props }) => {
 
   return (
     <form onSubmit={addWord}>
-      <NewWordContainer container>
+      <WordInputContainer container>
         <Grid item xs={12} sm={5}>
           <CreateListInput
             value={word}
             placeholder="Enter new word"
             onChange={(e) => setWord(e.target.value)}
-            sx={{ color: "white", width: "100%" }}
           />
-          <NewItemDesc>word</NewItemDesc>
+          <WordInputDesc>word</WordInputDesc>
         </Grid>
         <Grid item xs={12} sm={5}>
           <CreateListInput
             value={translation}
             placeholder="Enter translation"
             onChange={(e) => setTranslation(e.target.value)}
-            sx={{ color: "white", width: "100%" }}
           />
-          <NewItemDesc>translation</NewItemDesc>
+          <WordInputDesc>translation</WordInputDesc>
         </Grid>
-        <Grid item xs={9} sm={1}>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={addWord}
-            sx={{
-              backgroundColor: "#3bcfd0",
-              width: "100%",
-              paddingBlock: "0.75rem",
-              "&:hover": {
-                backgroundColor: "#33afaf",
-              },
-            }}
-          >
+        <Grid item xs={12} sm={1}>
+          <WordInputButton type="submit" variant="contained" onClick={addWord}>
             add
-          </Button>
+          </WordInputButton>
         </Grid>
-      </NewWordContainer>
+      </WordInputContainer>
     </form>
   );
 };

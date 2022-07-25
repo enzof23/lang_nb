@@ -40,7 +40,6 @@ export const SignUp = () => {
         border: "2px solid #0a082d",
         borderRadius: "4px",
         padding: "2rem 1.5rem",
-        minWidth: "450px",
         maxWidth: "650px",
       }}
     >

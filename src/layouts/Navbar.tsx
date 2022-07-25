@@ -28,11 +28,11 @@ export const Navbar: React.FC = () => {
   );
 
   const actions = [
-    {
-      icon: <IoSettingsOutline />,
-      name: "Profile Settings",
-      fct: () => alert("Account settings"),
-    },
+    // {
+    //   icon: <IoSettingsOutline />,
+    //   name: "Profile Settings",
+    //   fct: () => alert("Account settings"),
+    // },
     { icon: <IoExitOutline />, name: "Sign Out", fct: () => signOut() },
   ];
 

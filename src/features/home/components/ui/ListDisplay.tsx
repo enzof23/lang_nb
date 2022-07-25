@@ -4,7 +4,11 @@ import { useListContext } from "../../../../context/ListContext";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import { Grid, Skeleton, Typography } from "@mui/material";
-import { ListBox, ListsDisplayContainer } from "../../mui_styled/styles";
+import {
+  ListBox,
+  ListsDisplayContainer,
+  ListsGrid,
+} from "../../mui_styled/styles";
 
 export const ListDisplay = () => {
   const { allListsArr, noLists, getListByTitle, setTitle, setList } =
@@ -26,23 +30,6 @@ export const ListDisplay = () => {
     />
   ));
 
-  const lists = allListsArr.map((list) => {
-    const { listTitle, words } = list;
-    return (
-      <ListBox
-        item
-        key={listTitle}
-        sx={{ textTransform: "uppercase" }}
-        onClick={() => getListByTitle(listTitle)}
-      >
-        <Typography variant="body1">{listTitle}</Typography>
-        <Typography variant="caption" sx={{ color: "#969ab0" }}>
-          {words.length} words
-        </Typography>
-      </ListBox>
-    );
-  });
-
   const listsEmpty = (
     <Typography
       variant="h5"
@@ -62,15 +49,30 @@ export const ListDisplay = () => {
     </Typography>
   );
 
+  const lists = allListsArr.map((list) => {
+    const { listTitle, words } = list;
+    return (
+      <ListBox
+        item
+        key={listTitle}
+        sx={{ textTransform: "uppercase" }}
+        onClick={() => getListByTitle(listTitle)}
+      >
+        <Typography variant="body1">{listTitle}</Typography>
+        <Typography variant="caption" sx={{ color: "#969ab0" }}>
+          {words.length} words
+        </Typography>
+      </ListBox>
+    );
+  });
+
   const display =
     allListsArr.length === 0 ? (
       listsLoading
     ) : (
       <>
         <Typography variant="h6">My lists</Typography>
-        <Grid container columnGap="2rem" rowGap="2rem">
-          {lists}
-        </Grid>
+        <ListsGrid container>{lists}</ListsGrid>
       </>
     );
 

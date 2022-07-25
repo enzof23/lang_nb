@@ -4,16 +4,16 @@ import { FormControl, InputAdornment } from "@mui/material";
 import { useListContext } from "../../../../context/ListContext";
 
 import {
-  NewTitleButton,
+  TitleInputLabel,
+  TitleButton,
   CreateListInput,
-  NewTitleLabel,
-} from "../../../../mui_styles/styles";
+} from "../../mui_styled/styles";
 
 type Props = {
   setHasTitle: (val: boolean) => void;
 };
 
-export const NewTitleInput: React.FC<Props> = ({ setHasTitle }) => {
+export const TitleInput: React.FC<Props> = ({ setHasTitle }) => {
   const [newTitle, setNewTitle] = useState<string>("");
   const { setTitle } = useListContext();
 
@@ -27,26 +27,25 @@ export const NewTitleInput: React.FC<Props> = ({ setHasTitle }) => {
     <form onSubmit={handleSubmit}>
       <FormControl
         variant="standard"
-        sx={{ width: "100%", maxWidth: "900px" }}
+        sx={{ width: "100%" }}
         onSubmit={handleSubmit}
       >
-        <NewTitleLabel>Enter a Title</NewTitleLabel>
+        <TitleInputLabel>Enter a Title</TitleInputLabel>
         <CreateListInput
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
           endAdornment={
             <InputAdornment position="end">
-              <NewTitleButton
+              <TitleButton
                 disabled={newTitle.length < 1}
                 variant="text"
                 type="submit"
                 onClick={handleSubmit}
               >
                 Create
-              </NewTitleButton>
+              </TitleButton>
             </InputAdornment>
           }
-          sx={{ color: "white" }}
         />
       </FormControl>
     </form>

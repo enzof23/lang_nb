@@ -1,18 +1,20 @@
-import { Box, Button, Collapse, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { NewWordInput } from "../../features/list/components";
-import WordGrid from "../../features/list/components/ui/WordGrid";
+import { AiOutlineDelete } from "react-icons/ai";
 
 import { useListContext } from "../../context/ListContext";
+
+import { PageWrapper } from "../../layouts";
+import { WordInput, WordsGrid } from "../../features/list/components";
+
+import { Box, Button, Collapse, IconButton, Typography } from "@mui/material";
 import {
   LargeGreenButton,
   ListDisplayBox,
-  ListDisplayContainer,
+  ListPageContainer,
   ListPageHeader,
-} from "../../mui_styles/styles";
-import { PageWrapper } from "../../layouts";
+  PracticeContainer,
+} from "../../features/list/mui_styled/styles";
 
 export const ListPage = () => {
   const navigate = useNavigate();
@@ -52,7 +54,6 @@ export const ListPage = () => {
   const doneButton = (
     <LargeGreenButton
       variant="contained"
-      sx={{ padding: "0.75rem 3rem" }}
       onClick={() => {
         setIsAddingWords(false);
         updateListFirebase();
@@ -71,17 +72,19 @@ export const ListPage = () => {
 
   return (
     <PageWrapper paddingLeft="10rem">
-      <div>Practice</div>
+      <PracticeContainer>Practice coming soon</PracticeContainer>
 
-      <ListDisplayContainer>
-        <ListPageHeader>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography variant="h6">{title}</Typography>
+      <ListPageContainer>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <ListPageHeader>
+            <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
+              {title}
+            </Typography>
             <Box>
               {!isAddingWords ? addButton : cancelButton}
               <IconButton
@@ -92,18 +95,18 @@ export const ListPage = () => {
                 <AiOutlineDelete />
               </IconButton>
             </Box>
-          </Box>
-          <Collapse in={isAddingWords} sx={{ width: "100%" }}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <NewWordInput fct={() => setListUpdated(true)} />
-            </Box>
+          </ListPageHeader>
+
+          <Collapse in={isAddingWords}>
+            <WordInput fct={() => setListUpdated(true)} />
           </Collapse>
+
           <Collapse in={listUpdated}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               {doneButton}
             </Box>
           </Collapse>
-        </ListPageHeader>
+        </Box>
 
         {list.length === 0 ? (
           <Typography variant="h6" sx={{ alignSelf: "center" }}>
@@ -114,7 +117,7 @@ export const ListPage = () => {
             {list.map((e) => {
               const { wordID, word, translation } = e;
               return (
-                <WordGrid
+                <WordsGrid
                   key={wordID}
                   word={word}
                   translation={translation}
@@ -125,7 +128,7 @@ export const ListPage = () => {
             })}
           </ListDisplayBox>
         )}
-      </ListDisplayContainer>
+      </ListPageContainer>
     </PageWrapper>
   );
 };

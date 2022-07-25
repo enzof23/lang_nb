@@ -14,10 +14,18 @@ const Authentication = () => {
     <Grid container sx={{ minHeight: "100vh" }}>
       <SignInContainer item xs={12} md={5.5}>
         <Typography variant="h3">Logo</Typography>
+        <DemoTypo
+          variant="h6"
+          onClick={() =>
+            signInEmail({ email: "account@demo.com", password: "1234567890" })
+          }
+        >
+          Try with a demo account !
+        </DemoTypo>
         <SignIn />
       </SignInContainer>
       <SignUpContainer item xs={12} md={6.5}>
-        <Box sx={{ minWidth: "450px", maxWidth: "650px" }}>
+        <Box sx={{ maxWidth: "650px" }}>
           <Typography variant="h4">
             Organize and practice your vocabulary all in one place.
           </Typography>
@@ -27,14 +35,6 @@ const Authentication = () => {
           </Typography>
         </Box>
         <SignUp />
-        <DemoTypo
-          variant="h6"
-          onClick={() =>
-            signInEmail({ email: "account@demo.com", password: "1234567890" })
-          }
-        >
-          Try with a demo account !
-        </DemoTypo>
       </SignUpContainer>
     </Grid>
   );

@@ -1,6 +1,4 @@
 import { Typography } from "@mui/material";
-import { verify } from "crypto";
-import { verifyBeforeUpdateEmail } from "firebase/auth";
 import { useState } from "react";
 import { verifyEmail } from "../../../../utils/verifyEmail";
 import { useAuthContext } from "../../context/AuthContext";

@@ -7,7 +7,7 @@ export const SignInContainer = styled(Grid)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  rowGap: "5rem",
+  rowGap: "4rem",
 
   minHeight: "100vh",
 
@@ -84,6 +84,7 @@ export const SignUpContainer = styled(Grid)(() => ({
   padding: "1rem",
 
   minHeight: "100vh",
+  width: "90%",
 
   color: "#0a082d",
   backgroundColor: "white",
@@ -128,7 +129,7 @@ export const SignUpButton = styled(Button)(() => ({
 }));
 
 export const DemoTypo = styled(Typography)(() => ({
-  color: "#0a082d",
+  color: "white",
   cursor: "pointer",
 
   "&:hover": {

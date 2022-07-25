@@ -13,11 +13,19 @@ export const HeaderContainer = styled(Box)(() => ({
 
   borderRadius: "15px",
   backgroundColor: "#282e3e",
+
+  "@media screen and (max-width: 900px)": {
+    padding: "1.5rem 2rem",
+  },
 }));
 
 export const ListHeader = styled(ListSubheader)(() => ({
   fontSize: "1em",
   fontWeight: "500",
+  lineHeight: "20px",
+
+  marginBlock: "1rem",
+  padding: "0",
 
   backgroundColor: "transparent",
   color: "white",
@@ -33,6 +41,15 @@ export const ListsDisplayContainer = styled(Box)(() => ({
 
   width: "90%",
   maxWidth: "1300px",
+
+  "@media screen and (max-width: 900px)": {
+    justifyContent: "center",
+  },
+}));
+
+export const ListsGrid = styled(Grid)(() => ({
+  columnGap: "2rem",
+  rowGap: "2rem",
 
   "@media screen and (max-width: 900px)": {
     justifyContent: "center",
