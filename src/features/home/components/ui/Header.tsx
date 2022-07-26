@@ -22,7 +22,7 @@ export const Header = () => {
 
   return (
     <HeaderContainer>
-      <Typography variant="h5">Welcome !</Typography>
+      <Typography variant="h5">Welcome to Words2Go !</Typography>
       <List sx={{ padding: "0", zIndex: "0" }}>
         <ListHeader disableSticky={true}>
           Get started in a few steps:
@@ -62,7 +62,9 @@ export const Header = () => {
               <LightbulbSharpIcon />
             </Avatar>
           </ListItemAvatar>
-          <Typography>Learn your vocabulary with some fun practice</Typography>
+          <Typography>
+            Learn your vocabulary with some fun practice (coming soon)
+          </Typography>
         </ListItem>
       </List>
     </HeaderContainer>

@@ -1,17 +1,23 @@
 import ReactDOM from "react-dom/client";
 import AppProviders from "./context/AppProviders";
 
-import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 
 import App from "./App";
 import "./assets/global.css";
+
 import { BrowserRouter } from "react-router-dom";
 
 let theme = createTheme({
   typography: {
-    fontFamily: "Roboto",
+    fontFamily: `"Roboto", "DotGothic16"`,
   },
 });
+
 theme = responsiveFontSizes(theme);
 
 const root = ReactDOM.createRoot(
@@ -19,11 +25,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <BrowserRouter>
-    <AppProviders>
-      <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <AppProviders>
         <App />
-      </ThemeProvider>
-    </AppProviders>
-  </BrowserRouter>
+      </AppProviders>
+    </BrowserRouter>
+  </ThemeProvider>
 );

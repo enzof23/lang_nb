@@ -51,7 +51,12 @@ export const WordInput = ({ ...props }) => {
           <WordInputDesc>translation</WordInputDesc>
         </Grid>
         <Grid item xs={12} sm={1}>
-          <WordInputButton type="submit" variant="contained" onClick={addWord}>
+          <WordInputButton
+            type="submit"
+            variant="contained"
+            onClick={addWord}
+            disabled={!word || !translation}
+          >
             add
           </WordInputButton>
         </Grid>

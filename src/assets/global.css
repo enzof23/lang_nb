@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DotGothic16&display=swap");
 
 /* Box sizing rules */
 *,
@@ -40,8 +42,7 @@ body {
   line-height: 1.5;
 
   background-color: #0a082d;
-  /* background-color: #3d4870; */
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", "Press Start 2P", sans-serif;
 }
 
 /* Make images easier to work with */

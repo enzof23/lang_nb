@@ -13,7 +13,6 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
-import { useListContext } from "../../../context/ListContext";
 
 export type UserInfo = {
   id: string;

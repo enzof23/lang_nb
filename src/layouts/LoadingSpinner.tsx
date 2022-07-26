@@ -1,4 +1,4 @@
-import { SemipolarSpinner } from "react-epic-spinners";
+import { SemipolarSpinner, HalfCircleSpinner } from "react-epic-spinners";
 
 export const LoadingSpinner = () => {
   return (
@@ -11,7 +11,7 @@ export const LoadingSpinner = () => {
         justifyContent: "center",
       }}
     >
-      <SemipolarSpinner />;
+      <HalfCircleSpinner color="#fecd1f" />;
     </div>
   );
 };

@@ -1,13 +1,16 @@
 import { useAuthContext } from "../features/authentication/context/AuthContext";
 
-import { Avatar, SpeedDial, SpeedDialAction, Typography } from "@mui/material";
-import { NavbarContainer } from "../mui_styles/styles";
-
 import {
-  IoExitOutline,
-  IoSettingsOutline,
-  IoPersonOutline,
-} from "react-icons/io5";
+  Avatar,
+  Box,
+  SpeedDial,
+  SpeedDialAction,
+  Typography,
+} from "@mui/material";
+import { NavbarContainer } from "../mui_styles/styles";
+import StyleIcon from "@mui/icons-material/Style";
+
+import { IoExitOutline, IoPersonOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useListContext } from "../context/ListContext";
 
@@ -24,7 +27,9 @@ export const Navbar: React.FC = () => {
       sx={{ width: "100%", height: "100%" }}
     />
   ) : (
-    <IoPersonOutline style={{ width: "50%", height: "50%" }} />
+    <IoPersonOutline
+      style={{ width: "50%", height: "50%", color: "#0a082d" }}
+    />
   );
 
   const actions = [
@@ -43,13 +48,28 @@ export const Navbar: React.FC = () => {
 
   return (
     <NavbarContainer>
-      <Typography
-        variant="h5"
-        sx={{ cursor: "pointer" }}
-        onClick={() => navigate("/")}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          columnGap: "0.5rem",
+          cursor: "pointer",
+        }}
       >
-        Language Notebook
-      </Typography>
+        <StyleIcon sx={{ fontSize: "1.5rem" }} />
+
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "700",
+            letterSpacing: "0.1rem",
+          }}
+          onClick={() => navigate("/")}
+        >
+          Words2Go
+        </Typography>
+      </Box>
+
       <SpeedDial
         ariaLabel="Profile Menu"
         direction="down"
@@ -61,7 +81,12 @@ export const Navbar: React.FC = () => {
           marginRight: "1rem",
         }}
         FabProps={{
-          sx: { height: "38px", width: "38px" },
+          sx: {
+            height: "38px",
+            width: "38px",
+            backgroundColor: "#fecd1f",
+            "&:hover": { backgroundColor: "#deb31b" },
+          },
         }}
         icon={userImage}
       >
