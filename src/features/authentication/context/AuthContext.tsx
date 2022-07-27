@@ -18,7 +18,6 @@ export type UserInfo = {
   id: string;
   name: string | null;
   photo?: string | null;
-  isLogged: boolean;
 };
 
 type Credentials = {
@@ -85,7 +84,7 @@ const passwordForgotten = async (email: string) => {
   }
 };
 
-const useAuth = (initial: UserInfo = { id: "", name: "", isLogged: false }) => {
+const useAuth = (initial: UserInfo = { id: "", name: "" }) => {
   const [userInfo, setUserInfo] = useState<UserInfo>(initial);
 
   return {

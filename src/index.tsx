@@ -11,6 +11,8 @@ import App from "./App";
 import "./assets/global.css";
 
 import { BrowserRouter } from "react-router-dom";
+import { Suspense } from "react";
+import { LoadingSpinner } from "./layouts";
 
 let theme = createTheme({
   typography: {
@@ -28,7 +30,9 @@ root.render(
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <AppProviders>
-        <App />
+        <Suspense fallback={<LoadingSpinner />}>
+          <App />
+        </Suspense>
       </AppProviders>
     </BrowserRouter>
   </ThemeProvider>

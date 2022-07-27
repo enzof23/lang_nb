@@ -1,70 +1,47 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "./firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useAuthContext } from "./features/authentication/context/AuthContext";
+import { suspend } from "suspend-react";
 
-import { LoadingSpinner } from "./layouts/index";
+const AuthenticatedApp = lazy(() => import("./pages/AuthenticatedApp"));
+const Authentication = lazy(() => import("./pages/Authentication"));
 
-// const AuthenticatedApp = lazy(
-//   () => import("./pages/auth-app/AuthenticatedApp")
-// );
-// const Authentication = lazy(
-//   () => import("./pages/Authentication")
-// );
-
-const AuthenticatedApp = lazy(async () => {
-  return Promise.all([
-    import("./pages/AuthenticatedApp"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
-
-const Authentication = lazy(async () => {
-  return Promise.all([
-    import("./pages/Authentication"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
+const getInitialAuth = async () => {
+  return new Promise((resolve) => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      resolve(user);
+      unsub();
+    });
+  });
+};
 
 const App: React.FC = () => {
   const navigate = useNavigate();
+  const { setUserInfo } = useAuthContext();
 
-  const { userInfo, setUserInfo } = useAuthContext();
-  const { isLogged } = userInfo;
+  const initialUser = suspend(getInitialAuth, ["initialAuth"]);
+  const [currentUser, setCurrentUser] = useState(initialUser);
 
   useEffect(() => {
-    const authCheck = onAuthStateChanged(auth, (user) => {
+    return onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+
       if (user) {
         setUserInfo({
           id: user.uid,
           name: user.displayName,
           photo: user.photoURL,
-          isLogged: true,
-        });
-      } else {
-        setUserInfo({
-          id: "",
-          name: "",
-          photo: "",
-          isLogged: false,
         });
       }
+
       navigate("/");
     });
-    return () => authCheck();
-  }, [auth]);
+  }, []);
 
-  return isLogged ? (
-    <Suspense fallback={<LoadingSpinner />}>
-      <AuthenticatedApp />
-    </Suspense>
-  ) : (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Authentication />
-    </Suspense>
-  );
+  return currentUser ? <AuthenticatedApp /> : <Authentication />;
 };
 
 export default App;

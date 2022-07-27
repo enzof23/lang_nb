@@ -9,7 +9,7 @@ import { Header, ListDisplay } from "../../features/home/components";
 
 export const Home: React.FC = () => {
   const { userInfo } = useAuthContext();
-  const { getAllLists } = useListContext();
+  const { getAllLists, list } = useListContext();
 
   useEffect(() => {
     if (userInfo.id) {

@@ -47,7 +47,7 @@ const Authentication = () => {
       <SignUpContainer item xs={12} md={6.5}>
         <Box sx={{ maxWidth: "650px" }}>
           <Typography variant="h4">
-            Organize and practice your vocabulary all in one place.
+            Organize and practice your vocabulary studies all in one place.
           </Typography>
 
           <Typography variant="body1">

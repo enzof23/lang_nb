@@ -46,6 +46,8 @@ const getListByTitle = async (userID: string, title: string) => {
   } else {
     alert(`an error has occured`);
   }
+
+  return list;
 };
 
 const addWordContextList = (
