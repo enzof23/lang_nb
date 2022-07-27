@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { HalfCircleSpinner } from "react-epic-spinners";
-import StyleIcon from "@mui/icons-material/Style";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
-export const LoadingSpinner = () => {
+export const Error = () => {
   return (
     <div
       style={{
@@ -16,7 +16,7 @@ export const LoadingSpinner = () => {
         justifyContent: "center",
         rowGap: "3rem",
 
-        color: "white",
+        color: "#c42f2f",
       }}
     >
       <Box
@@ -26,10 +26,8 @@ export const LoadingSpinner = () => {
           columnGap: "0.5rem",
         }}
       >
-        <StyleIcon sx={{ fontSize: "2.5rem" }} />
-        <Typography variant="h3" sx={{ fontWeight: 700 }}>
-          Words2Go
-        </Typography>
+        <ErrorOutlineIcon sx={{ fontSize: "2.5rem", color: "#c42f2f" }} />
+        <Typography variant="h3">An error has occured</Typography>
       </Box>
       <HalfCircleSpinner color="#fecd1f" />
     </div>

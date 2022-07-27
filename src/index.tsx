@@ -12,7 +12,8 @@ import "./assets/global.css";
 
 import { BrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
-import { LoadingSpinner } from "./layouts";
+import { Error, LoadingSpinner } from "./layouts";
+import { ErrorBoundary } from "react-error-boundary";
 
 let theme = createTheme({
   typography: {
@@ -28,12 +29,14 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <AppProviders>
-        <Suspense fallback={<LoadingSpinner />}>
-          <App />
-        </Suspense>
-      </AppProviders>
-    </BrowserRouter>
+    <ErrorBoundary fallback={<Error />}>
+      <Suspense fallback={<LoadingSpinner />}>
+        <BrowserRouter>
+          <AppProviders>
+            <App />
+          </AppProviders>
+        </BrowserRouter>
+      </Suspense>
+    </ErrorBoundary>
   </ThemeProvider>
 );
