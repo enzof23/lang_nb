@@ -31,9 +31,11 @@ const getAllLists = async (id: string) => {
   let arrLists: ArrList[] = [];
 
   const userDocs = await getDocs(collection(database, id));
+
   userDocs.forEach((doc) => {
     arrLists.push({ listTitle: doc.id, words: doc.data().word });
   });
+
   return arrLists;
 };
 
@@ -77,7 +79,7 @@ const useCreateList = (initial: Title = "") => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { userInfo } = useAuthContext();
-  const id = userInfo.id;
+  const userID = userInfo.id;
 
   return {
     noLists,
@@ -98,21 +100,26 @@ const useCreateList = (initial: Title = "") => {
 
     // fetch ALL lists from firebase
     getAllLists: async () => {
-      const newList = await getAllLists(id);
-      if (newList.length === 0) {
-        setNoLists(true);
-      } else {
-        setAllListsArr(newList);
-        setNoLists(false);
+      try {
+        if (userID) {
+          const newList = await getAllLists(userID);
+          if (newList.length === 0) {
+            setNoLists(true);
+          } else {
+            setAllListsArr(newList);
+            setNoLists(false);
+          }
+        }
+      } catch (err) {
+        console.error(err);
       }
     },
 
     // get single list by title
-    getListByTitle: async (listTitle: string) => {
+    getListByTitle: async (id: string, listTitle: string) => {
       const listReturned = await getListByTitle(id, listTitle);
       setTitle(listTitle);
       setList(listReturned);
-      navigate("/list");
     },
 
     // add words & translation from new word input to the list array
@@ -125,7 +132,7 @@ const useCreateList = (initial: Title = "") => {
 
     // saves the list to firebase
     saveListFirebase: () => {
-      setDoc(doc(database, id, title), { word: list }).then(() =>
+      setDoc(doc(database, userID, title), { word: list }).then(() =>
         console.log("list created")
       );
 
@@ -140,13 +147,13 @@ const useCreateList = (initial: Title = "") => {
 
     updateListFirebase: () => {
       console.log(list);
-      updateDoc(doc(database, id, title), {
+      updateDoc(doc(database, userID, title), {
         word: list,
       }).then(() => console.log("words added"));
     },
 
     deleteList: (title: string) => {
-      deleteDoc(doc(database, id, title)).then(() =>
+      deleteDoc(doc(database, userID, title)).then(() =>
         console.log("list deleted")
       );
       setList([]);
@@ -154,7 +161,7 @@ const useCreateList = (initial: Title = "") => {
     },
 
     removeWord: ({ wordID, word, translation }: Word) => {
-      updateDoc(doc(database, id, title), {
+      updateDoc(doc(database, userID, title), {
         word: arrayRemove({
           word,
           translation,

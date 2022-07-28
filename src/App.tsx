@@ -27,8 +27,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-
       if (user) {
         setUserInfo({
           id: user.uid,
@@ -36,6 +34,8 @@ const App: React.FC = () => {
           photo: user.photoURL,
         });
       }
+
+      setCurrentUser(user);
 
       navigate("/");
     });

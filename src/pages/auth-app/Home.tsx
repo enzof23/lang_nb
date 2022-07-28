@@ -1,26 +1,18 @@
-import { useEffect } from "react";
-
-import { useListContext } from "../../context/ListContext";
-import { useAuthContext } from "../../features/authentication/context/AuthContext";
-
-import { PageWrapper } from "../../layouts";
-
-import { Header, ListDisplay } from "../../features/home/components";
+import { LoadingSpinner, PageWrapper } from "../../layouts";
+import { Header, ListsDisplay } from "../../features/home/components";
+import { ListsDisplayContainer } from "../../features/home/mui_styled/styles";
+import { Suspense } from "react";
+import { FetchingLists } from "../../features/home/components/ui/ListsDisplay";
+import { Typography } from "@mui/material";
 
 export const Home: React.FC = () => {
-  const { userInfo } = useAuthContext();
-  const { getAllLists, list } = useListContext();
-
-  useEffect(() => {
-    if (userInfo.id) {
-      getAllLists();
-    }
-  }, [userInfo]);
-
   return (
     <PageWrapper paddingLeft="7rem">
       <Header />
-      <ListDisplay />
+
+      <ListsDisplayContainer>
+        <ListsDisplay />
+      </ListsDisplayContainer>
     </PageWrapper>
   );
 };

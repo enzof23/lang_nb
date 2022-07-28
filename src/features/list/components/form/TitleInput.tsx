@@ -20,6 +20,7 @@ export const TitleInput: React.FC<Props> = ({ setHasTitle }) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setTitle(newTitle);
+    // setTitle(newTitle.toLowerCase().split(" ").join("_"));
     setHasTitle(true);
   };
 

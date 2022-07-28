@@ -9,7 +9,7 @@ function AuthenticatedApp() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create-list" element={<CreateList />} />
-        <Route path="/list" element={<ListPage />} />
+        <Route path={`/list/:userID/:title`} element={<ListPage />} />
       </Routes>
     </>
   );
