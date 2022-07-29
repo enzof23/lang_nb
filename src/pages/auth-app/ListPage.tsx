@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiOutlineDelete } from "react-icons/ai";
 
 import { useListContext } from "../../context/ListContext";
 
-import { Box, Collapse, IconButton, Typography } from "@mui/material";
 import { PageWrapper } from "../../layouts";
+import { Box, Collapse, Typography } from "@mui/material";
 import {
   WordInput,
   WordsGrid,
-  AddButton,
   CancelButton,
   DoneButton,
+  DeleteModal,
+  ListMenu,
 } from "../../features/list/components";
 import {
   ListDisplayBox,
@@ -24,19 +24,14 @@ import { HalfCircleSpinner } from "react-epic-spinners";
 
 export const ListPage = () => {
   const navigate = useNavigate();
-  const {
-    list,
-    listFetched,
-    isAddingWords,
-    deleteList,
-    getListByTitle,
-    setListFetched,
-  } = useListContext();
+  const { list, listFetched, isAddingWords, getListByTitle, setListFetched } =
+    useListContext();
 
   const { userID, title } = useParams();
   const titleDisplay = title?.replace(/_/g, " ");
 
   const [listUpdated, setListUpdated] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   useEffect(() => {
     setListFetched(false);
@@ -53,72 +48,63 @@ export const ListPage = () => {
   }
 
   return (
-    <PageWrapper paddingLeft="10rem">
-      <PracticeContainer>Practice coming soon</PracticeContainer>
+    <>
+      {deleteModal ? <DeleteModal setDeleteModal={setDeleteModal} /> : null}
+      <PageWrapper paddingLeft="10rem">
+        <PracticeContainer>Practice coming soon</PracticeContainer>
 
-      <ListPageContainer>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <ListPageHeader>
-            <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
-              {titleDisplay}
-            </Typography>
-            <Box>
+        <ListPageContainer>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <ListPageHeader>
+              <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
+                {titleDisplay}
+              </Typography>
+
               {!isAddingWords ? (
-                <AddButton />
+                <ListMenu setDeleteModal={setDeleteModal} />
               ) : (
                 <CancelButton listUpdated={listUpdated} />
               )}
-              <IconButton
-                color="error"
-                aria-label="delete word"
-                onClick={() => {
-                  if (title) {
-                    deleteList(title);
-                  } else {
-                    alert("Couldn't delete list, please try again");
-                  }
-                }}
-              >
-                <AiOutlineDelete />
-              </IconButton>
-            </Box>
-          </ListPageHeader>
-          <Collapse in={isAddingWords}>
-            <WordInput fct={() => setListUpdated(true)} />
-          </Collapse>
-          <Collapse in={listUpdated}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <DoneButton setListUpdated={setListUpdated} />
-            </Box>
-          </Collapse>
-        </Box>
-        {list.length === 0 ? (
-          <Typography variant="h6" sx={{ alignSelf: "center" }}>
-            Your list "{titleDisplay}" is empty
-          </Typography>
-        ) : (
-          <ListDisplayBox>
-            {list.map((e) => {
-              const { wordID, word, translation } = e;
-              return (
-                <WordsGrid
-                  key={wordID}
-                  word={word}
-                  translation={translation}
-                  wordID={wordID}
-                  fct={() => setListUpdated(true)}
-                />
-              );
-            })}
-          </ListDisplayBox>
-        )}
-      </ListPageContainer>
-    </PageWrapper>
+            </ListPageHeader>
+
+            <Collapse in={isAddingWords}>
+              <WordInput fct={() => setListUpdated(true)} />
+            </Collapse>
+
+            <Collapse in={listUpdated}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <DoneButton setListUpdated={setListUpdated} />
+              </Box>
+            </Collapse>
+          </Box>
+          {list.length === 0 ? (
+            <Typography variant="h6" sx={{ alignSelf: "center" }}>
+              Your list "{titleDisplay}" is empty
+            </Typography>
+          ) : (
+            <ListDisplayBox>
+              {list.map((e) => {
+                const { wordID, word, translation } = e;
+                return (
+                  <WordsGrid
+                    key={wordID}
+                    word={word}
+                    translation={translation}
+                    wordID={wordID}
+                    fct={() => setListUpdated(true)}
+                  />
+                );
+              })}
+            </ListDisplayBox>
+          )}
+        </ListPageContainer>
+      </PageWrapper>
+    </>
   );
 };
 

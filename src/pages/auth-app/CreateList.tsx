@@ -37,13 +37,7 @@ export const CreateList = () => {
       </Collapse>
 
       <Collapse in={hasTitle} sx={{ width: "90%", maxWidth: "900px" }}>
-        <Typography
-          variant="h5"
-          sx={{
-            marginBottom: "1.5rem",
-            textTransform: "uppercase",
-          }}
-        >
+        <Typography variant="h5" sx={{ textTransform: "uppercase" }}>
           {title}
         </Typography>
 

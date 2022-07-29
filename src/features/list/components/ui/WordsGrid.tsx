@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton } from "@mui/material";
+import { Button, Grid, IconButton, Tooltip } from "@mui/material";
 import { useListContext } from "../../../../context/ListContext";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
@@ -70,21 +70,25 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
         {translation}
       </Grid>
       <Grid item>
-        <IconButton
-          color="success"
-          sx={{ padding: "0" }}
-          onClick={() => handleEdit()}
-        >
-          <AiOutlineEdit />
-        </IconButton>
-        <IconButton
-          color="error"
-          aria-label="delete word"
-          sx={{ padding: "0 0 0 0.75rem" }}
-          onClick={() => deleteWord(wordID)}
-        >
-          <AiOutlineDelete />
-        </IconButton>
+        <Tooltip title="edit" arrow>
+          <IconButton
+            color="success"
+            sx={{ padding: "0", marginRight: "0.5rem" }}
+            onClick={() => handleEdit()}
+          >
+            <AiOutlineEdit />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="delete" arrow>
+          <IconButton
+            color="error"
+            aria-label="delete word"
+            sx={{ padding: "0" }}
+            onClick={() => deleteWord(wordID)}
+          >
+            <AiOutlineDelete />
+          </IconButton>
+        </Tooltip>
       </Grid>
     </WordGridContainer>
   );

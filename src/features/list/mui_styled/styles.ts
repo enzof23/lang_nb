@@ -50,7 +50,7 @@ export const WordInputContainer = styled(Grid)(() => ({
   justifyContent: "space-between",
   alignItems: "center",
 
-  marginBottom: "2rem",
+  marginBlock: "1.5rem",
   padding: "3rem 1.5rem",
   borderRadius: "7px",
 
@@ -145,7 +145,7 @@ export const ListPageContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
 
-  rowGap: "1rem",
+  rowGap: "1.5rem",
 
   width: "90%",
   maxWidth: "900px",
@@ -157,7 +157,6 @@ export const ListPageHeader = styled(Box)(() => ({
   justifyContent: "space-between",
 
   paddingLeft: "1rem",
-  marginBottom: "1rem",
 }));
 
 export const PracticeContainer = styled(Box)(() => ({
@@ -183,4 +182,43 @@ export const LoadingContainer = styled(Box)(() => ({
   height: "50vh",
   width: "100%",
   maxWidth: "900px",
+}));
+
+// DeleteModal
+
+export const DeleteModalContainer = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100vw",
+  height: "100vh",
+  zIndex: "1000",
+  position: "absolute",
+  backgroundColor: "rgba(255, 255, 255, 0.25)",
+  backdropFilter: "blur(4px)",
+}));
+
+export const DeleteModalBox = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  rowGap: "1rem",
+  width: "90%",
+  maxWidth: "420px",
+  padding: "2rem",
+  borderRadius: "7px",
+  backgroundColor: "#0f0c41",
+  color: "white",
+}));
+
+export const DeleteModalButton = styled(Button)(() => ({
+  color: "#fecd1f",
+  borderColor: "#fecd1f",
+
+  "&:hover": {
+    borderColor: "#fecd1f",
+    backgroundColor: "#fecd1f",
+    color: "#0f0c41",
+  },
 }));

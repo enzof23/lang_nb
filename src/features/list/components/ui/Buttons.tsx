@@ -3,26 +3,13 @@ import { useListContext } from "../../../../context/ListContext";
 import { Button } from "@mui/material";
 import { LargeGreenButton } from "../../mui_styled/styles";
 
-export const AddButton = () => {
-  const { setIsAddingWords } = useListContext();
-  return (
-    <Button
-      variant="text"
-      onClick={() => {
-        setIsAddingWords(true);
-      }}
-    >
-      add words
-    </Button>
-  );
-};
-
 export const CancelButton = ({ listUpdated }: { listUpdated: boolean }) => {
   const { setIsAddingWords } = useListContext();
 
   return listUpdated ? null : (
     <Button
       variant="text"
+      sx={{ padding: "0", height: "32px", color: "#fecd1f" }}
       onClick={() => {
         setIsAddingWords(false);
       }}

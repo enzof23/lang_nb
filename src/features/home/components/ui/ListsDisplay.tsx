@@ -16,6 +16,10 @@ export const ListsDisplay = () => {
     getAllLists();
   }, [userInfo]);
 
+  if (noLists) {
+    return <ListsFetchedEmpty />;
+  }
+
   if (allListsArr.length === 0) {
     return (
       <>
@@ -24,8 +28,6 @@ export const ListsDisplay = () => {
         ))}
       </>
     );
-  } else if (noLists) {
-    return <ListsFetchedEmpty />;
   } else {
     return (
       <>

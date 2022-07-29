@@ -31,7 +31,6 @@ const getAllLists = async (id: string) => {
   let arrLists: ArrList[] = [];
 
   const userDocs = await getDocs(collection(database, id));
-
   userDocs.forEach((doc) => {
     arrLists.push({ listTitle: doc.id, words: doc.data().word });
   });
@@ -105,18 +104,14 @@ const useListHook = (initial: Title = "") => {
 
     // fetch ALL lists from firebase
     getAllLists: async () => {
-      try {
-        if (userID) {
-          const newList = await getAllLists(userID);
-          if (newList.length === 0) {
-            setNoLists(true);
-          } else {
-            setAllListsArr(newList);
-            setNoLists(false);
-          }
+      if (userID) {
+        const newList = await getAllLists(userID);
+        if (newList.length === 0) {
+          setNoLists(true);
+        } else {
+          setAllListsArr(newList);
+          setNoLists(false);
         }
-      } catch (err) {
-        console.error(err);
       }
     },
 
