@@ -174,3 +174,13 @@ export const PracticeContainer = styled(Box)(() => ({
 
   backgroundColor: "#2e3756",
 }));
+
+export const LoadingContainer = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  height: "50vh",
+  width: "100%",
+  maxWidth: "900px",
+}));

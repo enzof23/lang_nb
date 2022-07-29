@@ -64,7 +64,7 @@ const addWordContextList = (
   },
 ];
 
-const useCreateList = (initial: Title = "") => {
+const useListHook = (initial: Title = "") => {
   const navigate = useNavigate();
 
   const [noLists, setNoLists] = useState<boolean>(false);
@@ -75,6 +75,7 @@ const useCreateList = (initial: Title = "") => {
 
   const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
+  const [listFetched, setListFetched] = useState<boolean>(false);
   const [isAddingWords, setIsAddingWords] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -83,6 +84,7 @@ const useCreateList = (initial: Title = "") => {
 
   return {
     noLists,
+    setNoLists,
 
     title,
     setTitle,
@@ -97,6 +99,9 @@ const useCreateList = (initial: Title = "") => {
     setIsAddingWords,
     isEditing,
     setIsEditing,
+
+    listFetched,
+    setListFetched,
 
     // fetch ALL lists from firebase
     getAllLists: async () => {
@@ -117,9 +122,14 @@ const useCreateList = (initial: Title = "") => {
 
     // get single list by title
     getListByTitle: async (id: string, listTitle: string) => {
-      const listReturned = await getListByTitle(id, listTitle);
-      setTitle(listTitle);
-      setList(listReturned);
+      try {
+        const listReturned = await getListByTitle(id, listTitle);
+        setTitle(listTitle);
+        setList(listReturned);
+        setListFetched(true);
+      } catch (err) {
+        alert(`An error has occured: ${err}`);
+      }
     },
 
     // add words & translation from new word input to the list array
@@ -152,14 +162,6 @@ const useCreateList = (initial: Title = "") => {
       }).then(() => console.log("words added"));
     },
 
-    deleteList: (title: string) => {
-      deleteDoc(doc(database, userID, title)).then(() =>
-        console.log("list deleted")
-      );
-      setList([]);
-      navigate("/");
-    },
-
     removeWord: ({ wordID, word, translation }: Word) => {
       updateDoc(doc(database, userID, title), {
         word: arrayRemove({
@@ -170,28 +172,33 @@ const useCreateList = (initial: Title = "") => {
       }).then(() => console.log("word removed"));
     },
 
-    // delete list from firebase
+    deleteList: (title: string) => {
+      deleteDoc(doc(database, userID, title)).then(() =>
+        console.log("list deleted")
+      );
+      setList([]);
+      navigate("/");
+    },
 
+    // reset all states when going back to home page or logging out
+    // noLists and allListsArr aren't reset on home page load because states have to remain througout the session and online reset on log out
     resetListContext: () => {
       setList([]);
-      setAllListsArr([]);
-      setNoLists(false);
       setTitle(initial);
+      setListFetched(false);
       setIsAddingWords(false);
       setIsEditing(false);
     },
   };
 };
 
-const ListContext = createContext<ReturnType<typeof useCreateList> | null>(
-  null
-);
+const ListContext = createContext<ReturnType<typeof useListHook> | null>(null);
 
 export const useListContext = () => useContext(ListContext)!;
 
 export const ListProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <ListContext.Provider value={useCreateList()}>
+    <ListContext.Provider value={useListHook()}>
       {children}
     </ListContext.Provider>
   );

@@ -1,11 +1,15 @@
-import { LoadingSpinner, PageWrapper } from "../../layouts";
+import { PageWrapper } from "../../layouts";
 import { Header, ListsDisplay } from "../../features/home/components";
 import { ListsDisplayContainer } from "../../features/home/mui_styled/styles";
-import { Suspense } from "react";
-import { FetchingLists } from "../../features/home/components/ui/ListsDisplay";
-import { Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useListContext } from "../../context/ListContext";
 
 export const Home: React.FC = () => {
+  const { resetListContext } = useListContext();
+
+  useEffect(() => {
+    resetListContext();
+  }, []);
   return (
     <PageWrapper paddingLeft="7rem">
       <Header />
