@@ -18,9 +18,9 @@ import {
 export const CreateList = () => {
   const [hasTitle, setHasTitle] = useState<boolean>(false);
 
-  const { title, list, saveListFirebase } = useListContext();
+  const { list, saveListFirebase } = useListContext();
 
-  const listHasWords = list.length > 0;
+  const listHasWords = list.words.length > 0;
 
   return (
     <PageWrapper paddingLeft="10rem">
@@ -38,10 +38,10 @@ export const CreateList = () => {
 
       <Collapse in={hasTitle} sx={{ width: "90%", maxWidth: "900px" }}>
         <Typography variant="h5" sx={{ textTransform: "uppercase" }}>
-          {title}
+          {list.title}
         </Typography>
 
-        <WordInput fct={() => console.log("word added")} />
+        <WordInput fct={() => null} />
 
         <Collapse in={listHasWords}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -53,7 +53,7 @@ export const CreateList = () => {
             </LargeGreenButton>
 
             <ListDisplayBox>
-              {list.map((e) => {
+              {list.words.map((e) => {
                 const { wordID, word, translation } = e;
                 return (
                   <WordsGrid

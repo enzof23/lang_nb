@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useListContext } from "../../../../context/ListContext";
+import { initialList, useListContext } from "../../../../context/ListContext";
 import { useAuthContext } from "../../../authentication/context/AuthContext";
 
 import { AiOutlinePlus } from "react-icons/ai";
@@ -64,15 +64,15 @@ export const ListsFetched = () => {
   return (
     <>
       {allListsArr.map((list) => {
-        const { listTitle, words } = list;
+        const { listID, listTitle, words } = list;
         const titleStringDisplay = listTitle.replace(/_/g, " ");
 
         return (
           <ListBox
             item
-            key={listTitle}
+            key={listID}
             sx={{ textTransform: "uppercase" }}
-            onClick={() => navigate(`list/${userInfo.id}/${listTitle}`)}
+            onClick={() => navigate(`list/${userInfo.id}/${listID}`)}
           >
             <Typography variant="body1">{titleStringDisplay}</Typography>
             <Typography variant="caption" sx={{ color: "#969ab0" }}>
@@ -86,15 +86,14 @@ export const ListsFetched = () => {
 };
 
 export const ListsFetchedEmpty = () => {
-  const { setTitle, setList } = useListContext();
+  const { setList } = useListContext();
   const navigate = useNavigate();
 
   return (
     <Typography
       variant="h5"
       onClick={() => {
-        setTitle("");
-        setList([]);
+        setList(initialList);
         navigate("/create-list");
       }}
       sx={{

@@ -27,8 +27,7 @@ export const ListPage = () => {
   const { list, listFetched, isAddingWords, getListByTitle, setListFetched } =
     useListContext();
 
-  const { userID, title } = useParams();
-  const titleDisplay = title?.replace(/_/g, " ");
+  const { userID, listID } = useParams();
 
   const [listUpdated, setListUpdated] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
@@ -36,12 +35,12 @@ export const ListPage = () => {
   useEffect(() => {
     setListFetched(false);
 
-    if (userID && title) {
-      getListByTitle(userID, title);
+    if (userID && listID) {
+      getListByTitle(userID, listID);
     } else {
       navigate("/");
     }
-  }, [title]);
+  }, [listID]);
 
   if (!listFetched) {
     return <ListPageLoading />;
@@ -62,7 +61,7 @@ export const ListPage = () => {
           >
             <ListPageHeader>
               <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
-                {titleDisplay}
+                {list.title}
               </Typography>
 
               {!isAddingWords ? (
@@ -82,13 +81,13 @@ export const ListPage = () => {
               </Box>
             </Collapse>
           </Box>
-          {list.length === 0 ? (
+          {list.words.length === 0 ? (
             <Typography variant="h6" sx={{ alignSelf: "center" }}>
-              Your list "{titleDisplay}" is empty
+              Your list "{list.title.toUpperCase()}" is empty
             </Typography>
           ) : (
             <ListDisplayBox>
-              {list.map((e) => {
+              {list.words.map((e) => {
                 const { wordID, word, translation } = e;
                 return (
                   <WordsGrid
@@ -109,9 +108,6 @@ export const ListPage = () => {
 };
 
 export const ListPageLoading = () => {
-  const { title } = useParams();
-  const titleDisplay = title?.replace(/_/g, " ");
-
   return (
     <PageWrapper paddingLeft="10rem">
       <PracticeContainer>Practice coming soon</PracticeContainer>
@@ -122,13 +118,7 @@ export const ListPageLoading = () => {
             display: "flex",
             flexDirection: "column",
           }}
-        >
-          <ListPageHeader>
-            <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
-              {titleDisplay}
-            </Typography>
-          </ListPageHeader>
-        </Box>
+        ></Box>
 
         <LoadingContainer>
           <HalfCircleSpinner color="#fecd1f" />

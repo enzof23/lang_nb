@@ -15,12 +15,11 @@ type Props = {
 
 export const TitleInput: React.FC<Props> = ({ setHasTitle }) => {
   const [newTitle, setNewTitle] = useState<string>("");
-  const { setTitle } = useListContext();
+  const { setList } = useListContext();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setTitle(newTitle);
-    // setTitle(newTitle.toLowerCase().split(" ").join("_"));
+    setList({ title: newTitle, words: [] });
     setHasTitle(true);
   };
 

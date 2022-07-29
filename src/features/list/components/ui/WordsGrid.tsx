@@ -17,7 +17,6 @@ type Props = {
 
 export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  // const { word, wordID, translation, fct } = props;
 
   const [newWord, setNewWord] = useState<string>(word);
   const [newTranslation, setNewTranslation] = useState<string>(translation);
@@ -31,20 +30,20 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   };
 
   const handleEditDone = (id: string) => {
-    const newList = list.map((word) => {
+    const newList = list.words.map((word) => {
       if (word.wordID === id) {
         return { wordID, word: newWord, translation: newTranslation };
       } else return word;
     });
 
-    setList(newList);
+    setList({ title: list.title, words: newList });
     setIsEditing(false);
     fct();
   };
 
   const deleteWord = (id: string) => {
-    const newList = list.filter((word) => word.wordID !== id);
-    setList(newList);
+    const newList = list.words.filter((word) => word.wordID !== id);
+    setList({ title: list.title, words: newList });
     fct();
   };
 

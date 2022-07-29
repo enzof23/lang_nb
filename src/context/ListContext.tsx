@@ -3,7 +3,6 @@ import { useAuthContext } from "../features/authentication/context/AuthContext";
 
 import { database } from "../firebase/firebase-config";
 import {
-  arrayRemove,
   collection,
   deleteDoc,
   doc,
@@ -14,36 +13,49 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-type Title = string;
-
-export type Word = {
+type Word = {
   wordID: string;
   word: string;
   translation: string;
 };
 
-type ArrList = {
-  listTitle: Title;
+type List = {
+  title: string;
   words: Word[];
 };
+
+type ArrList = {
+  listID: string;
+  listTitle: string;
+  words: Word[];
+};
+
+export const initialList = { title: "", words: [] };
 
 const getAllLists = async (id: string) => {
   let arrLists: ArrList[] = [];
 
   const userDocs = await getDocs(collection(database, id));
   userDocs.forEach((doc) => {
-    arrLists.push({ listTitle: doc.id, words: doc.data().word });
+    arrLists.push({
+      listID: doc.id,
+      listTitle: doc.data().title,
+      words: doc.data().words,
+    });
   });
 
   return arrLists;
 };
 
-const getListByTitle = async (userID: string, title: string) => {
-  let list;
+const getListByTitle = async (userID: string, listID: string) => {
+  let list = initialList;
 
-  const userList = await getDoc(doc(database, userID, title));
+  const userList = await getDoc(doc(database, userID, listID));
   if (userList.exists()) {
-    return (list = userList.data().word);
+    return (list = {
+      title: userList.data().title,
+      words: userList.data().words,
+    });
   } else {
     alert(`an error has occured`);
   }
@@ -63,14 +75,12 @@ const addWordContextList = (
   },
 ];
 
-const useListHook = (initial: Title = "") => {
+const useListHook = () => {
   const navigate = useNavigate();
 
   const [noLists, setNoLists] = useState<boolean>(false);
 
-  const [title, setTitle] = useState<Title>(initial);
-
-  const [list, setList] = useState<Word[]>([]);
+  const [list, setList] = useState<List>(initialList);
 
   const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
@@ -84,9 +94,6 @@ const useListHook = (initial: Title = "") => {
   return {
     noLists,
     setNoLists,
-
-    title,
-    setTitle,
 
     list,
     setList,
@@ -119,7 +126,6 @@ const useListHook = (initial: Title = "") => {
     getListByTitle: async (id: string, listTitle: string) => {
       try {
         const listReturned = await getListByTitle(id, listTitle);
-        setTitle(listTitle);
         setList(listReturned);
         setListFetched(true);
       } catch (err) {
@@ -129,57 +135,52 @@ const useListHook = (initial: Title = "") => {
 
     // add words & translation from new word input to the list array
     // this does not add the word to a firebase list
-    addWordContextList: ({ wordID, word, translation }: Word) => {
-      setList((list) =>
-        addWordContextList(list, { wordID, word, translation })
-      );
+    addWordContextList: async ({ wordID, word, translation }: Word) => {
+      const newList = addWordContextList(list.words, {
+        wordID,
+        word,
+        translation,
+      });
+
+      setList((list) => ({ title: list.title, words: newList }));
     },
 
     // saves the list to firebase
-    saveListFirebase: () => {
-      setDoc(doc(database, userID, title), { word: list }).then(() =>
-        console.log("list created")
-      );
-
+    saveListFirebase: async () => {
+      const newDoc = doc(collection(database, userID));
+      await setDoc(newDoc, { title: list.title, words: list.words });
+      console.log("list created");
       setTimeout(() => {
         navigate("/");
-        setList([]);
-        setTitle("");
+        setList(initialList);
       }, 1000);
     },
 
     // add, update, remove words from firebase list
 
-    updateListFirebase: () => {
+    updateListFirebase: (listID: string) => {
       console.log(list);
-      updateDoc(doc(database, userID, title), {
-        word: list,
+      updateDoc(doc(database, userID, listID), {
+        title: list.title,
+        words: list.words,
       }).then(() => console.log("words added"));
     },
 
-    removeWord: ({ wordID, word, translation }: Word) => {
-      updateDoc(doc(database, userID, title), {
-        word: arrayRemove({
-          word,
-          translation,
-          wordID,
-        }),
-      }).then(() => console.log("word removed"));
-    },
+    // delete list in firebase
 
-    deleteList: (title: string) => {
-      deleteDoc(doc(database, userID, title)).then(() =>
+    deleteList: (listID: string) => {
+      deleteDoc(doc(database, userID, listID)).then(() =>
         console.log("list deleted")
       );
-      setList([]);
+      setList(initialList);
       navigate("/");
     },
 
     // reset all states when going back to home page or logging out
     // noLists and allListsArr aren't reset on home page load because states have to remain througout the session and online reset on log out
     resetListContext: () => {
-      setList([]);
-      setTitle(initial);
+      setList(initialList);
+      setList(initialList);
       setListFetched(false);
       setIsAddingWords(false);
       setIsEditing(false);

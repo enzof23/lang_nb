@@ -23,7 +23,8 @@ export const WordInput = ({ ...props }) => {
     e.preventDefault();
     if (word && translation) {
       addWordContextList({ wordID, word, translation });
-      fct(true);
+
+      fct();
       setWord("");
       setTranslation("");
     } else {

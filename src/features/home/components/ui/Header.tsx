@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { useListContext } from "../../../../context/ListContext";
+import { initialList, useListContext } from "../../../../context/ListContext";
 
 import { HeaderContainer, ListHeader } from "../../mui_styled/styles";
 
@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 export const Header = () => {
-  const { setTitle, setList } = useListContext();
+  const { setList } = useListContext();
   const navigate = useNavigate();
 
   return (
@@ -36,8 +36,7 @@ export const Header = () => {
           </ListItemAvatar>
           <Typography
             onClick={() => {
-              setTitle("");
-              setList([]);
+              setList(initialList);
               navigate("/create-list");
             }}
             sx={{
