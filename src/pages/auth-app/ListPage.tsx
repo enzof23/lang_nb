@@ -46,6 +46,7 @@ export const ListPage = () => {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, [listID]);
 
   if (!listFetched) {

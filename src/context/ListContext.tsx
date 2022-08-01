@@ -184,6 +184,7 @@ const useListHook = () => {
       setList(initialList);
       setListFetched(false);
       setIsAddingWords(false);
+      setisEditingTitle(false);
     },
   };
 };

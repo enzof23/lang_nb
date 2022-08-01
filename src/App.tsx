@@ -41,6 +41,7 @@ const App: React.FC = () => {
 
       navigate("/");
     });
+    // eslint-disable-next-line
   }, []);
 
   return currentUser ? <AuthenticatedApp /> : <Authentication />;

@@ -14,6 +14,7 @@ export const ListsDisplay = () => {
 
   useEffect(() => {
     getAllLists();
+    // eslint-disable-next-line
   }, [userInfo]);
 
   if (noLists) {
