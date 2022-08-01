@@ -1,11 +1,14 @@
-import { Button, Grid, IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { useListContext } from "../../../../context/ListContext";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 import {
+  WordBoxContainer,
+  WordRowContainer,
   CreateListInput,
-  VerticalDivider,
-  WordGridContainer,
+  ButtonsContainer,
+  WordContainer,
+  TranslationContainer,
 } from "../../mui_styled/styles";
 
 type Props = {
@@ -24,6 +27,7 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   const { list, setList } = useListContext();
 
   const handleEdit = () => {
+    console.log("click");
     setIsEditing(true);
     setNewWord(word);
     setNewTranslation(translation);
@@ -48,27 +52,12 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   };
 
   const WordGridRead = (
-    <WordGridContainer container columnGap={3} id={wordID}>
-      <Grid
-        item
-        xs
-        onClick={() => setIsEditing(true)}
-        sx={{ textTransform: "uppercase" }}
-      >
-        {word}
-      </Grid>
-      <Grid item>
-        <VerticalDivider orientation="vertical" />
-      </Grid>
-      <Grid
-        item
-        xs
-        onClick={() => setIsEditing(true)}
-        sx={{ textTransform: "uppercase" }}
-      >
-        {translation}
-      </Grid>
-      <Grid item>
+    <WordRowContainer id={wordID}>
+      <WordBoxContainer>
+        <WordContainer>{word}</WordContainer>
+        <TranslationContainer>{translation}</TranslationContainer>
+      </WordBoxContainer>
+      <ButtonsContainer>
         <Tooltip title="edit" arrow>
           <IconButton
             color="success"
@@ -88,37 +77,32 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
             <AiOutlineDelete />
           </IconButton>
         </Tooltip>
-      </Grid>
-    </WordGridContainer>
+      </ButtonsContainer>
+    </WordRowContainer>
   );
 
   const WordGridEdit = (
-    <WordGridContainer container columnGap={3} id={wordID}>
-      <Grid item xs>
+    <WordRowContainer id={wordID}>
+      <WordBoxContainer>
         <CreateListInput
           value={newWord}
           onChange={(e) => setNewWord(e.target.value)}
         />
-      </Grid>
-      <Grid item>
-        <VerticalDivider orientation="vertical" />
-      </Grid>
-      <Grid item xs>
+
         <CreateListInput
           value={newTranslation}
           onChange={(e) => setNewTranslation(e.target.value)}
         />
-      </Grid>
-      <Grid item>
-        <Button
-          variant="text"
-          sx={{ padding: "0" }}
-          onClick={() => handleEditDone(wordID)}
-        >
-          done
-        </Button>
-      </Grid>
-    </WordGridContainer>
+      </WordBoxContainer>
+
+      <Button
+        variant="text"
+        sx={{ padding: "0", alignSelf: "flex-end" }}
+        onClick={() => handleEditDone(wordID)}
+      >
+        done
+      </Button>
+    </WordRowContainer>
   );
 
   return isEditing ? WordGridEdit : WordGridRead;

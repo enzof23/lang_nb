@@ -1,12 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Button,
-  Divider,
-  Grid,
-  Input,
-  InputLabel,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Input, InputLabel, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 // Global list styles
@@ -87,7 +80,6 @@ export const WordInputButton = styled(Button)(() => ({
 export const LargeGreenButton = styled(Button)(() => ({
   alignSelf: "center",
 
-  marginBottom: "1.5rem",
   padding: ".75rem 3rem",
   fontSize: "16px",
 
@@ -95,6 +87,11 @@ export const LargeGreenButton = styled(Button)(() => ({
 
   "&:hover": {
     backgroundColor: "#33afaf",
+  },
+
+  "@media screen and (max-width: 900px)": {
+    marginTop: "0.75rem",
+    marginBottom: "0.5rem",
   },
 }));
 
@@ -106,7 +103,7 @@ export const ListDisplayBox = styled(Box)(() => ({
 
   width: "100%",
 
-  gap: "0.5rem",
+  gap: "0.75rem",
 
   marginBottom: "1rem",
 
@@ -115,10 +112,12 @@ export const ListDisplayBox = styled(Box)(() => ({
 
 // WordsGrid styles
 
-export const WordGridContainer = styled(Grid)(() => ({
-  alignItems: "center",
+export const WordRowContainer = styled(Box)(() => ({
+  display: "flex",
 
-  padding: "1rem 1rem 1rem 2rem",
+  width: "100%",
+  padding: "1.25rem 1.5rem",
+
   minHeight: "72px",
   borderRadius: "7px",
 
@@ -129,14 +128,58 @@ export const WordGridContainer = styled(Grid)(() => ({
   },
 
   "@media screen and (max-width: 900px)": {
-    padding: "1rem 0.5rem 1rem 1.5rem",
+    flexDirection: "column-reverse",
+    padding: "0.75rem 1rem calc(0.75rem + 24px) 1.5rem",
   },
 }));
 
-export const VerticalDivider = styled(Divider)(() => ({
-  height: "30px",
-  borderWidth: "1px",
-  borderColor: "#0f0c41",
+export const WordBoxContainer = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+
+  rowGap: "0.75rem",
+  columnGap: "1rem",
+
+  width: "100%",
+
+  textTransform: "uppercase",
+
+  "@media screen and (max-width: 900px)": {
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+}));
+
+export const WordContainer = styled(Box)(() => ({
+  width: "50%",
+  borderRight: "1px solid #0f0c41",
+
+  "@media screen and (max-width: 900px)": {
+    width: "100%",
+    paddingBottom: "0.75rem",
+
+    borderRight: "none",
+    borderBottom: "1px solid #0f0c41",
+  },
+}));
+
+export const TranslationContainer = styled(Box)(() => ({
+  width: "50%",
+
+  "@media screen and (max-width: 900px)": {
+    width: "100%",
+  },
+}));
+
+export const ButtonsContainer = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "center",
+
+  "@media screen and (max-width: 900px)": {
+    alignSelf: "flex-end",
+  },
 }));
 
 // ListPage styles

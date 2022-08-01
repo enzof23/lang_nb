@@ -52,7 +52,7 @@ export const CreateList = () => {
               save list
             </LargeGreenButton>
 
-            <ListDisplayBox>
+            <ListDisplayBox sx={{ marginTop: "1.5rem" }}>
               {list.words.map((e) => {
                 const { wordID, word, translation } = e;
                 return (
