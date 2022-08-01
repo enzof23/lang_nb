@@ -9,7 +9,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     resetListContext();
-  }, []);
+  }, [resetListContext]);
   return (
     <PageWrapper paddingLeft="7rem">
       <Header />

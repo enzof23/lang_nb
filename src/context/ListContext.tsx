@@ -13,13 +13,13 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-type Word = {
+export type Word = {
   wordID: string;
   word: string;
   translation: string;
 };
 
-type List = {
+export type List = {
   title: string;
   words: Word[];
 };
@@ -85,8 +85,9 @@ const useListHook = () => {
   const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
   const [listFetched, setListFetched] = useState<boolean>(false);
+
   const [isAddingWords, setIsAddingWords] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditingTitle, setisEditingTitle] = useState<boolean>(false);
 
   const { userInfo } = useAuthContext();
   const userID = userInfo.id;
@@ -103,8 +104,9 @@ const useListHook = () => {
 
     isAddingWords,
     setIsAddingWords,
-    isEditing,
-    setIsEditing,
+
+    isEditingTitle,
+    setisEditingTitle,
 
     listFetched,
     setListFetched,
@@ -158,10 +160,9 @@ const useListHook = () => {
 
     // add, update, remove words from firebase list
 
-    updateListFirebase: (listID: string) => {
-      console.log(list);
+    updateListFirebase: (listID: string, newTitle?: string) => {
       updateDoc(doc(database, userID, listID), {
-        title: list.title,
+        title: newTitle ? newTitle : list.title,
         words: list.words,
       }).then(() => console.log("words added"));
     },
@@ -183,7 +184,6 @@ const useListHook = () => {
       setList(initialList);
       setListFetched(false);
       setIsAddingWords(false);
-      setIsEditing(false);
     },
   };
 };

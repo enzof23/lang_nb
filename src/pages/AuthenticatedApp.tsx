@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Navbar } from "../layouts";
+import { LoadingSpinner, Navbar } from "../layouts";
 import { Home, CreateList, ListPage } from "./auth-app/index";
 
 function AuthenticatedApp() {
@@ -9,7 +10,14 @@ function AuthenticatedApp() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create-list" element={<CreateList />} />
-        <Route path={`/list/:userID/:listID`} element={<ListPage />} />
+        <Route
+          path={`/list/:userID/:listID`}
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ListPage />
+            </Suspense>
+          }
+        />
       </Routes>
     </>
   );

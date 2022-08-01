@@ -8,21 +8,21 @@ export const ListMenu = ({
 }: {
   setDeleteModal: (val: boolean) => void;
 }) => {
-  const { setIsAddingWords } = useListContext();
+  const { setIsAddingWords, setisEditingTitle } = useListContext();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const menuOptions = ["add word", "delete list"];
+  const menuOptions = ["add word", "rename list", "delete list"];
 
   const handleClose = (action: string) => {
     switch (action) {
       case "add word":
         setIsAddingWords(true);
         break;
-      //   case "rename list":
-      //     console.log("two");
-      //     break;
+      case "rename list":
+        setisEditingTitle(true);
+        break;
       case "delete list":
         setDeleteModal(true);
         break;

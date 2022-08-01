@@ -20,7 +20,7 @@ export const CancelButton = ({ listUpdated }: { listUpdated: boolean }) => {
   );
 };
 
-export const DoneButton = ({
+export const SaveChangesButton = ({
   setListUpdated,
 }: {
   setListUpdated: React.Dispatch<React.SetStateAction<boolean>>;

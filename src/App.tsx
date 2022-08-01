@@ -18,6 +18,8 @@ const getInitialAuth = async () => {
   });
 };
 
+console.log("watch render");
+
 const App: React.FC = () => {
   const navigate = useNavigate();
   const { setUserInfo } = useAuthContext();

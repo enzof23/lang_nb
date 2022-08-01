@@ -40,7 +40,7 @@ export const TitleButton = styled(Button)(() => ({
 
   "&:hover": {
     backgroundColor: "transparent",
-    color: "#3bcfd0",
+    color: "#fecd1f",
   },
 }));
 

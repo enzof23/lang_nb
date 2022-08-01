@@ -9,9 +9,10 @@ import {
   WordInput,
   WordsGrid,
   CancelButton,
-  DoneButton,
+  SaveChangesButton,
   DeleteModal,
   ListMenu,
+  TitleEditInput,
 } from "../../features/list/components";
 import {
   ListDisplayBox,
@@ -21,11 +22,16 @@ import {
   PracticeContainer,
 } from "../../features/list/mui_styled/styles";
 import { HalfCircleSpinner } from "react-epic-spinners";
-
 export const ListPage = () => {
   const navigate = useNavigate();
-  const { list, listFetched, isAddingWords, getListByTitle, setListFetched } =
-    useListContext();
+  const {
+    list,
+    listFetched,
+    isAddingWords,
+    isEditingTitle,
+    getListByTitle,
+    setListFetched,
+  } = useListContext();
 
   const { userID, listID } = useParams();
 
@@ -59,17 +65,21 @@ export const ListPage = () => {
               flexDirection: "column",
             }}
           >
-            <ListPageHeader>
-              <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
-                {list.title}
-              </Typography>
+            {isEditingTitle ? (
+              <TitleEditInput />
+            ) : (
+              <ListPageHeader>
+                <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
+                  {list.title}
+                </Typography>
 
-              {!isAddingWords ? (
-                <ListMenu setDeleteModal={setDeleteModal} />
-              ) : (
-                <CancelButton listUpdated={listUpdated} />
-              )}
-            </ListPageHeader>
+                {!isAddingWords ? (
+                  <ListMenu setDeleteModal={setDeleteModal} />
+                ) : (
+                  <CancelButton listUpdated={listUpdated} />
+                )}
+              </ListPageHeader>
+            )}
 
             <Collapse in={isAddingWords}>
               <WordInput fct={() => setListUpdated(true)} />
@@ -77,7 +87,7 @@ export const ListPage = () => {
 
             <Collapse in={listUpdated}>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <DoneButton setListUpdated={setListUpdated} />
+                <SaveChangesButton setListUpdated={setListUpdated} />
               </Box>
             </Collapse>
           </Box>
