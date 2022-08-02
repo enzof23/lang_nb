@@ -184,6 +184,21 @@ export const ButtonsContainer = styled(Box)(() => ({
 
 // ListPage styles
 
+export const PracticeContainer = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+
+  width: "90%",
+  height: "70px",
+  maxWidth: "900px",
+
+  borderRadius: "7px",
+  marginBottom: "3rem",
+  paddingLeft: "2rem",
+
+  backgroundColor: "#2e3756",
+}));
+
 export const ListPageContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -202,19 +217,11 @@ export const ListPageHeader = styled(Box)(() => ({
   paddingLeft: "1rem",
 }));
 
-export const PracticeContainer = styled(Box)(() => ({
+export const ListMenuContainer = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
 
-  width: "90%",
-  height: "70px",
-  maxWidth: "900px",
-
-  borderRadius: "7px",
-  marginBottom: "3rem",
-  paddingLeft: "2rem",
-
-  backgroundColor: "#2e3756",
+  columnGap: "1rem",
 }));
 
 export const LoadingContainer = styled(Box)(() => ({
@@ -233,9 +240,12 @@ export const DeleteModalContainer = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+
   width: "100vw",
   height: "100vh",
+
   zIndex: "1000",
+
   position: "absolute",
   backgroundColor: "rgba(255, 255, 255, 0.25)",
   backdropFilter: "blur(4px)",
@@ -246,10 +256,14 @@ export const DeleteModalBox = styled(Box)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+
   rowGap: "1rem",
+
   width: "90%",
   maxWidth: "420px",
+
   padding: "2rem",
+
   borderRadius: "7px",
   backgroundColor: "#0f0c41",
   color: "white",

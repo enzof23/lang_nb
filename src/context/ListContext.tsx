@@ -79,12 +79,11 @@ const useListHook = () => {
   const navigate = useNavigate();
 
   const [noLists, setNoLists] = useState<boolean>(false);
+  const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
   const [list, setList] = useState<List>(initialList);
 
-  const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
-
-  const [listFetched, setListFetched] = useState<boolean>(false);
+  const [listIsFetched, setListIsFetched] = useState<boolean>(false);
 
   const [isAddingWords, setIsAddingWords] = useState<boolean>(false);
   const [isEditingTitle, setisEditingTitle] = useState<boolean>(false);
@@ -108,8 +107,8 @@ const useListHook = () => {
     isEditingTitle,
     setisEditingTitle,
 
-    listFetched,
-    setListFetched,
+    listIsFetched,
+    setListIsFetched,
 
     // fetch ALL lists from firebase
     getAllLists: async () => {
@@ -129,7 +128,7 @@ const useListHook = () => {
       try {
         const listReturned = await getListByTitle(id, listTitle);
         setList(listReturned);
-        setListFetched(true);
+        setListIsFetched(true);
       } catch (err) {
         alert(`An error has occured: ${err}`);
       }
@@ -182,7 +181,7 @@ const useListHook = () => {
     resetListContext: () => {
       setList(initialList);
       setList(initialList);
-      setListFetched(false);
+      setListIsFetched(false);
       setIsAddingWords(false);
       setisEditingTitle(false);
     },

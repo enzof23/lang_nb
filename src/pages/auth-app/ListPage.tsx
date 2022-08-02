@@ -5,6 +5,7 @@ import { useListContext } from "../../context/ListContext";
 
 import { PageWrapper } from "../../layouts";
 import { Box, Collapse, Typography } from "@mui/material";
+
 import {
   WordInput,
   WordsGrid,
@@ -26,11 +27,11 @@ export const ListPage = () => {
   const navigate = useNavigate();
   const {
     list,
-    listFetched,
+    listIsFetched,
     isAddingWords,
     isEditingTitle,
     getListByTitle,
-    setListFetched,
+    setListIsFetched,
   } = useListContext();
 
   const { userID, listID } = useParams();
@@ -39,7 +40,7 @@ export const ListPage = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   useEffect(() => {
-    setListFetched(false);
+    setListIsFetched(false);
 
     if (userID && listID) {
       getListByTitle(userID, listID);
@@ -49,7 +50,7 @@ export const ListPage = () => {
     // eslint-disable-next-line
   }, [listID]);
 
-  if (!listFetched) {
+  if (!listIsFetched) {
     return <ListPageLoading />;
   }
 

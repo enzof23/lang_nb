@@ -58,7 +58,7 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
         <TranslationContainer>{translation}</TranslationContainer>
       </WordBoxContainer>
       <ButtonsContainer>
-        <Tooltip title="edit" arrow>
+        <Tooltip title="EDIT" arrow>
           <IconButton
             color="success"
             sx={{ padding: "0", marginRight: "0.5rem" }}
@@ -67,7 +67,7 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
             <AiOutlineEdit />
           </IconButton>
         </Tooltip>
-        <Tooltip title="delete" arrow>
+        <Tooltip title="DELETE" arrow>
           <IconButton
             color="error"
             aria-label="delete word"

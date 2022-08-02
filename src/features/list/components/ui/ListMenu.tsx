@@ -1,19 +1,39 @@
-import { Button, Menu, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useListContext } from "../../../../context/ListContext";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+import { ListMenuContainer } from "../../mui_styled/styles";
 
 export const ListMenu = ({
   setDeleteModal,
 }: {
   setDeleteModal: (val: boolean) => void;
 }) => {
-  const { setIsAddingWords, setisEditingTitle } = useListContext();
+  const { list, setList, setIsAddingWords, setisEditingTitle } =
+    useListContext();
 
+  const menuOptions = ["add word", "rename list", "delete list"];
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const menuOptions = ["add word", "rename list", "delete list"];
+  const [sortTo, setSortTo] = useState<null | string>(null);
+
+  const listSortTo = list.words.sort((a, b) => {
+    if (sortTo === "asc") {
+      return a.word.localeCompare(b.word);
+    } else {
+      return b.word.localeCompare(a.word);
+    }
+  });
+
+  const sortList = () => {
+    if (!sortTo || sortTo === "desc") {
+      setSortTo("asc");
+    } else {
+      setSortTo("desc");
+    }
+  };
 
   const handleClose = (action: string) => {
     switch (action) {
@@ -32,8 +52,25 @@ export const ListMenu = ({
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (sortTo) {
+      setList((st) => ({ ...st, words: listSortTo }));
+    }
+    // eslint-disable-next-line
+  }, [sortTo]);
+
   return (
-    <div>
+    <ListMenuContainer>
+      <Tooltip title="SORT LIST" arrow>
+        <SortByAlphaIcon
+          sx={{
+            cursor: "pointer",
+            fontSize: "28px",
+            "&:hover": { color: "#fecd1f" },
+          }}
+          onClick={sortList}
+        />
+      </Tooltip>
       <Button
         onClick={(e) => setAnchorEl(e.currentTarget)}
         style={{
@@ -63,6 +100,6 @@ export const ListMenu = ({
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </ListMenuContainer>
   );
 };
