@@ -5,6 +5,7 @@ import { useListContext } from "../../context/ListContext";
 
 import { PageWrapper } from "../../layouts";
 import { Box, Collapse, Typography } from "@mui/material";
+import { HalfCircleSpinner } from "react-epic-spinners";
 
 import {
   WordInput,
@@ -15,6 +16,7 @@ import {
   ListMenu,
   TitleEditInput,
 } from "../../features/list/components";
+
 import {
   ListDisplayBox,
   ListPageContainer,
@@ -22,12 +24,15 @@ import {
   LoadingContainer,
   PracticeContainer,
 } from "../../features/list/mui_styled/styles";
-import { HalfCircleSpinner } from "react-epic-spinners";
+
 export const ListPage = () => {
   const navigate = useNavigate();
+
   const {
     list,
     listIsFetched,
+    listUpdated,
+    setListUpdated,
     isAddingWords,
     isEditingTitle,
     getListByTitle,
@@ -36,7 +41,6 @@ export const ListPage = () => {
 
   const { userID, listID } = useParams();
 
-  const [listUpdated, setListUpdated] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -125,13 +129,6 @@ export const ListPageLoading = () => {
       <PracticeContainer>Practice coming soon</PracticeContainer>
 
       <ListPageContainer>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        ></Box>
-
         <LoadingContainer>
           <HalfCircleSpinner color="#fecd1f" />
         </LoadingContainer>

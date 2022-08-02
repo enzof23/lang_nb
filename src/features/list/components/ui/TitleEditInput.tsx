@@ -5,8 +5,7 @@ import { useListContext } from "../../../../context/ListContext";
 import { CreateListInput, TitleButton } from "../../mui_styled/styles";
 
 export const TitleEditInput = () => {
-  const { list, setList, setisEditingTitle, updateListFirebase } =
-    useListContext();
+  const { list, setList, setListUpdated, setIsEditingTitle } = useListContext();
   const { listID } = useParams();
 
   const [newTitle, setNewTitle] = useState<string>(list.title);
@@ -15,8 +14,8 @@ export const TitleEditInput = () => {
     e.preventDefault();
     if (listID) {
       setList({ title: newTitle, words: list.words });
-      updateListFirebase(listID, newTitle);
-      setisEditingTitle(false);
+      setListUpdated(true);
+      setIsEditingTitle(false);
     } else {
       alert("Couldn't update title");
     }

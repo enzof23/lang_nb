@@ -12,7 +12,7 @@ export const HeaderContainer = styled(Box)(() => ({
   marginBottom: "4rem",
 
   borderRadius: "15px",
-  backgroundColor: "#282e3e",
+  backgroundColor: "var(--dark-grey)",
 
   "@media screen and (max-width: 900px)": {
     padding: "1.5rem 2rem",
@@ -28,7 +28,7 @@ export const ListHeader = styled(ListSubheader)(() => ({
   padding: "0",
 
   backgroundColor: "transparent",
-  color: "white",
+  color: "var(--main-white)",
 }));
 
 //////// List Display
@@ -61,12 +61,12 @@ export const ListBox = styled(Grid)(() => ({
   height: "140px",
 
   padding: "1.5rem",
-  backgroundColor: "#2e3756",
+  backgroundColor: "var(--light-blue-1)",
   borderRadius: "5px",
   cursor: "pointer",
 
   "&:hover": {
-    backgroundColor: "#2e3756cc",
-    borderBottom: "5px solid white",
+    backgroundColor: "var(--light-blue-2)",
+    borderBottom: "5px solid var(--main-yellow)",
   },
 }));

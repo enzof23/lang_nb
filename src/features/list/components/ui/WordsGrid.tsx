@@ -1,4 +1,4 @@
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useListContext } from "../../../../context/ListContext";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import {
   ButtonsContainer,
   WordContainer,
   TranslationContainer,
+  EditDoneButton,
 } from "../../mui_styled/styles";
 
 type Props = {
@@ -95,13 +96,9 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
         />
       </WordBoxContainer>
 
-      <Button
-        variant="text"
-        sx={{ padding: "0", alignSelf: "flex-end" }}
-        onClick={() => handleEditDone(wordID)}
-      >
+      <EditDoneButton variant="text" onClick={() => handleEditDone(wordID)}>
         done
-      </Button>
+      </EditDoneButton>
     </WordRowContainer>
   );
 

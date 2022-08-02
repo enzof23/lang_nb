@@ -15,9 +15,10 @@ export const NavbarContainer = styled(Box)(() => ({
   padding: "0.75rem 1rem",
   width: "100%",
 
-  color: "white",
+  color: "var(--main-white)",
   backgroundColor: "rgba(10, 8, 45, 0.75)",
   backdropFilter: "blur(4px)",
+
   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
   boxShadow: "0 1px 3px rgba(255, 255, 255, 0.1)",
 }));
@@ -31,7 +32,7 @@ export const PageWrapperContainer = styled(Box)(() => ({
 
   padding: "130px 1rem 1rem 0",
 
-  color: "white",
+  color: "var(--main-white)",
 
   "@media screen and (max-width: 900px)": {
     padding: "100px 0 1rem 0",

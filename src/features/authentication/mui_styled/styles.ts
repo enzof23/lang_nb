@@ -11,7 +11,7 @@ export const SignInContainer = styled(Grid)(() => ({
 
   minHeight: "100vh",
 
-  color: "white",
+  color: "var(--main-white)",
 }));
 
 export const SignInFormContainer = styled(Box)(() => ({
@@ -31,16 +31,16 @@ export const SignInForm = styled(Box)(() => ({
 }));
 
 export const SignInInput = styled(TextField)(() => ({
-  backgroundColor: "white",
+  backgroundColor: "var(--main-white)",
   borderRadius: "3px",
 
   ".MuiInputLabel-root": {
-    color: "#0a082d",
+    color: "var(--dark-blue)",
   },
 
   ".MuiFilledInput-root": {
     "::after": {
-      borderBottomColor: "#fecd1f",
+      borderBottomColor: "var(--main-yellow)",
       borderBottomWidth: "4px",
     },
   },
@@ -49,15 +49,15 @@ export const SignInInput = styled(TextField)(() => ({
 export const SignInButton = styled(Button)(() => ({
   padding: "0.75rem",
 
-  borderColor: "white",
+  borderColor: "var(--main-white)",
   borderWidth: "1px",
-  color: "white",
+  color: "var(--main-white)",
   fontSize: "1em",
 
   "&:hover": {
-    borderColor: "#fecd1f",
-    backgroundColor: "#fecd1f",
-    color: "black",
+    borderColor: "var(--main-yellow)",
+    backgroundColor: "var(--main-yellow)",
+    color: "var(--dark-blue)",
   },
 }));
 
@@ -65,10 +65,10 @@ export const ForgotPassword = styled(Button)(() => ({
   alignSelf: "flex-start",
   marginTop: "-1rem",
 
-  color: "white",
+  color: "var(--main-white)",
 
   "&:hover": {
-    color: "#fecd1f",
+    color: "var(--main-yellow)",
   },
 }));
 
@@ -86,23 +86,23 @@ export const SignUpContainer = styled(Grid)(() => ({
   minHeight: "100vh",
   width: "90%",
 
-  color: "#0a082d",
-  backgroundColor: "white",
+  color: "var(--dark-blue)",
+  backgroundColor: "var(--main-white)",
 }));
 
 export const SignUpInput = styled(TextField)(() => ({
   width: "100%",
 
   "& label.Mui-focused": {
-    color: "#0a082d",
+    color: "var(--dark-blue)",
   },
 
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#0a082d",
+      borderColor: "var(--dark-blue)",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#fecd1f",
+      borderColor: "var(--main-yellow)",
     },
   },
 }));
@@ -115,25 +115,25 @@ export const SignUpButton = styled(Button)(() => ({
   width: "50%",
   maxWidth: "250px",
 
-  borderColor: "#0a082d",
+  borderColor: "var(--dark-blue)",
   borderWidth: "1px",
 
-  color: "#0a082d",
+  color: "var(--dark-blue)",
   fontSize: "1em",
 
   "&:hover": {
-    borderColor: "#fecd1f",
-    backgroundColor: "#fecd1f",
-    color: "black",
+    borderColor: "var(--dark-blue)",
+    backgroundColor: "var(--main-yellow)",
+    color: "var(--dark-blue)",
   },
 }));
 
 export const DemoTypo = styled(Typography)(() => ({
-  color: "white",
+  color: "var(--main-white)",
   cursor: "pointer",
 
   "&:hover": {
-    color: "#fecd1f",
+    color: "var(--main-yellow)",
   },
 }));
 
@@ -145,13 +145,13 @@ export const GoogleSignInButton = styled(Button)(() => ({
   width: "100%",
   maxWidth: "300px",
 
-  border: "1px solid #dadde5",
-  color: "white",
+  border: "1px solid var(--main-white)",
+  color: "var(--main-white)",
   fontSize: "0.9em",
 
   "&:hover": {
-    backgroundColor: "#fecd1f",
-    borderColor: "#fecd1f",
-    color: "black",
+    backgroundColor: "var(--main-yellow)",
+    borderColor: "var(--main-yellow)",
+    color: "var(--dark-blue)",
   },
 }));

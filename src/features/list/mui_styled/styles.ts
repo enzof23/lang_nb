@@ -5,18 +5,18 @@ import { Box } from "@mui/system";
 // Global list styles
 
 export const CreateListInput = styled(Input)(() => ({
-  color: "white",
+  color: "var(--main-white)",
   width: "100%",
 
   "::before": {
-    borderBottomColor: "white",
+    borderBottomColor: "var(--main-white)",
   },
   "::after": {
-    borderBottomColor: "#fecd1f",
+    borderBottomColor: "var(--main-yellow)",
   },
   "&:hover": {
     "::before": {
-      borderBottom: "2px solid white !important",
+      borderBottom: "2px solid var(--main-white) !important",
     },
   },
 }));
@@ -24,16 +24,16 @@ export const CreateListInput = styled(Input)(() => ({
 // TitleInput styles
 
 export const TitleInputLabel = styled(InputLabel)(() => ({
-  color: "#bbbdc9",
+  color: "var(--light-grey)",
 }));
 
 export const TitleButton = styled(Button)(() => ({
-  color: "white",
+  color: "var(--main-white)",
   marginBottom: "0.5rem",
 
   "&:hover": {
     backgroundColor: "transparent",
-    color: "#fecd1f",
+    color: "var(--main-yellow)",
   },
 }));
 
@@ -47,7 +47,7 @@ export const WordInputContainer = styled(Grid)(() => ({
   padding: "3rem 1.5rem",
   borderRadius: "7px",
 
-  backgroundColor: "#2e3756",
+  backgroundColor: "var(--light-blue-1)",
 
   "@media screen and (max-width: 900px)": {
     padding: "2rem 1.5rem",
@@ -61,17 +61,17 @@ export const WordInputDesc = styled(Typography)(() => ({
   letterSpacing: "0.025rem",
   fontFamily: "inherit",
 
-  color: "#bbbdc9",
+  color: "var(--light-grey)",
 
   paddingTop: "0.5rem",
 }));
 
 export const WordInputButton = styled(Button)(() => ({
-  backgroundColor: "#3bcfd0",
+  backgroundColor: "var(--greenish-blue-1)",
   width: "100%",
   paddingBlock: "0.75rem",
   "&:hover": {
-    backgroundColor: "#33afaf",
+    backgroundColor: "var(--greenish-blue-2)",
   },
 }));
 
@@ -80,13 +80,14 @@ export const WordInputButton = styled(Button)(() => ({
 export const LargeGreenButton = styled(Button)(() => ({
   alignSelf: "center",
 
+  marginTop: "0.75rem",
   padding: ".75rem 3rem",
   fontSize: "16px",
 
-  backgroundColor: "#3bcfd0",
+  backgroundColor: "var(--greenish-blue-1)",
 
   "&:hover": {
-    backgroundColor: "#33afaf",
+    backgroundColor: "var(--greenish-blue-2)",
   },
 
   "@media screen and (max-width: 900px)": {
@@ -121,10 +122,10 @@ export const WordRowContainer = styled(Box)(() => ({
   minHeight: "72px",
   borderRadius: "7px",
 
-  backgroundColor: "#2e3756",
+  backgroundColor: "var(--light-blue-1)",
 
   "&:hover": {
-    backgroundColor: "#3d4870",
+    backgroundColor: "var(--light-blue-3)",
   },
 
   "@media screen and (max-width: 900px)": {
@@ -154,14 +155,14 @@ export const WordBoxContainer = styled(Box)(() => ({
 
 export const WordContainer = styled(Box)(() => ({
   width: "50%",
-  borderRight: "1px solid #0f0c41",
+  borderRight: "1px solid var(--dark-blue)",
 
   "@media screen and (max-width: 900px)": {
     width: "100%",
     paddingBottom: "0.75rem",
 
     borderRight: "none",
-    borderBottom: "1px solid #0f0c41",
+    borderBottom: "1px solid var(--dark-blue)",
   },
 }));
 
@@ -176,9 +177,23 @@ export const TranslationContainer = styled(Box)(() => ({
 export const ButtonsContainer = styled(Box)(() => ({
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
 
   "@media screen and (max-width: 900px)": {
     alignSelf: "flex-end",
+  },
+}));
+
+export const EditDoneButton = styled(Button)(() => ({
+  padding: "0",
+  height: "32px",
+  alignSelf: "center",
+  justifyContent: "flex-end",
+
+  color: "var(--main-white)",
+  "&:hover": {
+    backgroundColor: "transparent",
+    color: "var(--main-yellow)",
   },
 }));
 
@@ -196,7 +211,7 @@ export const PracticeContainer = styled(Box)(() => ({
   marginBottom: "3rem",
   paddingLeft: "2rem",
 
-  backgroundColor: "#2e3756",
+  backgroundColor: "var(--light-blue-1)",
 }));
 
 export const ListPageContainer = styled(Box)(() => ({
@@ -265,17 +280,18 @@ export const DeleteModalBox = styled(Box)(() => ({
   padding: "2rem",
 
   borderRadius: "7px",
-  backgroundColor: "#0f0c41",
-  color: "white",
+  boxShadow: "2px 2px 5px var(--dark-blue)",
+  backgroundColor: "var(--dark-blue)",
+  color: "var(--main-white)",
 }));
 
 export const DeleteModalButton = styled(Button)(() => ({
-  color: "#fecd1f",
-  borderColor: "#fecd1f",
+  color: "var(--main-yellow)",
+  borderColor: "var(--main-yellow)",
 
   "&:hover": {
-    borderColor: "#fecd1f",
-    backgroundColor: "#fecd1f",
-    color: "#0f0c41",
+    borderColor: "var(--main-yellow)",
+    backgroundColor: "var(--main-yellow)",
+    color: "var(--dark-blue)",
   },
 }));

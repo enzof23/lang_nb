@@ -81,12 +81,13 @@ const useListHook = () => {
   const [noLists, setNoLists] = useState<boolean>(false);
   const [allListsArr, setAllListsArr] = useState<ArrList[]>([]);
 
-  const [list, setList] = useState<List>(initialList);
-
   const [listIsFetched, setListIsFetched] = useState<boolean>(false);
 
+  const [list, setList] = useState<List>(initialList);
+  const [listUpdated, setListUpdated] = useState<boolean>(false);
+
   const [isAddingWords, setIsAddingWords] = useState<boolean>(false);
-  const [isEditingTitle, setisEditingTitle] = useState<boolean>(false);
+  const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
 
   const { userInfo } = useAuthContext();
   const userID = userInfo.id;
@@ -98,6 +99,9 @@ const useListHook = () => {
     list,
     setList,
 
+    listUpdated,
+    setListUpdated,
+
     allListsArr,
     setAllListsArr,
 
@@ -105,7 +109,7 @@ const useListHook = () => {
     setIsAddingWords,
 
     isEditingTitle,
-    setisEditingTitle,
+    setIsEditingTitle,
 
     listIsFetched,
     setListIsFetched,
@@ -183,7 +187,8 @@ const useListHook = () => {
       setList(initialList);
       setListIsFetched(false);
       setIsAddingWords(false);
-      setisEditingTitle(false);
+      setIsEditingTitle(false);
+      setListUpdated(false);
     },
   };
 };

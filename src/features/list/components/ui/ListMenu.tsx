@@ -10,7 +10,7 @@ export const ListMenu = ({
 }: {
   setDeleteModal: (val: boolean) => void;
 }) => {
-  const { list, setList, setIsAddingWords, setisEditingTitle } =
+  const { list, setList, setIsAddingWords, setIsEditingTitle } =
     useListContext();
 
   const menuOptions = ["add word", "rename list", "delete list"];
@@ -41,7 +41,7 @@ export const ListMenu = ({
         setIsAddingWords(true);
         break;
       case "rename list":
-        setisEditingTitle(true);
+        setIsEditingTitle(true);
         break;
       case "delete list":
         setDeleteModal(true);
