@@ -13,6 +13,7 @@
 
 :root {
   --dark-blue: #0a082d;
+  --dark-blue-2: #050524;
 
   --light-blue-1: #2e3756;
   --light-blue-2: #2e3756cc;
@@ -26,6 +27,7 @@
 
   --dark-grey: #282e3e;
   --light-grey: #bbbdc9;
+  --light-grey-faded: #bbbdc980;
 }
 
 /* Remove default margin */

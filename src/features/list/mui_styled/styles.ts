@@ -96,21 +96,6 @@ export const LargeGreenButton = styled(Button)(() => ({
   },
 }));
 
-export const ListDisplayBox = styled(Box)(() => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-
-  width: "100%",
-
-  gap: "0.75rem",
-
-  marginBottom: "1rem",
-
-  borderRadius: "7px",
-}));
-
 // WordsGrid styles
 
 export const WordRowContainer = styled(Box)(() => ({
@@ -118,6 +103,7 @@ export const WordRowContainer = styled(Box)(() => ({
 
   width: "100%",
   padding: "1.25rem 1.5rem",
+  marginBlock: "0.25rem",
 
   minHeight: "72px",
   borderRadius: "7px",
@@ -198,21 +184,6 @@ export const EditDoneButton = styled(Button)(() => ({
 }));
 
 // ListPage styles
-
-export const PracticeContainer = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-
-  width: "90%",
-  height: "70px",
-  maxWidth: "900px",
-
-  borderRadius: "7px",
-  marginBottom: "3rem",
-  paddingLeft: "2rem",
-
-  backgroundColor: "var(--light-blue-1)",
-}));
 
 export const ListPageContainer = styled(Box)(() => ({
   display: "flex",

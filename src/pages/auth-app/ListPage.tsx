@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useListContext } from "../../context/ListContext";
 
-import { PageWrapper } from "../../layouts";
+import { LoadingSpinner, PageWrapper } from "../../layouts";
 import { Box, Collapse, Typography } from "@mui/material";
-import { HalfCircleSpinner } from "react-epic-spinners";
+import { TransitionGroup } from "react-transition-group";
 
 import {
   WordInput,
@@ -18,12 +18,10 @@ import {
 } from "../../features/list/components";
 
 import {
-  ListDisplayBox,
   ListPageContainer,
   ListPageHeader,
-  LoadingContainer,
-  PracticeContainer,
 } from "../../features/list/mui_styled/styles";
+import { Practice } from "../../features/practice/components";
 
 export const ListPage = () => {
   const navigate = useNavigate();
@@ -55,14 +53,14 @@ export const ListPage = () => {
   }, [listID]);
 
   if (!listIsFetched) {
-    return <ListPageLoading />;
+    return <LoadingSpinner />;
   }
 
   return (
     <>
       {deleteModal ? <DeleteModal setDeleteModal={setDeleteModal} /> : null}
       <PageWrapper paddingLeft="10rem">
-        <PracticeContainer>Practice coming soon</PracticeContainer>
+        <Practice />
 
         <ListPageContainer>
           <Box
@@ -102,37 +100,27 @@ export const ListPage = () => {
               Your list "{list.title.toUpperCase()}" is empty
             </Typography>
           ) : (
-            <ListDisplayBox>
-              {list.words.map((e) => {
-                const { wordID, word, translation } = e;
-                return (
-                  <WordsGrid
-                    key={wordID}
-                    word={word}
-                    translation={translation}
-                    wordID={wordID}
-                    fct={() => setListUpdated(true)}
-                  />
-                );
-              })}
-            </ListDisplayBox>
+            <Box sx={{ marginBottom: "1rem" }}>
+              <TransitionGroup style={{ width: "100%" }}>
+                {list.words.map((e) => {
+                  const { wordID, word, translation } = e;
+                  return (
+                    <Collapse key={wordID}>
+                      <WordsGrid
+                        key={wordID}
+                        word={word}
+                        translation={translation}
+                        wordID={wordID}
+                        fct={() => setListUpdated(true)}
+                      />
+                    </Collapse>
+                  );
+                })}
+              </TransitionGroup>
+            </Box>
           )}
         </ListPageContainer>
       </PageWrapper>
     </>
-  );
-};
-
-export const ListPageLoading = () => {
-  return (
-    <PageWrapper paddingLeft="10rem">
-      <PracticeContainer>Practice coming soon</PracticeContainer>
-
-      <ListPageContainer>
-        <LoadingContainer>
-          <HalfCircleSpinner color="#fecd1f" />
-        </LoadingContainer>
-      </ListPageContainer>
-    </PageWrapper>
   );
 };

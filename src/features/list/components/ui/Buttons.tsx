@@ -10,7 +10,7 @@ export const CancelButton = ({ listUpdated }: { listUpdated: boolean }) => {
   return listUpdated ? null : (
     <Button
       variant="text"
-      sx={{ padding: "0", height: "32px", color: "#fecd1f" }}
+      sx={{ padding: "0", height: "32px", color: "var(--main-yellow)" }}
       onClick={() => {
         setIsAddingWords(false);
       }}

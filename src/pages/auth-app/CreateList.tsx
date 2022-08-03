@@ -10,10 +10,8 @@ import {
 import { useListContext } from "../../context/ListContext";
 
 import { PageWrapper } from "../../layouts";
-import {
-  LargeGreenButton,
-  ListDisplayBox,
-} from "../../features/list/mui_styled/styles";
+import { LargeGreenButton } from "../../features/list/mui_styled/styles";
+import { TransitionGroup } from "react-transition-group";
 
 export const CreateList = () => {
   const [hasTitle, setHasTitle] = useState<boolean>(false);
@@ -52,20 +50,24 @@ export const CreateList = () => {
               save list
             </LargeGreenButton>
 
-            <ListDisplayBox sx={{ marginTop: "1.5rem" }}>
-              {list.words.map((e) => {
-                const { wordID, word, translation } = e;
-                return (
-                  <WordsGrid
-                    key={wordID}
-                    word={word}
-                    translation={translation}
-                    wordID={wordID}
-                    fct={() => console.log("updated")}
-                  />
-                );
-              })}
-            </ListDisplayBox>
+            <Box sx={{ marginTop: "1.5rem", marginBottom: "1rem" }}>
+              <TransitionGroup style={{ width: "100%" }}>
+                {list.words.map((e) => {
+                  const { wordID, word, translation } = e;
+                  return (
+                    <Collapse key={wordID}>
+                      <WordsGrid
+                        key={wordID}
+                        word={word}
+                        translation={translation}
+                        wordID={wordID}
+                        fct={() => console.log("updated")}
+                      />
+                    </Collapse>
+                  );
+                })}
+              </TransitionGroup>
+            </Box>
           </Box>
         </Collapse>
       </Collapse>
