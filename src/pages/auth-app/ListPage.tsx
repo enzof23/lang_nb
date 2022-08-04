@@ -25,6 +25,8 @@ import { Practice } from "../../features/practice/components";
 
 export const ListPage = () => {
   const navigate = useNavigate();
+  const { userID, listID } = useParams();
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   const {
     list,
@@ -33,19 +35,14 @@ export const ListPage = () => {
     setListUpdated,
     isAddingWords,
     isEditingTitle,
-    getListByTitle,
     setListIsFetched,
   } = useListContext();
-
-  const { userID, listID } = useParams();
-
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   useEffect(() => {
     setListIsFetched(false);
 
     if (userID && listID) {
-      getListByTitle(userID, listID);
+      setTimeout(() => setListIsFetched(true), 300);
     } else {
       navigate("/");
     }

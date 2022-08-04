@@ -6,8 +6,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
-  getDocs,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -24,44 +22,13 @@ export type List = {
   words: Word[];
 };
 
-type ArrList = {
+export type ArrList = {
   listID: string;
   listTitle: string;
   words: Word[];
 };
 
 export const initialList = { title: "", words: [] };
-
-const getAllLists = async (id: string) => {
-  let arrLists: ArrList[] = [];
-
-  const userDocs = await getDocs(collection(database, id));
-  userDocs.forEach((doc) => {
-    arrLists.push({
-      listID: doc.id,
-      listTitle: doc.data().title,
-      words: doc.data().words,
-    });
-  });
-
-  return arrLists;
-};
-
-const getListByTitle = async (userID: string, listID: string) => {
-  let list = initialList;
-
-  const userList = await getDoc(doc(database, userID, listID));
-  if (userList.exists()) {
-    return (list = {
-      title: userList.data().title,
-      words: userList.data().words,
-    });
-  } else {
-    alert(`an error has occured`);
-  }
-
-  return list;
-};
 
 const addWordContextList = (
   list: Word[],
@@ -113,30 +80,6 @@ const useListHook = () => {
 
     listIsFetched,
     setListIsFetched,
-
-    // fetch ALL lists from firebase
-    getAllLists: async () => {
-      if (userID) {
-        const newList = await getAllLists(userID);
-        if (newList.length === 0) {
-          setNoLists(true);
-        } else {
-          setAllListsArr(newList);
-          setNoLists(false);
-        }
-      }
-    },
-
-    // get single list by title
-    getListByTitle: async (id: string, listTitle: string) => {
-      try {
-        const listReturned = await getListByTitle(id, listTitle);
-        setList(listReturned);
-        setListIsFetched(true);
-      } catch (err) {
-        alert(`An error has occured: ${err}`);
-      }
-    },
 
     // add words & translation from new word input to the list array
     // this does not add the word to a firebase list
@@ -203,3 +146,18 @@ export const ListProvider = ({ children }: { children: ReactNode }) => {
     </ListContext.Provider>
   );
 };
+
+// const getListByTitle = async (user: string, list: string) => {
+//   try {
+//     const listReturned = await getDoc(doc(database, user, list));
+//     if (listReturned.exists()) {
+//       setList({
+//         title: listReturned.data().title,
+//         words: listReturned.data().words,
+//       });
+//       setListIsFetched(true);
+//     }
+//   } catch (err) {
+//     alert(`An error has occured: ${err}`);
+//   }
+// };

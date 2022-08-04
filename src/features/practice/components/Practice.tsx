@@ -43,13 +43,6 @@ export const Practice = () => {
 
   const { list } = useListContext();
 
-  // const words = list.words.map((e) => ({
-  //   word: e.word,
-  //   translation: e.translation,
-  // }));
-
-  // console.log(words);
-
   const practiceDisplayed = practiceOptions.find(
     (opt) => opt.name === practiceSelected.name
   );

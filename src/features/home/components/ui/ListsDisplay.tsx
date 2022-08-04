@@ -1,16 +1,48 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { initialList, useListContext } from "../../../../context/ListContext";
+import {
+  ArrList,
+  initialList,
+  useListContext,
+} from "../../../../context/ListContext";
 import { useAuthContext } from "../../../authentication/context/AuthContext";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import { Skeleton, Typography } from "@mui/material";
 import { ListBox, ListsGrid } from "../../mui_styled/styles";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../../../../firebase/firebase-config";
 
 export const ListsDisplay = () => {
-  const { allListsArr, noLists, getAllLists } = useListContext();
+  const { allListsArr, noLists, setNoLists, setAllListsArr } = useListContext();
   const { userInfo } = useAuthContext();
+
+  const getAllLists = async () => {
+    try {
+      if (userInfo.id) {
+        let arrLists: ArrList[] = [];
+        const listsFetch = await getDocs(collection(database, userInfo.id));
+        listsFetch.forEach((list) => {
+          arrLists.push({
+            listID: list.id,
+            listTitle: list.data().title,
+            words: list.data().words,
+          });
+        });
+
+        if (arrLists.length === 0) {
+          console.log("first");
+          setNoLists(true);
+        } else {
+          setAllListsArr(arrLists);
+          setNoLists(false);
+        }
+      }
+    } catch (err) {
+      alert(`An error has occured: ${err}`);
+    }
+  };
 
   useEffect(() => {
     getAllLists();
@@ -29,16 +61,16 @@ export const ListsDisplay = () => {
         ))}
       </>
     );
-  } else {
-    return (
-      <>
-        <Typography variant="h6">My lists</Typography>
-        <ListsGrid container>
-          <ListsFetched />
-        </ListsGrid>
-      </>
-    );
   }
+
+  return (
+    <>
+      <Typography variant="h6">My lists</Typography>
+      <ListsGrid container>
+        <ListsFetched />
+      </ListsGrid>
+    </>
+  );
 };
 
 export const FetchingLists = () => {
@@ -58,9 +90,18 @@ export const FetchingLists = () => {
 };
 
 export const ListsFetched = () => {
-  const { allListsArr } = useListContext();
+  const { allListsArr, setList } = useListContext();
   const { userInfo } = useAuthContext();
   const navigate = useNavigate();
+
+  const handleClick = (listID: string) => {
+    const listSelected = allListsArr.find((e) => e.listID === listID);
+    console.log(listSelected);
+    if (listSelected) {
+      setList({ title: listSelected?.listTitle, words: listSelected?.words });
+      navigate(`list/${userInfo.id}/${listID}`);
+    }
+  };
 
   return (
     <>
@@ -73,7 +114,8 @@ export const ListsFetched = () => {
             item
             key={listID}
             sx={{ textTransform: "uppercase" }}
-            onClick={() => navigate(`list/${userInfo.id}/${listID}`)}
+            onClick={() => handleClick(listID)}
+            // onClick={() => navigate(`list/${userInfo.id}/${listID}`)}
           >
             <Typography variant="body1">{titleStringDisplay}</Typography>
             <Typography variant="caption" sx={{ color: "#969ab0" }}>
