@@ -170,17 +170,41 @@ export const ButtonsContainer = styled(Box)(() => ({
   },
 }));
 
+export const WordRowContainerEdit = styled(Box)(() => ({
+  display: "flex",
+
+  width: "100%",
+  padding: "1.25rem 1.5rem",
+  marginBlock: "0.25rem",
+
+  minHeight: "72px",
+  borderRadius: "7px",
+
+  backgroundColor: "var(--light-blue-1)",
+
+  "&:hover": {
+    backgroundColor: "var(--light-blue-3)",
+  },
+
+  "@media screen and (max-width: 900px)": {
+    flexDirection: "column",
+    rowGap: "1rem",
+  },
+}));
+
 export const EditDoneButton = styled(Button)(() => ({
   padding: "0",
   height: "32px",
   alignSelf: "center",
-  justifyContent: "flex-end",
 
   color: "var(--main-white)",
+  backgroundColor: "var(--greenish-blue-1)",
+
   "&:hover": {
-    backgroundColor: "transparent",
-    color: "var(--main-yellow)",
+    backgroundColor: "var(--greenish-blue-1)",
   },
+
+  "@media screen and (max-width: 900px)": {},
 }));
 
 // ListPage styles

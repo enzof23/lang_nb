@@ -10,6 +10,7 @@ import {
   WordContainer,
   TranslationContainer,
   EditDoneButton,
+  WordRowContainerEdit,
 } from "../../mui_styled/styles";
 
 type Props = {
@@ -82,7 +83,7 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   );
 
   const WordGridEdit = (
-    <WordRowContainer id={wordID}>
+    <WordRowContainerEdit id={wordID}>
       <WordBoxContainer>
         <CreateListInput
           value={newWord}
@@ -93,12 +94,14 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
           value={newTranslation}
           onChange={(e) => setNewTranslation(e.target.value)}
         />
+        <EditDoneButton
+          variant="contained"
+          onClick={() => handleEditDone(wordID)}
+        >
+          done
+        </EditDoneButton>
       </WordBoxContainer>
-
-      <EditDoneButton variant="text" onClick={() => handleEditDone(wordID)}>
-        done
-      </EditDoneButton>
-    </WordRowContainer>
+    </WordRowContainerEdit>
   );
 
   return isEditing ? WordGridEdit : WordGridRead;
