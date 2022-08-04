@@ -5,7 +5,6 @@ import { Button, Collapse, Typography } from "@mui/material";
 import {
   PracticeClosedContainer,
   PracticeContainer,
-  PracticeDisplayBox,
   PracticeDisplayContainer,
   PracticeMenuContainer,
   PracticeMenuOption,
@@ -43,6 +42,13 @@ export const Practice = () => {
   );
 
   const { list } = useListContext();
+
+  // const words = list.words.map((e) => ({
+  //   word: e.word,
+  //   translation: e.translation,
+  // }));
+
+  // console.log(words);
 
   const practiceDisplayed = practiceOptions.find(
     (opt) => opt.name === practiceSelected.name
@@ -95,17 +101,14 @@ export const Practice = () => {
                 );
               })}
             </PracticeMenuContainer>
-            <PracticeDisplayBox>
-              {practiceDisplayed?.name === "Flashcards" ? (
-                <Flashcards />
-              ) : practiceDisplayed?.name === "Write" ? (
-                <Write />
-              ) : practiceDisplayed?.name === "Match" ? (
-                <Match />
-              ) : (
-                ""
-              )}
-            </PracticeDisplayBox>
+
+            {practiceDisplayed?.name === "Flashcards" ? (
+              <Flashcards />
+            ) : practiceDisplayed?.name === "Write" ? (
+              <Write />
+            ) : practiceDisplayed?.name === "Match" ? (
+              <Match />
+            ) : null}
           </PracticeDisplayContainer>
         </PracticeOpenedContainer>
       </Collapse>

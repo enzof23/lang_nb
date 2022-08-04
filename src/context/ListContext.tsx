@@ -184,7 +184,6 @@ const useListHook = () => {
     // noLists and allListsArr aren't reset on home page load because states have to remain througout the session and online reset on log out
     resetListContext: () => {
       setList(initialList);
-      setList(initialList);
       setListIsFetched(false);
       setIsAddingWords(false);
       setIsEditingTitle(false);

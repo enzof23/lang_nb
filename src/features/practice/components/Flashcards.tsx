@@ -1,7 +1,12 @@
-import { Flashcard, FlashcardsContainer, Type } from "../mui_styled/styles";
+import {
+  Flashcard,
+  FlashcardFooter,
+  FlashcardsBox,
+  FlashcardsContainer,
+  Type,
+} from "../mui_styled/styles";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useListContext } from "../../../context/ListContext";
 import { useState } from "react";
 import { Typography } from "@mui/material";
@@ -11,7 +16,11 @@ export const Flashcards = () => {
   const [wordCount, setWordCount] = useState<number>(0);
   const [answerDisplayed, setAnswerDisplayed] = useState<boolean>(false);
 
-  const words = list.words;
+  const words = list.words.map((e) => ({
+    word: e.word,
+    translation: e.translation,
+  }));
+
   const wordDisplayed = words[wordCount];
 
   const checkNumber = (num: number) => {
@@ -31,16 +40,8 @@ export const Flashcards = () => {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        rowGap: "2rem",
-      }}
-    >
-      <FlashcardsContainer>
+    <FlashcardsContainer>
+      <FlashcardsBox>
         <ArrowBackIosIcon onClick={previousWord} />
         <Flashcard onClick={() => setAnswerDisplayed((st) => !st)}>
           <Type>
@@ -48,15 +49,23 @@ export const Flashcards = () => {
               {answerDisplayed ? "translation" : "word"}
             </Typography>
           </Type>
-          <Typography variant="h3">
+          <Typography variant="h3" sx={{ position: "relative", top: "-14px" }}>
             {answerDisplayed ? wordDisplayed.translation : wordDisplayed.word}
           </Typography>
         </Flashcard>
-        <ArrowForwardIosIcon onClick={nextWord} />
-      </FlashcardsContainer>
-      <div>
+        <ArrowBackIosIcon
+          onClick={nextWord}
+          style={{ transform: "rotateY(180deg)" }}
+        />
+      </FlashcardsBox>
+      <FlashcardFooter>
+        <ArrowBackIosIcon onClick={previousWord} />
         {wordCount + 1} / {words.length}
-      </div>
-    </div>
+        <ArrowBackIosIcon
+          onClick={nextWord}
+          style={{ transform: "rotateY(180deg)" }}
+        />
+      </FlashcardFooter>
+    </FlashcardsContainer>
   );
 };

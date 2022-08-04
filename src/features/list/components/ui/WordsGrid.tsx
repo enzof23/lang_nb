@@ -28,7 +28,6 @@ export const WordsGrid = ({ word, wordID, translation, fct }: Props) => {
   const { list, setList } = useListContext();
 
   const handleEdit = () => {
-    console.log("click");
     setIsEditing(true);
     setNewWord(word);
     setNewTranslation(translation);
