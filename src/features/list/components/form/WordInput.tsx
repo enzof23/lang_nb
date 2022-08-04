@@ -11,22 +11,29 @@ import {
 } from "../../mui_styled/styles";
 
 export const WordInput = ({ ...props }) => {
-  const [word, setWord] = useState<string>("");
-  const [translation, setTranslation] = useState<string>("");
+  const [wordInputValue, setWordInputValue] = useState<string>("");
+  const [translationInputValue, setTranslationInputValue] =
+    useState<string>("");
+
+  const { list, setList } = useListContext();
+
   const wordID = nanoid();
 
   const { fct } = props;
 
-  const { addWordContextList } = useListContext();
-
   const addWord = (e: any) => {
     e.preventDefault();
-    if (word && translation) {
-      addWordContextList({ wordID, word, translation });
+    if (wordInputValue && translationInputValue) {
+      const newList = [
+        ...list.words,
+        { wordID, word: wordInputValue, translation: translationInputValue },
+      ];
+
+      setList({ title: list.title, words: newList });
 
       fct();
-      setWord("");
-      setTranslation("");
+      setWordInputValue("");
+      setTranslationInputValue("");
     } else {
       alert("Fill in all inputs");
     }
@@ -37,17 +44,17 @@ export const WordInput = ({ ...props }) => {
       <WordInputContainer container>
         <Grid item xs={12} sm={5}>
           <CreateListInput
-            value={word}
+            value={wordInputValue}
             placeholder="Enter new word"
-            onChange={(e) => setWord(e.target.value)}
+            onChange={(e) => setWordInputValue(e.target.value)}
           />
           <WordInputDesc>word</WordInputDesc>
         </Grid>
         <Grid item xs={12} sm={5}>
           <CreateListInput
-            value={translation}
+            value={translationInputValue}
             placeholder="Enter translation"
-            onChange={(e) => setTranslation(e.target.value)}
+            onChange={(e) => setTranslationInputValue(e.target.value)}
           />
           <WordInputDesc>translation</WordInputDesc>
         </Grid>
@@ -56,7 +63,7 @@ export const WordInput = ({ ...props }) => {
             type="submit"
             variant="contained"
             onClick={addWord}
-            disabled={!word || !translation}
+            disabled={!wordInputValue || !translationInputValue}
           >
             add
           </WordInputButton>

@@ -12,13 +12,32 @@ import { useListContext } from "../../context/ListContext";
 import { PageWrapper } from "../../layouts";
 import { LargeGreenButton } from "../../features/list/mui_styled/styles";
 import { TransitionGroup } from "react-transition-group";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { database } from "../../firebase/firebase-config";
+import { useAuthContext } from "../../features/authentication/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const CreateList = () => {
   const [hasTitle, setHasTitle] = useState<boolean>(false);
 
-  const { list, saveListFirebase } = useListContext();
+  const navigate = useNavigate();
+  const { list, setList, initialList } = useListContext();
+  const { userInfo } = useAuthContext();
 
   const listHasWords = list.words.length > 0;
+
+  const saveListToFirebase = async () => {
+    try {
+      const newDoc = doc(collection(database, userInfo.id));
+      await setDoc(newDoc, { title: list.title, words: list.words });
+
+      console.log("list created");
+      navigate("/");
+      setList(initialList);
+    } catch (err) {
+      alert(`An error has occured : ${err}`);
+    }
+  };
 
   return (
     <PageWrapper paddingLeft="10rem">
@@ -43,10 +62,7 @@ export const CreateList = () => {
 
         <Collapse in={listHasWords}>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <LargeGreenButton
-              variant="contained"
-              onClick={() => saveListFirebase()}
-            >
+            <LargeGreenButton variant="contained" onClick={saveListToFirebase}>
               save list
             </LargeGreenButton>
 

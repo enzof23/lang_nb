@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { deleteDoc, doc } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router-dom";
 import { useListContext } from "../../../../context/ListContext";
+import { database } from "../../../../firebase/firebase-config";
 import {
   DeleteModalBox,
   DeleteModalButton,
@@ -12,8 +14,21 @@ export const DeleteModal = ({
 }: {
   setDeleteModal: (val: boolean) => void;
 }) => {
-  const { list, deleteList } = useListContext();
-  const { listID } = useParams();
+  const { list, setList, initialList } = useListContext();
+  const { userID, listID } = useParams();
+  const navigate = useNavigate();
+
+  const deleteList = () => {
+    if (userID && listID) {
+      deleteDoc(doc(database, userID, listID)).then(() => {
+        console.log("list deleted");
+        setList(initialList);
+        navigate("/");
+      });
+    } else {
+      alert(`An error has occured, please try again`);
+    }
+  };
 
   return (
     <DeleteModalContainer>
@@ -22,14 +37,7 @@ export const DeleteModal = ({
           Are you sure you want to delete your list "{list.title.toUpperCase()}"
           ?
         </Typography>
-        <DeleteModalButton
-          variant="outlined"
-          onClick={() => {
-            if (listID) {
-              deleteList(listID);
-            }
-          }}
-        >
+        <DeleteModalButton variant="outlined" onClick={deleteList}>
           yes, delete
         </DeleteModalButton>
         <DeleteModalButton

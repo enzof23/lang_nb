@@ -1,18 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  ArrList,
-  initialList,
-  useListContext,
-} from "../../../../context/ListContext";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../../../../firebase/firebase-config";
+
+import { ArrList, useListContext } from "../../../../context/ListContext";
 import { useAuthContext } from "../../../authentication/context/AuthContext";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import { Skeleton, Typography } from "@mui/material";
 import { ListBox, ListsGrid } from "../../mui_styled/styles";
-import { collection, getDocs } from "firebase/firestore";
-import { database } from "../../../../firebase/firebase-config";
 
 export const ListsDisplay = () => {
   const { allListsArr, noLists, setNoLists, setAllListsArr } = useListContext();
@@ -22,7 +19,9 @@ export const ListsDisplay = () => {
     try {
       if (userInfo.id) {
         let arrLists: ArrList[] = [];
+
         const listsFetch = await getDocs(collection(database, userInfo.id));
+
         listsFetch.forEach((list) => {
           arrLists.push({
             listID: list.id,
@@ -32,7 +31,6 @@ export const ListsDisplay = () => {
         });
 
         if (arrLists.length === 0) {
-          console.log("first");
           setNoLists(true);
         } else {
           setAllListsArr(arrLists);
@@ -48,6 +46,8 @@ export const ListsDisplay = () => {
     getAllLists();
     // eslint-disable-next-line
   }, [userInfo]);
+
+  // return
 
   if (noLists) {
     return <ListsFetchedEmpty />;
@@ -94,12 +94,16 @@ export const ListsFetched = () => {
   const { userInfo } = useAuthContext();
   const navigate = useNavigate();
 
-  const handleClick = (listID: string) => {
+  const populateListContext = (listID: string) => {
     const listSelected = allListsArr.find((e) => e.listID === listID);
-    console.log(listSelected);
+
     if (listSelected) {
-      setList({ title: listSelected?.listTitle, words: listSelected?.words });
+      const words = listSelected.words;
+      const title = listSelected.listTitle;
+      setList({ title, words });
       navigate(`list/${userInfo.id}/${listID}`);
+    } else {
+      alert(`List not found, please try again`);
     }
   };
 
@@ -114,8 +118,7 @@ export const ListsFetched = () => {
             item
             key={listID}
             sx={{ textTransform: "uppercase" }}
-            onClick={() => handleClick(listID)}
-            // onClick={() => navigate(`list/${userInfo.id}/${listID}`)}
+            onClick={() => populateListContext(listID)}
           >
             <Typography variant="body1">{titleStringDisplay}</Typography>
             <Typography variant="caption" sx={{ color: "#969ab0" }}>
@@ -129,7 +132,7 @@ export const ListsFetched = () => {
 };
 
 export const ListsFetchedEmpty = () => {
-  const { setList } = useListContext();
+  const { setList, initialList } = useListContext();
   const navigate = useNavigate();
 
   return (

@@ -9,7 +9,9 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     resetListContext();
-  }, [resetListContext]);
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <PageWrapper paddingLeft="7rem">
       <Header />

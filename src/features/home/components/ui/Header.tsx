@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { initialList, useListContext } from "../../../../context/ListContext";
+import { useListContext } from "../../../../context/ListContext";
 
 import { HeaderContainer, ListHeader } from "../../mui_styled/styles";
 
@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 export const Header = () => {
-  const { setList } = useListContext();
+  const { setList, initialList } = useListContext();
   const navigate = useNavigate();
 
   return (
