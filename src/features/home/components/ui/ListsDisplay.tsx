@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../../../../firebase/firebase-config";
 
-import { ArrList, useListContext } from "../../../../context/ListContext";
+import { useListContext } from "../../../../context/ListContext";
 import { useAuthContext } from "../../../authentication/context/AuthContext";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import { Skeleton, Typography } from "@mui/material";
 import { ListBox, ListsGrid } from "../../mui_styled/styles";
+import { ArrList } from "../../../../types/list_types";
 
 export const ListsDisplay = () => {
   const { allListsArr, noLists, setNoLists, setAllListsArr } = useListContext();
@@ -25,7 +26,7 @@ export const ListsDisplay = () => {
         listsFetch.forEach((list) => {
           arrLists.push({
             listID: list.id,
-            listTitle: list.data().title,
+            title: list.data().title,
             words: list.data().words,
           });
         });
@@ -99,7 +100,7 @@ export const ListsFetched = () => {
 
     if (listSelected) {
       const words = listSelected.words;
-      const title = listSelected.listTitle;
+      const title = listSelected.title;
       setList({ title, words });
       navigate(`list/${userInfo.id}/${listID}`);
     } else {
@@ -110,8 +111,8 @@ export const ListsFetched = () => {
   return (
     <>
       {allListsArr.map((list) => {
-        const { listID, listTitle, words } = list;
-        const titleStringDisplay = listTitle.replace(/_/g, " ");
+        const { listID, title, words } = list;
+        const titleStringDisplay = title.replace(/_/g, " ");
 
         return (
           <ListBox

@@ -18,7 +18,7 @@ export const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   const { userInfo, authSignOut } = useAuthContext();
-  const { resetListContext, setAllListsArr, setNoLists } = useListContext();
+  const { setAllListsArr, setNoLists } = useListContext();
 
   const userImage = userInfo.photo ? (
     <Avatar
@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
 
   const signOut = () => {
     authSignOut();
-    resetListContext();
+    // resetListContext();
     setAllListsArr([]);
     setNoLists(false);
   };

@@ -1,23 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { ArrList, List, ListContextType } from "../types/list_types";
 
-export type Word = {
-  wordID: string;
-  word: string;
-  translation: string;
-};
+const ListContext = createContext({} as ListContextType);
 
-export type List = {
-  title: string;
-  words: Word[];
-};
-
-export type ArrList = {
-  listID: string;
-  listTitle: string;
-  words: Word[];
-};
-
-const useListHook = () => {
+export const ListProvider = ({ children }: { children: ReactNode }) => {
   const initialList = { title: "", words: [] };
 
   const [noLists, setNoLists] = useState<boolean>(false);
@@ -39,42 +25,38 @@ const useListHook = () => {
     setListUpdated(false);
   };
 
-  return {
-    noLists,
-    setNoLists,
-
-    initialList,
-
-    list,
-    setList,
-
-    listUpdated,
-    setListUpdated,
-
-    allListsArr,
-    setAllListsArr,
-
-    isAddingWords,
-    setIsAddingWords,
-
-    isEditingTitle,
-    setIsEditingTitle,
-
-    listIsFetched,
-    setListIsFetched,
-
-    resetListContext,
-  };
-};
-
-const ListContext = createContext<ReturnType<typeof useListHook> | null>(null);
-
-export const useListContext = () => useContext(ListContext)!;
-
-export const ListProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <ListContext.Provider value={useListHook()}>
+    <ListContext.Provider
+      value={{
+        initialList,
+
+        list,
+        setList,
+
+        noLists,
+        setNoLists,
+
+        allListsArr,
+        setAllListsArr,
+
+        listUpdated,
+        setListUpdated,
+
+        listIsFetched,
+        setListIsFetched,
+
+        isAddingWords,
+        setIsAddingWords,
+
+        isEditingTitle,
+        setIsEditingTitle,
+
+        resetListContext,
+      }}
+    >
       {children}
     </ListContext.Provider>
   );
 };
+
+export const useListContext = () => useContext(ListContext);
