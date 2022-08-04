@@ -5,12 +5,12 @@ import { useEffect } from "react";
 import { useListContext } from "../../context/ListContext";
 
 export const Home: React.FC = () => {
-  // const { resetListContext } = useListContext();
+  const { resetListContext } = useListContext();
 
-  // useEffect(() => {
-  //   // resetListContext();
-  //   // eslint-disable-next-line
-  // }, []);
+  useEffect(() => {
+    resetListContext();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <PageWrapper paddingLeft="7rem">
