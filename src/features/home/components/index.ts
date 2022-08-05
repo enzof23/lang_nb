@@ -1,4 +1,4 @@
-import { ListsDisplay } from "./ui/ListsDisplay";
+import { HomeListsDisplay } from "./ui/HomeListsDisplay";
 import { Header } from "./ui/Header";
 
-export { ListsDisplay, Header };
+export { HomeListsDisplay, Header };

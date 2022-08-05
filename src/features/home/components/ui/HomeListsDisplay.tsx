@@ -12,7 +12,7 @@ import { Skeleton, Typography } from "@mui/material";
 import { ListBox, ListsGrid } from "../../mui_styled/styles";
 import { ArrList } from "../../../../types/list_types";
 
-export const ListsDisplay = () => {
+export const HomeListsDisplay = () => {
   const { allListsArr, noLists, setNoLists, setAllListsArr } = useListContext();
   const { userInfo } = useAuthContext();
 

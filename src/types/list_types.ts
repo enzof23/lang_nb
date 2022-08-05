@@ -1,5 +1,7 @@
 import { SetStateAction } from "react";
 
+export type UseStateBooleanType = React.Dispatch<SetStateAction<boolean>>;
+
 export interface Word {
   wordID: string;
   word: string;
@@ -24,22 +26,22 @@ export type ListContextType = {
   setList: React.Dispatch<SetStateAction<List>>;
 
   noLists: boolean;
-  setNoLists: React.Dispatch<SetStateAction<boolean>>;
+  setNoLists: UseStateBooleanType;
 
   allListsArr: ArrList[];
   setAllListsArr: React.Dispatch<SetStateAction<ArrList[]>>;
 
   listUpdated: boolean;
-  setListUpdated: React.Dispatch<SetStateAction<boolean>>;
+  setListUpdated: UseStateBooleanType;
 
   listIsFetched: boolean;
-  setListIsFetched: React.Dispatch<SetStateAction<boolean>>;
+  setListIsFetched: UseStateBooleanType;
 
   isAddingWords: boolean;
-  setIsAddingWords: React.Dispatch<SetStateAction<boolean>>;
+  setIsAddingWords: UseStateBooleanType;
 
   isEditingTitle: boolean;
-  setIsEditingTitle: React.Dispatch<SetStateAction<boolean>>;
+  setIsEditingTitle: UseStateBooleanType;
 
   resetListContext: () => void;
 };

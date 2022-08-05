@@ -80,14 +80,11 @@ export const PracticeMenuContainer = styled(Box)(() => ({
   columnGap: "0.25rem",
 
   width: "100%",
-  padding: "0 48px",
 
   "@media screen and (max-width: 900px)": {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
-
-    padding: 0,
 
     rowGap: "0.75rem",
   },
@@ -125,25 +122,31 @@ export const PracticeMenuOption = styled(Box)(() => ({
   },
 }));
 
-// Flashcard styles
-
-export const FlashcardsContainer = styled(Box)(() => ({
+export const PracticeComponentContainer = styled(Box)(() => ({
   width: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  rowGap: "2rem",
+  justifyContent: "center",
+
+  padding: "1rem 2rem",
+
+  border: "1px solid var(--light-grey-faded)",
+  borderRadius: "7px",
 
   "@media screen and (max-width: 900px)": {
-    rowGap: "1rem",
+    padding: "1rem",
   },
 }));
+
+// Flashcard styles
 
 export const FlashcardsBox = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
+  height: "475px",
 
   svg: {
     fontSize: "48px",
@@ -156,7 +159,7 @@ export const FlashcardsBox = styled(Box)(() => ({
 
   "@media screen and (max-width: 900px)": {
     justifyContent: "center",
-
+    height: "425px",
     svg: {
       display: "none",
     },
@@ -165,49 +168,67 @@ export const FlashcardsBox = styled(Box)(() => ({
 
 export const Flashcard = styled(Box)(() => ({
   display: "flex",
-  flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
 
-  width: "90%",
-  height: "475px",
-  borderRadius: "7px",
+  overflow: "hidden",
+  wordBreak: "break-word",
+  textAlign: "center",
 
-  border: "1px solid var(--light-grey-faded)",
+  height: "375px",
+  minWidth: "250px",
+  maxWidth: "250px",
+  padding: "0 1rem",
+  borderRadius: "10px",
+
   cursor: "pointer",
+
+  background:
+    "linear-gradient(210deg, rgba(254,205,31,1) 0%, rgba(142,139,60,1) 100%)",
+
+  boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
 
   "@media screen and (max-width: 900px)": {
     width: "100%",
+    minWidth: "200px",
     height: "350px",
-  },
-}));
-
-export const Type = styled(Box)(() => ({
-  position: "relative",
-  top: "-180px",
-
-  textTransform: "uppercase",
-  color: "var(--light-grey)",
-
-  "@media screen and (max-width: 900px)": {
-    top: "-125px",
   },
 }));
 
 export const FlashcardFooter = styled(Box)(() => ({
   display: "flex",
   justifyContent: "center",
-  width: "50%",
+  alignItems: "center",
+
+  marginBottom: "1rem",
 
   svg: {
-    display: "none",
+    visibility: "hidden",
   },
 
   "@media screen and (max-width: 900px)": {
     justifyContent: "space-between",
+    width: "50%",
 
     svg: {
-      display: "inline-block",
+      visibility: "visible",
     },
+  },
+}));
+
+// Write
+
+export const WriteContainer = styled(Box)(() => ({
+  width: "95%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  rowGap: "2rem",
+
+  padding: "2rem 0",
+
+  "@media screen and (max-width: 900px)": {
+    rowGap: "1rem",
   },
 }));

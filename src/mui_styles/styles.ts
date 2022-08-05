@@ -30,7 +30,7 @@ export const PageWrapperContainer = styled(Box)(() => ({
   flexDirection: "column",
   flexWrap: "wrap",
 
-  padding: "130px 1rem 1rem 0",
+  padding: "130px 0 1rem 0",
 
   color: "var(--main-white)",
 

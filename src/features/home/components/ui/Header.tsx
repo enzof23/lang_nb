@@ -61,9 +61,7 @@ export const Header = () => {
               <LightbulbSharpIcon />
             </Avatar>
           </ListItemAvatar>
-          <Typography>
-            Learn your vocabulary with some fun practice (coming soon)
-          </Typography>
+          <Typography>Learn your vocabulary with some fun practice</Typography>
         </ListItem>
       </List>
     </HeaderContainer>

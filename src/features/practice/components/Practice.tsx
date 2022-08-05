@@ -4,6 +4,7 @@ import { useListContext } from "../../../context/ListContext";
 import { Button, Collapse, Typography } from "@mui/material";
 import {
   PracticeClosedContainer,
+  PracticeComponentContainer,
   PracticeContainer,
   PracticeDisplayContainer,
   PracticeMenuContainer,
@@ -95,13 +96,15 @@ export const Practice = () => {
               })}
             </PracticeMenuContainer>
 
-            {practiceDisplayed?.name === "Flashcards" ? (
-              <Flashcards />
-            ) : practiceDisplayed?.name === "Write" ? (
-              <Write />
-            ) : practiceDisplayed?.name === "Match" ? (
-              <Match />
-            ) : null}
+            <PracticeComponentContainer>
+              {practiceDisplayed?.name === "Flashcards" ? (
+                <Flashcards />
+              ) : practiceDisplayed?.name === "Write" ? (
+                <Write />
+              ) : practiceDisplayed?.name === "Match" ? (
+                <Match />
+              ) : null}
+            </PracticeComponentContainer>
           </PracticeDisplayContainer>
         </PracticeOpenedContainer>
       </Collapse>

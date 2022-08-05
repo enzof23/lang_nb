@@ -1,5 +1,5 @@
 import { PageWrapper } from "../../layouts";
-import { Header, ListsDisplay } from "../../features/home/components";
+import { Header, HomeListsDisplay } from "../../features/home/components";
 import { ListsDisplayContainer } from "../../features/home/mui_styled/styles";
 import { useEffect } from "react";
 import { useListContext } from "../../context/ListContext";
@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
       <Header />
 
       <ListsDisplayContainer>
-        <ListsDisplay />
+        <HomeListsDisplay />
       </ListsDisplayContainer>
     </PageWrapper>
   );

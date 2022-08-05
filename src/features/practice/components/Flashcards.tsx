@@ -2,8 +2,6 @@ import {
   Flashcard,
   FlashcardFooter,
   FlashcardsBox,
-  FlashcardsContainer,
-  Type,
 } from "../mui_styled/styles";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -40,16 +38,17 @@ export const Flashcards = () => {
   };
 
   return (
-    <FlashcardsContainer>
+    <>
+      <Typography
+        variant="caption"
+        sx={{ textTransform: "uppercase", color: "var(--light-grey)" }}
+      >
+        {answerDisplayed ? "translation" : "word"}
+      </Typography>
       <FlashcardsBox>
         <ArrowBackIosIcon onClick={previousWord} />
         <Flashcard onClick={() => setAnswerDisplayed((st) => !st)}>
-          <Type>
-            <Typography variant="caption">
-              {answerDisplayed ? "translation" : "word"}
-            </Typography>
-          </Type>
-          <Typography variant="h3" sx={{ position: "relative", top: "-14px" }}>
+          <Typography variant="h3">
             {answerDisplayed ? wordDisplayed.translation : wordDisplayed.word}
           </Typography>
         </Flashcard>
@@ -66,6 +65,6 @@ export const Flashcards = () => {
           style={{ transform: "rotateY(180deg)" }}
         />
       </FlashcardFooter>
-    </FlashcardsContainer>
+    </>
   );
 };
